@@ -254,6 +254,8 @@ max-nested-blocks = 5
 ignore_decorators = ["@*"]
 
 [tool.pytest.ini_options]
+# Vibe's own suite only; mainbrain/wordlib has a separate, self-contained suite.
+testpaths = ["tests"]
 addopts = "-vvvv -q -n auto --durations=10 --import-mode=importlib --maxschedchunk=1"
 timeout = 10
 filterwarnings = [
