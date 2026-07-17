@@ -1,0 +1,100 @@
+=====================================================
+  USB AI MASTER - Setup Guide
+  For: Johannes
+  Portable AI Databank + Document Library
+=====================================================
+
+FIRST TIME SETUP (do this once on any new PC)
+----------------------------------------------
+
+STEP 1 - Plug in the USB drive
+  - Windows assigns it a drive letter (like E: or F:)
+  - Open the USB drive in File Explorer
+
+STEP 2 - Run the launcher
+  - Find the file: RUN_ME.bat (main USB folder)
+  - Double-click it
+  - If Windows shows a blue SmartScreen warning:
+    Click "More info" then click "Run anyway"
+  - Two things will happen:
+    A) A dark GUI window opens (LM Studio Setup)
+    B) A black command window opens (Web Library)
+
+STEP 3 - LM Studio Setup Window (dark GUI)
+  You will see 4 status cards:
+    [1] LM Studio   - Is LM Studio installed on this PC?
+    [2] Presets     - Are the 4 AI presets ready?
+    [3] USB Models  - Are .gguf files on this USB?
+    [4] Host Models - Are models installed on this PC?
+
+STEP 4 - Click ONE-CLICK SETUP + COPY MODELS
+  This button:
+  - Backs up any existing LM Studio settings
+  - Writes all 4 AI presets to LM Studio
+  - Copies model files from USB to this PC
+  - Launches LM Studio automatically
+  NOTE: Copying large model files (4-5 GB each) takes
+  5-20 minutes. The log shows progress. Do not close.
+
+STEP 5 - In LM Studio
+  1. Click the Chat tab
+  2. Click "Preset" or "System Prompt"
+  3. Pick a preset:
+     - Dolphin - Uncensored Assistant (everyday, unrestricted)
+     - Gold Standard - Teaching       (classroom, students)
+     - Coding Assistant - Qwen        (writing code, scripts)
+     - General Assistant              (balanced, everyday)
+
+STEP 6 - Web Library (black command window)
+  First run installs packages automatically (~3-5 min, internet).
+  Browser opens at http://localhost:5000 when ready.
+  Features:
+    - Paste URLs to scrape and save pages
+    - Paste text notes directly
+    - Tag and search your saved documents
+    - AI chat that searches your library (RAG)
+  Keep the black window open while using the web library.
+  Press Ctrl+C there to stop it.
+
+-----------------------------------------------------
+IF LM STUDIO IS NOT INSTALLED
+-----------------------------------------------------
+
+1. Open a browser on that PC
+2. Go to: lmstudio.ai
+3. Click Download for Windows
+4. Install it (2-5 minutes)
+5. Re-run RUN_ME.bat
+
+-----------------------------------------------------
+HOW TO GET MODELS ONTO THE USB
+-----------------------------------------------------
+
+1. Open LM Studio
+2. Click Search tab (magnifying glass icon)
+3. Search for each model (see MODEL_GUIDE.txt)
+4. Download the Q4_K_M version
+5. Find the .gguf file:
+   %USERPROFILE%\.cache\lm-studio\models
+6. Copy the .gguf file to: (your USB drive)\models\
+
+Then the launcher copies it to any new PC automatically.
+
+-----------------------------------------------------
+WHICH PRESET TO USE
+-----------------------------------------------------
+
+Teaching / helping students?  -> Gold Standard - Teaching
+General questions / research? -> Dolphin - Uncensored
+Writing or fixing code?       -> Coding Assistant - Qwen
+Not sure / just chatting?     -> General Assistant
+
+-----------------------------------------------------
+TROUBLESHOOTING
+-----------------------------------------------------
+
+See: docs\TROUBLESHOOTING.txt
+
+Log file saved to Desktop: USB_AI_Master_Log.txt
+
+=====================================================

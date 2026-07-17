@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Knowledge Base -- WORDLIB{% endblock %}
+{% block page_title %}Knowledge Base{% endblock %}
+{% block content %}
+<div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+  <form method="get" style="display:flex;gap:8px;flex:1">
+    <input type="text" name="q" value="{{ query }}" placeholder="Search knowledge base..." style="flex:1">
+    <select name="cat" style="width:160px">
+      <option value="">All categories</option>
+      {% for c in categories %}
+      <option value="{{ c }}" {% if category == c %}selected{% endif %}>{{ c }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-ghost">Search</button>
+  </form>
+  <a href="/kb/new" class="btn btn-primary">+ New Entry</a>
+</div>
+<div class="card">
+  {% if entries %}
+  <table>
+    <thead><tr><th>Title</th><th>Category</th><th>Tags</th><th>Created</th><th></th></tr></thead>
+    <tbody>
+    {% for e in entries %}
+    <tr>
+      <td><a href="/kb/{{ e.id }}" style="color:var(--accent);text-decoration:none">{{ e.title }}</a></td>
+      <td><span class="tag">{{ e.category }}</span></td>
+      <td>{% for t in e.tags.split(',') if t.strip() %}<span class="tag">{{ t.strip() }}</span>{% endfor %}</td>
+      <td style="color:var(--muted);font-size:.78rem">{{ e.created_at.strftime('%b %d') if e.created_at else '' }}</td>
+      <td style="white-space:nowrap">
+        <a href="/kb/{{ e.id }}/edit" class="btn btn-ghost btn-sm">Edit</a>
+        <form method="post" action="/kb/{{ e.id }}/delete" style="display:inline" onsubmit="return confirm('Delete?')">
+          <button class="btn btn-danger btn-sm">Del</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p style="color:var(--muted)">No entries found.</p>
+  {% endif %}
+</div>
+{% endblock %}

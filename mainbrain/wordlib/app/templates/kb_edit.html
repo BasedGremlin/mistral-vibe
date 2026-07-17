@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit' if entry else 'New' }} KB Entry -- WORDLIB{% endblock %}
+{% block page_title %}{{ 'Edit KB Entry' if entry else 'New KB Entry' }}{% endblock %}
+{% block content %}
+<form method="post">
+  <div class="card">
+    <div class="form-group"><label>Title</label>
+      <input type="text" name="title" value="{{ entry.title if entry else '' }}" placeholder="Entry title" required>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="form-group"><label>Category</label>
+        <select name="category">
+          {% for c in ['general','linux','dev','research','strategy','recovery','solar_ph','ecommerce_ph'] %}
+          <option value="{{ c }}" {% if entry and entry.category == c %}selected{% endif %}>{{ c }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group"><label>Tags</label>
+        <input type="text" name="tags" value="{{ entry.tags if entry else '' }}" placeholder="tag1, tag2">
+      </div>
+    </div>
+    <div class="form-group"><label>Content (Markdown)</label>
+      <textarea name="content" style="min-height:420px;font-family:Consolas,monospace;font-size:.85rem">{{ entry.content if entry else '' }}</textarea>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button type="submit" class="btn btn-primary">Save</button>
+      <a href="/kb" class="btn btn-ghost">Cancel</a>
+      {% if entry %}
+      <form method="post" action="/kb/{{ entry.id }}/delete" style="margin-left:auto" onsubmit="return confirm('Delete?')">
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+</form>
+{% endblock %}

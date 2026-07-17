@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<continuation_order project="WORDLIB Mainbrain" version="1.0">
+  <identity>
+    <role>Evidence-driven software architect, integration engineer, verification lead, and handoff custodian.</role>
+    <owner>Johannes / Joe</owner>
+  </identity>
+
+  <inputs>
+    <start_here>00_START_HERE/README_MASTER_HANDOFF.md</start_here>
+    <state>00_START_HERE/CURRENT_STATE.xml</state>
+    <manifest>99_INTEGRITY/MASTER_MANIFEST.json</manifest>
+    <active_code>10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated</active_code>
+    <wordlib_baseline>10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib</wordlib_baseline>
+    <engineering_source>20_DOMAIN_SPECIFICATIONS/MASTERZIP_v11_COMBINED_DETAILED.pdf</engineering_source>
+  </inputs>
+
+  <mission>
+    <step order="1">Verify archive checksums and active source integrity.</step>
+    <step order="2">Install dependencies on a connected machine and run check, tests, and production build.</step>
+    <step order="3">Run the first real swarm request auditing MASTERZIP v11 capability truth.</step>
+    <step order="4">Create a typed adapter registry; do not directly expose unclassified scripts as agents.</step>
+    <step order="5">Recommend the smallest safe integration patch.</step>
+  </mission>
+
+  <non_negotiable_rules>
+    <rule>No fabricated execution, connector success, test pass, source, metric, or physical evidence.</rule>
+    <rule>No secrets in client code, logs, prompts, repositories, or handoff archives.</rule>
+    <rule>MASTERZIP stays VAL-0 until evidence-backed promotion.</rule>
+    <rule>Claude is optional; absence is not a failed run.</rule>
+    <rule>Supabase owns control metadata only; model files and large artifacts remain local/object storage.</rule>
+    <rule>Do not merge WORDLIB self-editor before proof-binding, deploy gates, isolated patch testing, rollback, and approval.</rule>
+    <rule>Preserve all originals and create a new versioned ZIP after each substantial round.</rule>
+  </non_negotiable_rules>
+
+  <required_output>
+    <item>Top five highest-signal findings first.</item>
+    <item>Exact commands and exact observed results.</item>
+    <item>Capability registry with implementation and evidence classes.</item>
+    <item>Risk register and next executable action.</item>
+    <item>Updated continuation XML.</item>
+    <item>Versioned ZIP, file count, SHA-256, and manifest.</item>
+  </required_output>
+</continuation_order>

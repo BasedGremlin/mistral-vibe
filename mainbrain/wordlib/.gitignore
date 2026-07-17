@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Virtual environment (rebuilt by installer, never committed)
+.venv/
+venv/
+
+# Runtime state + logs (machine-specific, regenerated)
+data/*.jsonl
+data/*.json
+logs/*.log
+backups/self_editor/*.bak
+
+# Pip cache
+.pip_cache/
+
+# Generated config (written by deployment mutations)
+config/rag_settings.json
+config/logging.json
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Models (huge, downloaded by installer)
+core/ollama/models/
+models/*.gguf

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Dashboard -- WORDLIB{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+{% block content %}
+
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{{ stats.notes }}</div><div class="lbl">Notes</div></div>
+  <div class="stat-card"><div class="num">{{ stats.urls }}</div><div class="lbl">Saved URLs</div></div>
+  <div class="stat-card"><div class="num">{{ stats.kb }}</div><div class="lbl">KB Entries</div></div>
+  <div class="stat-card"><div class="num" style="font-size:1rem;padding-top:8px">{{ stats.ai_mode }}</div><div class="lbl">AI Mode</div></div>
+</div>
+
+<!-- Quick URL scrape -->
+<div class="card">
+  <h3>Quick Save URL</h3>
+  <div style="display:flex;gap:10px;align-items:flex-end">
+    <div class="form-group" style="flex:1;margin:0">
+      <input type="url" id="quickUrl" placeholder="https://example.com -- paste URL and click Save">
+    </div>
+    <button class="btn btn-primary" onclick="quickScrape()">Save URL</button>
+  </div>
+  <div id="scrapeStatus" style="margin-top:8px;font-size:.82rem;color:var(--muted)"></div>
+</div>
+
+<!-- Recent notes -->
+<div class="card">
+  <div style="display:flex;align-items:center;margin-bottom:12px">
+    <h3 style="flex:1">Recent Notes</h3>
+    <a href="/library/note/new" class="btn btn-ghost btn-sm">+ New Note</a>
+  </div>
+  {% if recent %}
+  <table>
+    <thead><tr><th>Title</th><th>Category</th><th>Updated</th><th></th></tr></thead>
+    <tbody>
+    {% for n in recent %}
+    <tr>
+      <td><a href="/library/note/{{ n.id }}" style="color:var(--accent);text-decoration:none">{{ n.title }}</a></td>
+      <td><span class="tag">{{ n.category }}</span></td>
+      <td style="color:var(--muted);font-size:.8rem">{{ n.updated_at.strftime('%b %d %H:%M') if n.updated_at else '' }}</td>
+      <td><a href="/library/note/{{ n.id }}/edit" class="btn btn-ghost btn-sm">Edit</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p style="color:var(--muted)">No notes yet. <a href="/library/note/new" style="color:var(--accent)">Create your first note</a></p>
+  {% endif %}
+</div>
+
+<!-- Quick links -->
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
+  <a href="/chat" class="btn btn-ghost" style="justify-content:center;padding:16px">AI Chat</a>
+  <a href="/kb" class="btn btn-ghost" style="justify-content:center;padding:16px">Knowledge Base</a>
+  <a href="/research" class="btn btn-ghost" style="justify-content:center;padding:16px">Research</a>
+  <a href="/strategy" class="btn btn-ghost" style="justify-content:center;padding:16px">Strategy Notes</a>
+  <a href="/recovery" class="btn btn-ghost" style="justify-content:center;padding:16px">Recovery Guide</a>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script>
+async function quickScrape() {
+  const url = document.getElementById('quickUrl').value.trim();
+  const st  = document.getElementById('scrapeStatus');
+  if (!url) { toast('Enter a URL first', 'error'); return; }
+  st.textContent = 'Saving...';
+  st.style.color = 'var(--muted)';
+  const r = await fetch('/library/scrape', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({url, category: 'general'})
+  });
+  const d = await r.json();
+  if (d.ok) {
+    st.textContent = 'Saved: ' + d.title;
+    st.style.color = 'var(--green)';
+    toast('URL saved: ' + d.title);
+    document.getElementById('quickUrl').value = '';
+  } else {
+    st.textContent = 'Failed: ' + (d.error || 'Unknown error');
+    st.style.color = 'var(--red)';
+    toast('Scrape failed', 'error');
+  }
+}
+document.getElementById('quickUrl').addEventListener('keydown', e => {
+  if (e.key === 'Enter') quickScrape();
+});
+</script>
+{% endblock %}

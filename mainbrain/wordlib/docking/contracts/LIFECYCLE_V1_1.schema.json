@@ -1,0 +1,16 @@
+{
+  "contract": "neuroforge.lifecycle_schema.v1.1",
+  "transitions": {
+    "draft": ["accepted", "rejected"],
+    "accepted": ["implemented", "rejected"],
+    "implemented": ["verified", "rejected"],
+    "verified": ["superseded", "rejected"],
+    "superseded": ["rejected"],
+    "rejected": []
+  },
+  "guards": {
+    "draft->accepted": ["human_approved"],
+    "accepted->implemented": ["implemented_by=GPT"],
+    "implemented->verified": ["verification_passed", "acceptance_criteria_met", "human_approved"]
+  }
+}

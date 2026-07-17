@@ -1,0 +1,192 @@
+=====================================================
+  WORDLIB -- Ventoy + Linux Mint Setup Guide
+  Phase 3: Make the USB dual-boot (Windows files + bootable Linux Mint)
+=====================================================
+
+  *** READ THIS ENTIRE GUIDE BEFORE STARTING ***
+
+  This is the ONLY destructive step in the whole project.
+  Ventoy ERASES the USB stick. You MUST back up wordlib first.
+  Follow the steps in order. Do not skip the backup.
+
+=====================================================
+  WHAT YOU GET WHEN DONE
+=====================================================
+
+  A single SanDisk USB that can:
+    - Boot a real Linux Mint desktop (with persistence)
+    - Still hold your entire wordlib project on a data partition
+    - Run wordlib on BOTH Windows (RUN_ME.bat) and Linux (run_me.sh)
+
+  Layout after Ventoy:
+
+    SanDisk USB (after Ventoy install)
+    |
+    +-- [Ventoy boot partition]        (hidden, runs the boot menu)
+    |     +-- linuxmint-22-cinnamon.iso  (you copy this in)
+    |     +-- ventoy/                     (persistence config)
+    |
+    +-- [exFAT data partition]          (visible in Windows + Linux)
+          +-- wordlib/                    (your whole project)
+                +-- RUN_ME.bat            (Windows launcher)
+                +-- run_me.sh             (Linux launcher)
+                +-- ... everything else
+
+=====================================================
+  STEP 0 -- BACK UP WORDLIB (DO NOT SKIP)
+=====================================================
+
+  1. Plug the USB into your PC (Windows).
+  2. Copy the ENTIRE wordlib folder to your computer's hard drive.
+     Example: copy D:\wordlib  to  C:\wordlib_backup
+  3. Verify the copy completed (check the folder size matches).
+  4. If you have models in wordlib\models or wordlib\core\ollama\models,
+     those are large (GBs) -- make sure they copied fully.
+
+  DO NOT CONTINUE until you have a verified backup on your hard drive.
+
+=====================================================
+  STEP 1 -- DOWNLOAD VENTOY AND LINUX MINT
+=====================================================
+
+  Ventoy (Windows installer):
+    https://www.ventoy.net/en/download.html
+    Download the .zip for Windows, extract it.
+
+  Linux Mint (Cinnamon edition recommended):
+    https://linuxmint.com/download.php
+    Download the Cinnamon ISO (~2.8 GB).
+    Cinnamon is the best balance of looks and performance.
+
+=====================================================
+  STEP 2 -- INSTALL VENTOY TO THE USB
+=====================================================
+
+  WARNING: This ERASES the entire USB stick.
+
+  1. Run Ventoy2Disk.exe (from the extracted Ventoy folder).
+  2. In the Device dropdown, carefully select your SanDisk USB.
+     DOUBLE-CHECK the drive letter and size so you don't wipe
+     the wrong drive.
+  3. Before clicking Install, open the "Option" menu:
+       - Enable "Secure Boot Support" (helps on modern PCs)
+       - Partition style: GPT (recommended for UEFI systems)
+  4. Click Install. Confirm the warnings.
+  5. Wait for it to finish. The USB now has a Ventoy boot partition
+     and a large empty data partition.
+
+=====================================================
+  STEP 3 -- ENABLE PERSISTENCE (so Linux saves your changes)
+=====================================================
+
+  Without persistence, Linux Mint forgets everything on reboot.
+  With persistence, your settings, files, and installed apps survive.
+
+  1. Download the Ventoy persistence plugin tools if not included:
+       https://www.ventoy.net/en/plugin_persistence.html
+  2. Create a persistence file (.dat) using the provided tool, OR
+     use the simpler method below:
+
+  SIMPLER METHOD (using a persistence .dat):
+    a. Download a prebuilt persistence.dat creator or use
+       "Ventoy Persistence" from the plugin page.
+    b. Create a file of e.g. 8 GB called  mint-persistence.dat
+    c. Place it on the Ventoy data partition in a folder, e.g.:
+         [Ventoy partition]\persistence\mint-persistence.dat
+    d. Create  ventoy\ventoy.json  on the Ventoy partition with:
+
+       {
+         "persistence": [
+           {
+             "image": "/linuxmint-22-cinnamon.iso",
+             "backend": "/persistence/mint-persistence.dat"
+           }
+         ]
+       }
+
+    Adjust the ISO filename to match exactly what you copied.
+
+=====================================================
+  STEP 4 -- COPY LINUX MINT ISO AND RESTORE WORDLIB
+=====================================================
+
+  1. Open the Ventoy USB in File Explorer. You'll see the big
+     data partition.
+  2. Copy the Linux Mint ISO directly onto it (no extracting --
+     Ventoy boots ISO files as-is).
+  3. Copy your wordlib backup folder back onto the same partition:
+       C:\wordlib_backup  ->  [USB]\wordlib
+  4. The USB now has both the bootable ISO and your project.
+
+=====================================================
+  STEP 5 -- BOOT INTO LINUX MINT
+=====================================================
+
+  1. Restart your PC with the USB plugged in.
+  2. Open the boot menu (usually F12, F10, F2, or ESC at startup --
+     varies by PC brand). On many PCs:
+       Dell = F12, HP = F9, Lenovo = F12, ASUS = ESC or F8
+  3. Choose to boot from the USB.
+  4. The Ventoy menu appears. Select the Linux Mint ISO.
+  5. Choose "Start Linux Mint" (boot the live desktop).
+  6. Linux Mint loads. With persistence configured, your changes save.
+
+=====================================================
+  STEP 6 -- RUN WORDLIB ON LINUX MINT
+=====================================================
+
+  Once in the Linux Mint desktop:
+
+  1. Install Python and dependencies (one time):
+       sudo apt update
+       sudo apt install python3 python3-venv python3-pip
+
+  2. Install Ollama for Linux (one time):
+       curl -fsSL https://ollama.com/install.sh | sh
+
+  3. Find your USB data partition (usually auto-mounted under /media):
+       cd /media/mint/[your-usb-label]/wordlib
+
+  4. Make the launcher executable (one time):
+       chmod +x run_me.sh
+
+  5. Run it:
+       ./run_me.sh
+
+  The same menu you know from Windows appears. Pick an option.
+
+=====================================================
+  NOTES AND TROUBLESHOOTING
+=====================================================
+
+  - LM Studio does NOT run on Linux the same way. On Linux Mint,
+    use Ollama directly (the orchestrator handles it). LM Studio
+    is a Windows-only convenience -- skip it on Linux.
+
+  - Godot has a separate Linux binary. The setup config already
+    references Godot/Godot_v4.7-stable_linux.x86_64 -- download the
+    Linux version of Godot 4.7 and place it there.
+
+  - If the USB doesn't appear in the boot menu:
+      * Make sure Secure Boot is OFF or Ventoy Secure Boot is enabled
+      * Try a different USB port (use USB 3.0 / blue ports)
+      * Confirm the ISO copied fully (not corrupted)
+
+  - If Linux Mint boots but is slow: that's normal for a live USB.
+    Persistence + a fast USB 3.0 stick helps a lot.
+
+  - Your Windows experience is UNTOUCHED. Boot Windows normally and
+    the wordlib data partition shows up as a normal drive with
+    RUN_ME.bat ready to go.
+
+=====================================================
+  WHY VENTOY (not other methods)
+=====================================================
+
+  - Ventoy lets you keep MULTIPLE ISOs and a data partition together.
+  - You just drop ISO files in -- no re-flashing for each OS.
+  - The data partition is readable by both Windows and Linux.
+  - It is the cleanest way to keep your excellent Windows wordlib
+    experience while adding a real bootable Linux desktop.
+
+=====================================================

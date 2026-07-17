@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>USB AI Master - Script Generator</title>
+<style>
+  body { font-family: Segoe UI, sans-serif; background: #12121c; color: #dcdcf0; margin: 0; padding: 28px; }
+  h1   { color: #f6ad55; font-size: 22px; margin-bottom: 4px; }
+  p.sub { color: #8282a0; font-size: 13px; margin-bottom: 28px; }
+  .card { background: #1c1c2a; border: 1px solid #2a2a40; border-radius: 10px; padding: 20px; margin-bottom: 14px; }
+  .card h3 { color: #63b3ed; font-size: 14px; margin: 0 0 6px; }
+  .card p  { color: #8282a0; font-size: 12px; margin: 0 0 14px; line-height: 1.6; }
+  button { background: #f6ad55; color: #14141e; border: none; padding: 12px 24px;
+           font-size: 14px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; }
+  button:hover { background: #f6bd70; }
+  .note { background: #1c2a1c; border-left: 3px solid #48c78e; padding: 12px 16px;
+          border-radius: 4px; font-size: 12px; color: #a0c8a0; margin-top: 16px; line-height: 1.8; }
+  .warn { background: #2a2a1c; border-left: 3px solid #f6e05e; padding: 12px 16px;
+          border-radius: 4px; font-size: 12px; color: #d4c070; margin-top: 10px; line-height: 1.8; }
+  h2 { color: #f6ad55; font-size: 15px; margin: 28px 0 10px; }
+</style>
+</head>
+<body>
+
+<!--
+  ENCODING SAFETY NOTE:
+  This HTML file is the correct way to deliver/regenerate PowerShell and BAT scripts.
+  Never paste raw PS1 content through chat or file transfer -- encoding corruption
+  (invisible Unicode characters from emoji etc) causes UnexpectedToken parse failures.
+  All scripts generated here use JavaScript string literals, which are always
+  ASCII-safe when saved via Blob URL. This architecture must be maintained.
+-->
+
+<h1>USB AI Master - Script Generator</h1>
+<p class="sub">Use this page to regenerate any launcher files if they become corrupted or need updating. Open in any browser. No internet required.</p>
+
+<h2>Launcher Files</h2>
+
+<div class="card">
+  <h3>RUN_ME.bat -- Main Entry Point</h3>
+  <p>The file you double-click to start everything. Regenerate this if it stops working or shows errors.</p>
+  <button onclick="generateRUN_ME()">Download RUN_ME.bat</button>
+</div>
+
+<div class="card">
+  <h3>Model Download Guide</h3>
+  <p>Plain text guide with exact LM Studio search terms for all 4 recommended models.</p>
+  <button onclick="generateModelGuide()">Download MODEL_DOWNLOAD_GUIDE.txt</button>
+</div>
+
+<div class="note">
+  <strong>All files generated here are encoding-safe.</strong><br>
+  No emoji. No Unicode symbols. Pure ASCII that runs without errors on Windows 11.<br>
+  Place downloaded files back into the root of the USB drive.
+</div>
+
+<div class="warn">
+  <strong>If RUN_ME.bat shows a blue SmartScreen warning:</strong> Click "More info" then "Run anyway".<br>
+  <strong>If RUN_ME.bat shows "Access denied":</strong> Right-click it and select "Run as administrator".<br>
+  <strong>If PowerShell shows "UnexpectedToken":</strong> Use this generator to download a fresh copy.
+</div>
+
+<script>
+function dl(name, content) {
+  var blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+  var url  = URL.createObjectURL(blob);
+  var a    = document.createElement('a');
+  a.href = url; a.download = name;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+}
+
+function generateRUN_ME() {
+  dl('RUN_ME.bat', [
+    '@echo off',
+    ':: ================================================================',
+    ':: USB AI MASTER -- Unified Entry Point',
+    ':: For: Johannes',
+    ':: Version: 3.0 -- Consolidated (LM Studio + Web Library)',
+    ':: ================================================================',
+    'setlocal enabledelayedexpansion',
+    'cd /d "%~dp0"',
+    'title USB AI Master',
+    '',
+    'echo.',
+    'echo  =====================================================',
+    'echo    USB AI MASTER  ^|  Portable AI Databank',
+    'echo    For: Johannes',
+    'echo  =====================================================',
+    'echo.',
+    '',
+    'powershell -Command "Get-ChildItem -Path \'%~dp0\' -Recurse | Unblock-File" >nul 2>&1',
+    '',
+    'echo  [1/2] Starting LM Studio Setup Window...',
+    'echo.',
+    'start "" powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File "%~dp0src\\USB_Launcher.ps1"',
+    '',
+    'ping 127.0.0.1 -n 3 >nul 2>&1',
+    '',
+    'echo  [2/2] Starting Web Library...',
+    'echo.',
+    '',
+    'set PYTHON=',
+    '',
+    'if exist "%~dp0python\\python.exe" (',
+    '    set PYTHON=%~dp0python\\python.exe',
+    '    goto :GOT_PYTHON',
+    ')',
+    '',
+    'py --version >nul 2>&1',
+    'if not errorlevel 1 ( set PYTHON=py & goto :GOT_PYTHON )',
+    '',
+    'python --version >nul 2>&1',
+    'if not errorlevel 1 ( set PYTHON=python & goto :GOT_PYTHON )',
+    '',
+    'echo  ERROR: Python not found. Install from https://python.org/downloads',
+    'echo  (Check "Add Python to PATH" during install)',
+    'echo  LM Studio window still works without Python.',
+    'pause',
+    'exit /b 1',
+    '',
+    ':GOT_PYTHON',
+    'echo.',
+    'echo  =====================================================',
+    'echo   Both tools starting. This window = Web Library.',
+    'echo   Press Ctrl+C here to stop the web server only.',
+    'echo  =====================================================',
+    'echo.',
+    '',
+    '%PYTHON% "%~dp0src\\START.py"',
+    '',
+    'echo.',
+    'echo  Web Library stopped. Press any key to close.',
+    'pause >nul'
+  ].join('\r\n'));
+}
+
+function generateModelGuide() {
+  dl('MODEL_DOWNLOAD_GUIDE.txt', [
+    '=====================================================',
+    ' USB AI MASTER - Model Download Guide',
+    ' For: Johannes',
+    '=====================================================',
+    '',
+    'Open LM Studio > Search tab (magnifying glass icon)',
+    'Type the search term. Download the Q4_K_M version.',
+    '',
+    '-----------------------------------------------------',
+    'MODEL 1 - PRIMARY (uncensored, all-purpose)',
+    '-----------------------------------------------------',
+    'Search:  dolphin 2.9 mistral 7b gguf q4',
+    'File:    dolphin-2.9-mistral-7b-v0.1.Q4_K_M.gguf',
+    'Size:    ~4.4 GB',
+    'VRAM:    ~5 GB',
+    'Preset:  Dolphin - Uncensored Assistant',
+    '',
+    '-----------------------------------------------------',
+    'MODEL 2 - BACKUP (more capable, slightly slower)',
+    '-----------------------------------------------------',
+    'Search:  dolphin llama 3 8b gguf q4',
+    'File:    dolphin-2.8-llama3-8b.Q4_K_M.gguf',
+    'Size:    ~4.9 GB',
+    'VRAM:    ~6 GB',
+    'Preset:  Dolphin - Uncensored Assistant',
+    '',
+    '-----------------------------------------------------',
+    'MODEL 3 - CODING (best open coding model at 7B)',
+    '-----------------------------------------------------',
+    'Search:  qwen2.5 coder 7b instruct gguf q4',
+    'File:    qwen2.5-coder-7b-instruct-q4_k_m.gguf',
+    'Size:    ~4.4 GB',
+    'VRAM:    ~5 GB',
+    'Preset:  Coding Assistant - Qwen Optimized',
+    '',
+    '-----------------------------------------------------',
+    'MODEL 4 - TEACHING (filtered, classroom-safe)',
+    '-----------------------------------------------------',
+    'Search:  llama 3 8b instruct gguf q4',
+    'File:    Meta-Llama-3-8B-Instruct.Q4_K_M.gguf',
+    'Size:    ~4.9 GB',
+    'VRAM:    ~6 GB',
+    'Preset:  Gold Standard - Teaching',
+    '',
+    '-----------------------------------------------------',
+    'AFTER DOWNLOADING IN LM STUDIO:',
+    '-----------------------------------------------------',
+    '1. Find the .gguf file in:',
+    '   %USERPROFILE%\\.cache\\lm-studio\\models',
+    '2. Copy the file to the /models folder on this USB',
+    '3. The USB launcher will copy it to any new PC automatically',
+    '',
+    'Total size for all 4 models: ~18-20 GB',
+    'Recommended USB size: 30 GB or larger',
+    '',
+    '-----------------------------------------------------',
+    'WHICH PRESET TO USE:',
+    '-----------------------------------------------------',
+    'Teaching / classroom / students  -->  Gold Standard - Teaching',
+    'Everyday questions / research    -->  Dolphin - Uncensored',
+    'Writing or fixing code           -->  Coding Assistant - Qwen',
+    'Not sure? Just chatting          -->  General Assistant',
+    '=====================================================',
+    'See docs/MODEL_GUIDE.txt for full explanation.',
+    '====================================================='
+  ].join('\r\n'));
+}
+</script>
+</body>
+</html>

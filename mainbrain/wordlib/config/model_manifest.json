@@ -1,0 +1,59 @@
+{
+  "_note": "Single source of truth for all models on this USB. Update if newer Dolphin builds are released.",
+  "_last_updated": "2026",
+  "_total_estimated_size_gb": 19,
+  "_usb_recommended_size_gb": 30,
+
+  "primary_model": {
+    "name": "Dolphin 2.9 Mistral 7B",
+    "filename": "dolphin-2.9-mistral-7b-v0.1.Q4_K_M.gguf",
+    "lm_studio_search": "dolphin 2.9 mistral 7b gguf q4",
+    "huggingface_repo": "TheBloke/dolphin-2.9-mistral-7B-v0.1-GGUF",
+    "size_gb": 4.4,
+    "quantization": "Q4_K_M",
+    "vram_required_gb": 5,
+    "reason": "Primary uncensored model. Fine-tuned to follow uncensored system prompts. Best all-round capability at 7B.",
+    "preset_pair": "02_Dolphin_Uncensored.json",
+    "also_works_for": ["04_General_Assistant.json", "01_Gold_Standard_Teaching.json"]
+  },
+
+  "backup_model": {
+    "name": "Dolphin 2.8 Llama 3 8B",
+    "filename": "dolphin-2.8-llama3-8b.Q4_K_M.gguf",
+    "lm_studio_search": "dolphin llama 3 8b gguf q4",
+    "huggingface_repo": "bartowski/dolphin-2.8-llama3-8b-GGUF",
+    "size_gb": 4.9,
+    "quantization": "Q4_K_M",
+    "vram_required_gb": 6,
+    "reason": "More capable than Mistral 7B, slightly slower. Use when Mistral struggles with complex tasks.",
+    "preset_pair": "02_Dolphin_Uncensored.json"
+  },
+
+  "coding_model": {
+    "name": "Qwen 2.5 Coder 7B Instruct",
+    "filename": "qwen2.5-coder-7b-instruct-q4_k_m.gguf",
+    "lm_studio_search": "qwen2.5 coder 7b instruct gguf q4",
+    "huggingface_repo": "Qwen/Qwen2.5-Coder-7B-Instruct-GGUF",
+    "size_gb": 4.4,
+    "quantization": "Q4_K_M",
+    "vram_required_gb": 5,
+    "reason": "Best open-source coding model at 7B. Outperforms Llama and Mistral on code tasks.",
+    "preset_pair": "03_Coding_Assistant.json"
+  },
+
+  "teaching_model": {
+    "name": "Llama 3 8B Instruct",
+    "filename": "Meta-Llama-3-8B-Instruct.Q4_K_M.gguf",
+    "lm_studio_search": "llama 3 8b instruct gguf q4",
+    "huggingface_repo": "QuantFactory/Meta-Llama-3-8B-Instruct-GGUF",
+    "size_gb": 4.9,
+    "quantization": "Q4_K_M",
+    "vram_required_gb": 6,
+    "reason": "Reliable filtered model for classroom or student-facing use where uncensored is inappropriate.",
+    "preset_pair": "01_Gold_Standard_Teaching.json"
+  },
+
+  "models_folder_on_usb": "models/",
+  "models_cache_on_host_primary": "%USERPROFILE%\\.cache\\lm-studio\\models",
+  "models_cache_on_host_alt": "%LOCALAPPDATA%\\LM-Studio\\models"
+}

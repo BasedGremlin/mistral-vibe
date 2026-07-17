@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}{{ entry.title }} -- WORDLIB KB{% endblock %}
+{% block page_title %}{{ entry.title }}{% endblock %}
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+{% endblock %}
+{% block content %}
+<div style="display:flex;gap:8px;margin-bottom:14px">
+  <a href="/kb/{{ entry.id }}/edit" class="btn btn-ghost">Edit</a>
+  <a href="/kb" class="btn btn-ghost">Back to KB</a>
+  <span class="tag" style="margin-top:6px">{{ entry.category }}</span>
+  {% for t in entry.tags.split(',') if t.strip() %}<span class="tag" style="margin-top:6px">{{ t.strip() }}</span>{% endfor %}
+</div>
+<div class="card">
+  <div class="md-content" id="kbContent"></div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>document.getElementById('kbContent').innerHTML = marked.parse({{ entry.content | tojson }});</script>
+{% endblock %}

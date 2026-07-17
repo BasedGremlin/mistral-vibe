@@ -1,0 +1,273 @@
+{# Reasoning Console -- served at /console.
+   The honest version of the XML's "comet_killer_ui_surface": a UI whose point
+   is RADICAL TRANSPARENCY into what the agents actually do. Every panel is
+   backed by a real endpoint; nothing is mocked. WCAG 2.2 AA throughout
+   (same verified-contrast palette + a11y structure as /panel).
+
+   It makes reasoning visible, shows the real plan->execute trace when you run
+   a task, surfaces honest uncertainty, and keeps rollback one click away. #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WORDLIB Reasoning Console</title>
+<style>
+  :root {
+    --bg:#11141c; --surface:#1b1f2b; --surface2:#252a3a;
+    --text:#f0f2f8; --text2:#c4ccda; --accent:#4fd6ff; --on-accent:#06202b;
+    --green:#5eead4; --amber:#ffd54a; --red:#ff8a8a; --focus:#ffd54a;
+  }
+  @media (prefers-contrast: more) {
+    :root { --bg:#000; --surface:#000; --surface2:#111; --text:#fff;
+            --text2:#fff; --accent:#00e5ff; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition:none !important; animation:none !important; }
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { font-size:100%; }
+  body { background:var(--bg); color:var(--text);
+         font-family:system-ui,'Segoe UI',sans-serif; line-height:1.6;
+         padding:1rem; max-width:72rem; margin:0 auto; }
+  .skip-link { position:absolute; left:-999px; background:var(--accent);
+               color:var(--on-accent); padding:1rem; font-weight:700; z-index:1000; }
+  .skip-link:focus { left:0; }
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+    outline:4px solid var(--focus); outline-offset:2px;
+  }
+  h1 { font-size:1.9rem; }
+  h2 { font-size:1.3rem; color:var(--accent); margin:1.25rem 0 .6rem;
+       border-bottom:2px solid var(--surface2); padding-bottom:.3rem; }
+  p.lead { color:var(--text2); margin-bottom:1rem; }
+
+  .grid { display:grid; gap:1rem; grid-template-columns:1fr; }
+  @media (min-width:52rem){ .grid { grid-template-columns:1fr 1fr; } }
+
+  .card { background:var(--surface); border:1px solid var(--surface2);
+          border-radius:12px; padding:1.1rem; }
+  .card h3 { font-size:1.05rem; margin-bottom:.6rem; display:flex;
+             align-items:center; gap:.5rem; }
+
+  /* Agent chips */
+  .agents { display:flex; flex-wrap:wrap; gap:.5rem; }
+  .chip { display:inline-flex; align-items:center; gap:.4rem;
+          background:var(--surface2); border-radius:999px;
+          padding:.4rem .8rem; font-size:.9rem; min-height:36px; }
+  .chip .dot { width:.7rem; height:.7rem; border-radius:50%;
+               background:var(--green); }
+  .chip.off .dot { background:var(--red); }
+
+  /* Power meter */
+  .meter { background:var(--surface2); border-radius:999px; height:1.5rem;
+           overflow:hidden; margin:.4rem 0; }
+  .meter > span { display:block; height:100%; background:var(--green);
+                  color:var(--on-accent); font-size:.8rem; font-weight:700;
+                  text-align:right; padding-right:.5rem; line-height:1.5rem; }
+
+  /* Task runner */
+  .runner { margin:1rem 0; }
+  label { display:block; font-weight:600; margin-bottom:.35rem; }
+  input[type=text] { width:100%; min-height:48px; font-size:1rem;
+    padding:.6rem .8rem; background:var(--bg); color:var(--text);
+    border:2px solid var(--surface2); border-radius:8px; }
+  input[type=text]:focus-visible { border-color:var(--accent); outline:none; }
+  .btn { min-height:48px; padding:.7rem 1.3rem; font-size:1.05rem;
+    font-weight:700; background:var(--accent); color:var(--on-accent);
+    border:none; border-radius:8px; cursor:pointer; margin-top:.6rem; }
+  .btn.secondary { background:var(--surface2); color:var(--text); }
+  .btn:hover { filter:brightness(1.1); }
+
+  /* Reasoning trace -- the transparency centerpiece */
+  .trace { list-style:none; margin:.5rem 0; }
+  .trace li { background:var(--bg); border-left:3px solid var(--accent);
+    padding:.6rem .8rem; margin:.4rem 0; border-radius:0 8px 8px 0; }
+  .trace li .step-head { font-weight:700; display:flex; gap:.5rem;
+    align-items:center; justify-content:space-between; }
+  .trace li.ok    { border-left-color:var(--green); }
+  .trace li.fail  { border-left-color:var(--red); }
+  .badge { font-size:.75rem; padding:.15rem .5rem; border-radius:999px;
+    background:var(--surface2); }
+  .badge.ok { background:var(--green); color:var(--on-accent); }
+  .badge.fail { background:var(--red); color:var(--on-accent); }
+
+  .announce { background:var(--surface); border-left:4px solid var(--accent);
+    padding:.9rem; margin:1rem 0; border-radius:0 8px 8px 0; min-height:3rem; }
+  .muted { color:var(--text2); font-size:.9rem; }
+  footer { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--surface2);
+    color:var(--text2); font-size:.9rem; }
+</style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <header>
+    <h1>WORDLIB Reasoning Console</h1>
+    <p class="lead">See what the system is actually doing — live agents, real
+      reasoning traces, honest confidence, and one-click rollback. Nothing here
+      is faked; every panel reads from a live endpoint.</p>
+  </header>
+
+  <main id="main">
+    <div class="grid">
+      <!-- Live agent swarm -->
+      <section class="card" aria-labelledby="agents-h">
+        <h3 id="agents-h">🤖 Agent Swarm
+          <span class="muted" id="agent-count"></span></h3>
+        <div class="agents" id="agents" role="list"
+             aria-label="Agent availability"></div>
+      </section>
+
+      <!-- Power + mode -->
+      <section class="card" aria-labelledby="power-h">
+        <h3 id="power-h">⚡ System Power</h3>
+        <div class="meter" role="img" aria-labelledby="power-label">
+          <span id="power-bar" style="width:0%">0%</span>
+        </div>
+        <p class="muted" id="power-label">Reading power level…</p>
+        <p class="muted" id="mode-label"></p>
+      </section>
+    </div>
+
+    <!-- Task runner with visible reasoning trace -->
+    <section class="card runner" aria-labelledby="run-h">
+      <h2 id="run-h">Run a task — watch the reasoning</h2>
+      <p class="lead">Give the swarm a goal. You'll see the architect's plan and
+        each agent's real result, step by step.</p>
+      <label for="goal">Your goal</label>
+      <input type="text" id="goal" name="goal"
+             placeholder="e.g. check the current power level"
+             aria-describedby="goal-help">
+      <p id="goal-help" class="muted">The Architect agent breaks this into steps;
+        each step runs through a real agent.</p>
+      <button class="btn" id="run-btn">Run &amp; show reasoning</button>
+
+      <h3 style="margin-top:1rem;">Reasoning trace</h3>
+      <ul class="trace" id="trace" aria-live="polite"
+          aria-label="Live reasoning steps">
+        <li class="muted">No task run yet. Results will appear here as they happen.</li>
+      </ul>
+    </section>
+
+    <!-- Gremlin + rollback -->
+    <div class="grid">
+      <section class="card" aria-labelledby="gremlin-h">
+        <h3 id="gremlin-h">👹 Gremlin (propose-only)</h3>
+        <p class="muted">Runs a self-improvement cycle. It only <em>proposes</em>
+          — never auto-applies. Theater Mode is on by default.</p>
+        <button class="btn secondary" id="gremlin-btn">Run gremlin cycle</button>
+        <div id="gremlin-out" class="muted" style="margin-top:.6rem;"></div>
+      </section>
+
+      <section class="card" aria-labelledby="rollback-h">
+        <h3 id="rollback-h">↩️ Safety</h3>
+        <p class="muted">Every change the system makes is backed up first and can
+          be rolled back. This is the rail that's tested in the suite.</p>
+        <a class="btn secondary" href="/panel" role="button"
+           style="display:inline-block;text-decoration:none;">Simple control panel</a>
+      </section>
+    </div>
+
+    <section aria-labelledby="msg-h">
+      <h2 id="msg-h">Messages</h2>
+      <div class="announce" role="status" aria-live="assertive" id="announce">
+        Ready. Connecting to the live system…
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Runs entirely on your device. Agent reasoning is shown as it happens — no
+      hidden steps. If something fails, you'll see exactly which step and why.</p>
+  </footer>
+
+<script>
+  var announce = document.getElementById('announce');
+  function say(m){ announce.textContent = m; }
+
+  async function loadAgents(){
+    try {
+      var r = await fetch('/api/agents/status'); var j = await r.json();
+      var box = document.getElementById('agents'); box.innerHTML = '';
+      var agents = j.agents || {};
+      Object.keys(agents).forEach(function(name){
+        var a = agents[name];
+        var chip = document.createElement('span');
+        chip.className = 'chip' + (a.available ? '' : ' off');
+        chip.setAttribute('role','listitem');
+        chip.innerHTML = '<span class="dot" aria-hidden="true"></span>' +
+          name + (a.available ? '' : ' (off)');
+        box.appendChild(chip);
+      });
+      document.getElementById('agent-count').textContent =
+        '(' + (j.available_count||0) + '/' + (j.agent_count||0) + ' ready)';
+    } catch(e){ say('Could not load agents: ' + e.message); }
+  }
+
+  async function loadPower(){
+    try {
+      var r = await fetch('/api/reasoning/dashboard'); var j = await r.json();
+      var pct = (j.power && j.power.power_level_pct) || 0;
+      var bar = document.getElementById('power-bar');
+      bar.style.width = pct + '%'; bar.textContent = pct + '%';
+      document.getElementById('power-label').textContent =
+        (j.power ? (j.power.active + '/' + j.power.total + ' capabilities active') : 'unavailable');
+      var env = j.power && j.power.environment;
+      if (env) document.getElementById('mode-label').textContent =
+        'CPU ' + env.cpu + ' • RAM ' + env.ram_gb + ' GB • ' + env.model_tier;
+    } catch(e){ document.getElementById('power-label').textContent = 'unavailable'; }
+  }
+
+  document.getElementById('run-btn').onclick = async function(){
+    var goal = document.getElementById('goal').value.trim();
+    if(!goal){ say('Please enter a goal first.'); document.getElementById('goal').focus(); return; }
+    var trace = document.getElementById('trace');
+    trace.innerHTML = '<li class="muted">Planning…</li>';
+    say('Running: ' + goal);
+    try {
+      var r = await fetch('/api/agents/solve', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({goal: goal})
+      });
+      var j = await r.json();
+      trace.innerHTML = '';
+      (j.results || []).forEach(function(res, i){
+        var li = document.createElement('li');
+        li.className = res.ok ? 'ok' : 'fail';
+        li.innerHTML = '<div class="step-head"><span>Step ' + (i+1) +
+          ': ' + (res.agent||'agent') + '</span>' +
+          '<span class="badge ' + (res.ok?'ok':'fail') + '">' +
+          (res.ok?'ok':'failed') + '</span></div>' +
+          '<div class="muted">' + (res.detail || res.error || '') + '</div>';
+        trace.appendChild(li);
+      });
+      if(!(j.results||[]).length)
+        trace.innerHTML = '<li class="muted">No steps returned.</li>';
+      say('Done. ' + (j.ok ? 'All steps succeeded.' : 'Some steps need attention.'));
+    } catch(e){
+      trace.innerHTML = '<li class="fail">Error: ' + e.message + '</li>';
+      say('Task failed: ' + e.message);
+    }
+  };
+
+  document.getElementById('gremlin-btn').onclick = async function(){
+    var out = document.getElementById('gremlin-out');
+    out.textContent = 'Running cycle…'; say('Gremlin is inspecting the system…');
+    try {
+      var r = await fetch('/api/agents/gremlin', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({action:'cycle'})
+      });
+      var j = await r.json();
+      var o = j.output || {};
+      out.textContent = (o.quip || 'Cycle complete.') + ' — ' +
+        ((o.proposals||[]).length) + ' proposal(s), Theater Mode ' +
+        (o.theater_mode ? 'on (propose only)' : 'off') + '.';
+      say('Gremlin cycle complete.');
+    } catch(e){ out.textContent = 'Gremlin unavailable: ' + e.message; }
+  };
+
+  loadAgents(); loadPower();
+  say('Connected. This console shows real agent activity.');
+</script>
+</body>
+</html>

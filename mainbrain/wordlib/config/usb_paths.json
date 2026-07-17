@@ -1,0 +1,29 @@
+{
+  "_note": "All paths relative to USB root. USB root auto-detected by launcher script via $PSScriptRoot.",
+
+  "usb_structure": {
+    "USB_ROOT": "auto-detected by launcher (drive letter changes per PC)",
+    "MODELS_FOLDER": "models",
+    "PRESETS_FOLDER": "presets",
+    "CONFIG_FOLDER": "config",
+    "DOCS_FOLDER": "docs",
+    "SRC_FOLDER": "src",
+    "APP_FOLDER": "app",
+    "DATA_FOLDER": "data",
+    "VENV_FOLDER": ".venv",
+    "PIP_CACHE_FOLDER": ".pip_cache",
+    "BACKUPS_FOLDER": "backups"
+  },
+
+  "host_paths": {
+    "LM_STUDIO_SEARCH_PATHS": [
+      "%LOCALAPPDATA%\\Programs\\LM-Studio\\LM Studio.exe",
+      "%ProgramFiles%\\LM Studio\\LM Studio.exe",
+      "%LOCALAPPDATA%\\LM-Studio\\LM Studio.exe"
+    ],
+    "LM_STUDIO_PRESETS_DIR": "%APPDATA%\\LM Studio\\presets",
+    "LM_STUDIO_MODELS_CACHE_PRIMARY": "%USERPROFILE%\\.cache\\lm-studio\\models",
+    "LM_STUDIO_MODELS_CACHE_ALT": "%LOCALAPPDATA%\\LM-Studio\\models",
+    "LOG_FILE": "%USERPROFILE%\\Desktop\\USB_AI_Master_Log.txt"
+  }
+}

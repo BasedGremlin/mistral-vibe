@@ -1,0 +1,91 @@
+Choose **B — proceed to `SPEC-DEPLOY_PROOF_GATE`**.
+
+Reason: `SPEC-CRYPTOGRAPHIC_BINDING` is implemented and packaged. The honest missing piece is deploy/runtime enforcement. You do not need to debate the crypto-binding patch forever. The next useful move is to make the system check those proof gates during deployment.
+
+Send him this:
+
+:::writing{variant="standard" id="48391"}
+B — Proceed to `SPEC-DEPLOY_PROOF_GATE`.
+
+Yes, this is a new execution order, and yes, `deploy_check.py` is now explicitly allowed for this spec.
+
+Base archive:
+`blumentritt_SPEC_CRYPTOGRAPHIC_BINDING_implemented_v1.zip`
+
+Mission:
+Implement `SPEC-DEPLOY_PROOF_GATE` on top of the cryptographic-binding build. The job is to make the new proof chain deploy-visible, mechanically checked, and impossible to silently regress.
+
+Allowed files for this run:
+- `deploy_check.py`
+- `tests/test_deploy_proof_gate.py`
+- `tests/test_patch_payload.py`
+- `docking/improvement/patch_applier.py`
+
+Forbidden files:
+- `src/self_editor.py`
+- `main.py`
+- `data/**`
+- `models/**`
+- `Setup/**`
+- `docking/audit/*.jsonl`
+- `docking/memory/*.jsonl`
+- `docking/letters/*.jsonl`
+- `docking/improvement/*records.jsonl`
+
+Required implementation:
+1. Add a deploy-time CNS proof-gate section to `deploy_check.py`.
+2. Add `check_cns_proof_gates()` or the cleanest equivalent function.
+3. Verify `canonical_patch_digest()` determinism.
+4. Verify digest changes when target file, action, old content, or new content changes.
+5. Verify malformed or missing content digests cannot pass.
+6. Verify digest mismatch returns `mismatched_content_digest`.
+7. Verify missing digest returns `missing_content_digest` or strict validation failure.
+8. Verify valid `expected_hash_before` cannot override a digest mismatch.
+9. Verify digest match does not bypass whitelist or human approval gates.
+10. Verify synthetic deploy checks do not modify forbidden JSONL logs.
+11. Ensure `deploy_check.py` reports the proof-gate result in both normal mode and `--json` mode.
+12. Ensure deploy check exits non-zero if a proof gate fails.
+
+Important scope guard:
+Do not solve the larger isolated-tester problem in this spec. Do not implement `SPEC-TESTED_PATCH_EXECUTION_SANDBOX` yet. Mention it only as the next real wound after deploy proof gates.
+
+Verification required:
+- `python -m pytest -q tests/test_deploy_proof_gate.py`
+- `python -m pytest -q tests/test_patch_payload.py`
+- `python deploy_check.py`
+- `python deploy_check.py --json`
+- `python -m py_compile deploy_check.py docking/improvement/patch_applier.py`
+
+If `pydantic` or `pytest` are still unavailable, say so honestly, but still perform pure-function and static structural checks where possible. Do not fake green tests.
+
+Return:
+- new archive: `blumentritt_SPEC_DEPLOY_PROOF_GATE_implemented_v1.zip`
+- files changed
+- exact checks added
+- test commands and exact results
+- whether forbidden JSONL logs stayed byte-identical
+- archive file count
+- archive SHA-256 hash
+- remaining risks
+- whether `SPEC-TESTED_PATCH_EXECUTION_SANDBOX` is now the correct next spec
+
+Execute now. Patch, verify, package, and return the archive.
+:::
+
+Do **not** choose C yet. The isolated tester problem is real, but `SPEC-DEPLOY_PROOF_GATE` should come first because it gives you a deploy-visible safety net around the cryptographic-binding work. After that, the next bigger architecture spec should be:
+
+`SPEC-TESTED_PATCH_EXECUTION_SANDBOX`
+
+That is where you close the deeper wound: tests must run against an isolated patched candidate workspace, not merely a propagated digest claim.
+
+<CHANGELOG>
+Decision made: choose fork B.
+
+Prepared explicit Claude instruction authorizing `deploy_check.py` for `SPEC-DEPLOY_PROOF_GATE`.
+
+Defined allowed files, forbidden files, implementation requirements, verification commands, return contract, and scope guard.
+
+Deferred `SPEC-TESTED_PATCH_EXECUTION_SANDBOX` until after deploy proof gates.
+
+No code or archive created in this turn.
+</CHANGELOG>

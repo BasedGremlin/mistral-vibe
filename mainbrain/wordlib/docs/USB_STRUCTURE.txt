@@ -1,0 +1,103 @@
+=====================================================
+  USB AI MASTER - Folder Structure
+  30 GB USB Drive Layout
+=====================================================
+
+ROOT OF USB DRIVE
+-----------------
+  RUN_ME.bat              <-- DOUBLE-CLICK THIS TO START EVERYTHING
+  START.vbs               <-- Alternative entry point (same as RUN_ME.bat)
+  CLAUDE_BRIEFING.md      <-- Paste into Claude to continue the project
+
+  models/                 <-- Put your .gguf model files here
+  presets/                <-- LM Studio preset JSON files
+  config/                 <-- Path and model configuration
+  src/                    <-- Launcher scripts
+  app/                    <-- Flask web library app
+  data/                   <-- Library database and logs (auto-created)
+  docs/                   <-- Setup and reference guides
+  backups/                <-- Auto-created timestamped backups
+  .venv/                  <-- Python virtual env (auto-created, ~400 MB)
+  .pip_cache/             <-- pip download cache (auto-created)
+
+-----------------------------------------------------
+models/
+-----------------------------------------------------
+  Place downloaded .gguf model files here.
+  These are copied to any new PC by the LM Studio launcher.
+  Also used by the Flask web library for local AI chat.
+
+  Recommended files:
+    dolphin-2.9-mistral-7b-v0.1.Q4_K_M.gguf    ~4.4 GB
+    dolphin-2.8-llama3-8b.Q4_K_M.gguf           ~4.9 GB
+    qwen2.5-coder-7b-instruct-q4_k_m.gguf        ~4.4 GB
+    Meta-Llama-3-8B-Instruct.Q4_K_M.gguf         ~4.9 GB
+
+  Total: ~18-20 GB
+
+-----------------------------------------------------
+presets/
+-----------------------------------------------------
+  01_Gold_Standard_Teaching.json
+  02_Dolphin_Uncensored.json
+  03_Coding_Assistant.json
+  04_General_Assistant.json
+
+  These are written to LM Studio on the host PC
+  every time you run ONE-CLICK SETUP.
+
+-----------------------------------------------------
+config/
+-----------------------------------------------------
+  model_manifest.json     -- all recommended models + search terms
+  usb_paths.json          -- folder structure reference
+
+-----------------------------------------------------
+src/
+-----------------------------------------------------
+  USB_Launcher.ps1        -- LM Studio setup GUI (PowerShell)
+  START.py                -- Web library auto-launcher (Python)
+  HTML_Generator.html     -- Script regenerator (open in browser)
+
+-----------------------------------------------------
+app/
+-----------------------------------------------------
+  app.py                  -- Flask web server
+  templates/
+    index.html            -- Web library UI
+
+-----------------------------------------------------
+data/    (auto-created)
+-----------------------------------------------------
+  library.db              -- SQLite document library
+  launcher.log            -- Web library startup log
+
+-----------------------------------------------------
+docs/
+-----------------------------------------------------
+  SETUP_GUIDE.txt         -- Step-by-step for Johannes
+  MODEL_GUIDE.txt         -- Which models and why
+  TROUBLESHOOTING.txt     -- Fix common problems
+  USB_STRUCTURE.txt       -- This file
+
+-----------------------------------------------------
+backups/   (auto-created by launcher)
+-----------------------------------------------------
+  Backup_YYYYMMDD_HHMMSS/
+    [your old LM Studio preset files]
+
+  Created before every ONE-CLICK SETUP run.
+  Safe to delete old backups to free space.
+
+-----------------------------------------------------
+USB SPACE PLANNING (30 GB total)
+-----------------------------------------------------
+  Models (4 x ~5 GB)      : ~18-20 GB
+  Python venv (.venv/)    : ~400 MB
+  pip cache               : ~200 MB
+  App code + docs         : ~5 MB
+  Backups (auto)          : ~50 MB
+  Your document library   : remaining ~9-11 GB
+  Free space buffer       : always keep at least 1 GB free
+
+=====================================================

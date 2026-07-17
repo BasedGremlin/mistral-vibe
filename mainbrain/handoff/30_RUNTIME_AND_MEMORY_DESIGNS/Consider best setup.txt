@@ -1,0 +1,4 @@
+Human thinks this might be a good setup to upgrade to before deployment Core Brain — One strong reasoning model (~30-35B class, Qwen3.5 32B or equivalent quantized). This is your main thinker. Pair it with a small fast router model (7-9B) for triage. This combo eats ~40-45GB and gives you the best quality/speed balance without needing a datacenter.
+The Semantic Core (This is the real premium part) — Don’t do basic vector DB. Go with a hybrid vector + graph setup:
+•  LanceDB for the vector side (lightweight, zero-copy, excellent for local, multimodal-ready).
+•  FalkorDB or Neo4j (embedded mode) for the graph/ontology layer.

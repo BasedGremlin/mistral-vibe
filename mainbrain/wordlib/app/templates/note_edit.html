@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit' if note else 'New' }} Note -- WORDLIB{% endblock %}
+{% block page_title %}{{ 'Edit Note' if note else 'New Note' }}{% endblock %}
+{% block content %}
+<form method="post">
+  <div class="card">
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" name="title" value="{{ note.title if note else '' }}" placeholder="Note title" required>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="form-group">
+        <label>Category</label>
+        <select name="category">
+          {% for c in ['general','linux','dev','research','strategy','recovery','solar_ph','ecommerce_ph'] %}
+          <option value="{{ c }}" {% if note and note.category == c %}selected{% endif %}>{{ c }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tags (comma-separated)</label>
+        <input type="text" name="tags" value="{{ note.tags if note else '' }}" placeholder="tag1, tag2">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Content (Markdown supported)</label>
+      <textarea name="content" style="min-height:380px;font-family:Consolas,monospace;font-size:.85rem">{{ note.content if note else '' }}</textarea>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button type="submit" class="btn btn-primary">Save Note</button>
+      <a href="/library" class="btn btn-ghost">Cancel</a>
+      {% if note %}
+      <form method="post" action="/library/note/{{ note.id }}/delete" style="margin-left:auto" onsubmit="return confirm('Delete this note?')">
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+</form>
+{% endblock %}

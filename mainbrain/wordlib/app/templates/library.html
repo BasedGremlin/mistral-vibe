@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block title %}Library -- WORDLIB{% endblock %}
+{% block page_title %}Notes & URL Library{% endblock %}
+{% block content %}
+
+<!-- Controls -->
+<div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+  <form method="get" style="display:flex;gap:8px;flex:1">
+    <input type="text" name="q" value="{{ query }}" placeholder="Search notes and URLs..." style="flex:1">
+    <select name="cat" style="width:160px">
+      <option value="">All categories</option>
+      {% for c in ['general','linux','dev','research','strategy','recovery','solar_ph','ecommerce_ph'] %}
+      <option value="{{ c }}" {% if category == c %}selected{% endif %}>{{ c }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-ghost">Search</button>
+  </form>
+  <a href="/library/note/new" class="btn btn-primary">+ New Note</a>
+</div>
+
+<!-- URL scraper -->
+<div class="card">
+  <h3>Save a URL</h3>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <input type="url" id="urlInput" placeholder="https://..." style="flex:1;min-width:200px">
+    <select id="urlCat" style="width:160px">
+      {% for c in ['general','linux','dev','research','strategy','recovery','solar_ph','ecommerce_ph'] %}
+      <option value="{{ c }}">{{ c }}</option>
+      {% endfor %}
+    </select>
+    <button class="btn btn-primary" onclick="doScrape()">Scrape & Save</button>
+  </div>
+  <div id="scrapeMsg" style="margin-top:8px;font-size:.82rem;color:var(--muted)"></div>
+</div>
+
+<!-- Notes table -->
+<div class="card">
+  <div style="display:flex;align-items:center;margin-bottom:12px">
+    <h3 style="flex:1">Notes ({{ notes|length }})</h3>
+    <a href="/library/note/new" class="btn btn-ghost btn-sm">+ Add</a>
+  </div>
+  {% if notes %}
+  <table>
+    <thead><tr><th>Title</th><th>Category</th><th>Tags</th><th>Updated</th><th></th></tr></thead>
+    <tbody>
+    {% for n in notes %}
+    <tr>
+      <td><a href="/library/note/{{ n.id }}" style="color:var(--accent);text-decoration:none">{{ n.title }}</a></td>
+      <td><span class="tag">{{ n.category }}</span></td>
+      <td>{% for t in n.tags.split(',') if t.strip() %}<span class="tag">{{ t.strip() }}</span>{% endfor %}</td>
+      <td style="color:var(--muted);font-size:.78rem">{{ n.updated_at.strftime('%b %d %H:%M') if n.updated_at else '' }}</td>
+      <td style="white-space:nowrap">
+        <a href="/library/note/{{ n.id }}/edit" class="btn btn-ghost btn-sm">Edit</a>
+        <form method="post" action="/library/note/{{ n.id }}/delete" style="display:inline" onsubmit="return confirm('Delete this note?')">
+          <button class="btn btn-danger btn-sm">Del</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p style="color:var(--muted)">No notes yet. <a href="/library/note/new" style="color:var(--accent)">Create one</a></p>
+  {% endif %}
+</div>
+
+<!-- Saved URLs -->
+<div class="card">
+  <h3 style="margin-bottom:12px">Saved URLs ({{ urls|length }})</h3>
+  {% if urls %}
+  <table>
+    <thead><tr><th>Title</th><th>Category</th><th>Saved</th><th></th></tr></thead>
+    <tbody>
+    {% for u in urls %}
+    <tr>
+      <td>
+        <a href="{{ u.url }}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">{{ u.title or u.url[:60] }}</a>
+        {% if u.summary %}<div style="font-size:.75rem;color:var(--muted);margin-top:2px">{{ u.summary[:100] }}...</div>{% endif %}
+      </td>
+      <td><span class="tag">{{ u.category }}</span></td>
+      <td style="color:var(--muted);font-size:.78rem">{{ u.scraped_at.strftime('%b %d') if u.scraped_at else '' }}</td>
+      <td>
+        <form method="post" action="/library/url/{{ u.id }}/delete" style="display:inline" onsubmit="return confirm('Remove this URL?')">
+          <button class="btn btn-danger btn-sm">Del</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p style="color:var(--muted)">No URLs saved yet. Use the scraper above.</p>
+  {% endif %}
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+async function doScrape() {
+  const url = document.getElementById('urlInput').value.trim();
+  const cat = document.getElementById('urlCat').value;
+  const msg = document.getElementById('scrapeMsg');
+  if (!url) { toast('Enter a URL', 'error'); return; }
+  msg.textContent = 'Scraping...'; msg.style.color = 'var(--muted)';
+  const r = await fetch('/library/scrape', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({url, category: cat})
+  });
+  const d = await r.json();
+  if (d.ok) {
+    msg.textContent = 'Saved: ' + d.title;
+    msg.style.color = 'var(--green)';
+    toast('Saved: ' + d.title);
+    setTimeout(() => location.reload(), 1200);
+  } else {
+    msg.textContent = 'Failed: ' + (d.error || 'Unknown');
+    msg.style.color = 'var(--red)';
+    toast('Scrape failed', 'error');
+  }
+}
+</script>
+{% endblock %}

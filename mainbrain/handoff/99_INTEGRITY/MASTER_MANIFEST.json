@@ -1,0 +1,2679 @@
+{
+  "bundle_name": "CONVERSATION_HANDOFF_MASTERZIP_v1",
+  "generated": "2026-07-17",
+  "owner": "Johannes / Joe",
+  "indexed_file_count": 379,
+  "total_payload_bytes": 3733418,
+  "integrity_files_excluded_from_index": [
+    "99_INTEGRITY/DUPLICATE_GROUPS.json",
+    "99_INTEGRITY/FILE_INDEX.md",
+    "99_INTEGRITY/MASTER_MANIFEST.json",
+    "99_INTEGRITY/SHA256SUMS.txt",
+    "99_INTEGRITY/SHA256SUMS_VERIFY.log"
+  ],
+  "sections": [
+    "00_START_HERE",
+    "10_CANONICAL_WORKING_TREES",
+    "20_DOMAIN_SPECIFICATIONS",
+    "30_RUNTIME_AND_MEMORY_DESIGNS",
+    "40_DATABASE_AND_PROVIDER_STATE",
+    "90_ORIGINAL_UPLOADS",
+    "99_INTEGRITY",
+    "START_HERE.md"
+  ],
+  "files": [
+    {
+      "path": "00_START_HERE/CANONICAL_SOURCE_MAP.md",
+      "size_bytes": 3332,
+      "sha256": "80d04ddf28ec855389cbafd251a0b6966b28eb613cb0cde6f61c1e3640444e2f",
+      "mime_type": "text/markdown",
+      "section": "00_START_HERE"
+    },
+    {
+      "path": "00_START_HERE/CONTINUATION_PROMPT.xml",
+      "size_bytes": 2487,
+      "sha256": "f90e5d5babcfca0a9c674191c00d9814bf479e3d0a17006771b877c226d0eb4e",
+      "mime_type": "application/xml",
+      "section": "00_START_HERE"
+    },
+    {
+      "path": "00_START_HERE/CURRENT_STATE.xml",
+      "size_bytes": 3125,
+      "sha256": "7698782a35cb36f853f25ad99cddb2fc33b9e8339dbaf41d9977e8c3cdd080fd",
+      "mime_type": "application/xml",
+      "section": "00_START_HERE"
+    },
+    {
+      "path": "00_START_HERE/HANDOFF_PROMPT.md",
+      "size_bytes": 1512,
+      "sha256": "a6459baffcb5c049109f9fc3de725856248892748e02496b6d63dbbf10e63fbe",
+      "mime_type": "text/markdown",
+      "section": "00_START_HERE"
+    },
+    {
+      "path": "00_START_HERE/HIGH_SIGNAL_CONVERSATION_RECORD.md",
+      "size_bytes": 4144,
+      "sha256": "7ae5571a4f267f141e2028f2e88c28fe60e1d002284dad7703aa20eb8c56cdc9",
+      "mime_type": "text/markdown",
+      "section": "00_START_HERE"
+    },
+    {
+      "path": "00_START_HERE/KNOWN_GAPS_AND_RISKS.md",
+      "size_bytes": 2836,
+      "sha256": "9985de1e4c09c502d89fd2adadb26cb3eac0ea1ac806a64726f2cfad717c8bcc",
+      "mime_type": "text/markdown",
+      "section": "00_START_HERE"
+    },
+    {
+      "path": "00_START_HERE/MERGE_AND_EXECUTION_PLAN.md",
+      "size_bytes": 3842,
+      "sha256": "fa78fc82532686bba65b5c3d3e447ad0199b2e05a134bd213fcd37b3c64f3e79",
+      "mime_type": "text/markdown",
+      "section": "00_START_HERE"
+    },
+    {
+      "path": "00_START_HERE/MISSING_ARTIFACTS.md",
+      "size_bytes": 902,
+      "sha256": "33c599218a812a5b02309aaf508a97fd296b3f173a134989bb8586f091767d8c",
+      "mime_type": "text/markdown",
+      "section": "00_START_HERE"
+    },
+    {
+      "path": "00_START_HERE/PROVIDER_AND_CONNECTOR_STATE.md",
+      "size_bytes": 1462,
+      "sha256": "08cf89d445e77723461d856769b40064405622b599d94657b68a8574b022d74e",
+      "mime_type": "text/markdown",
+      "section": "00_START_HERE"
+    },
+    {
+      "path": "00_START_HERE/README_MASTER_HANDOFF.md",
+      "size_bytes": 4244,
+      "sha256": "06a7074f550f689834746b8aa4aba01ea6d6a835454335b8b76190e1cf0ad74f",
+      "mime_type": "text/markdown",
+      "section": "00_START_HERE"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/.backend-features.json",
+      "size_bytes": 144,
+      "sha256": "400a842ce988d932f78deb578551809943a215250143294097a71c0adafe67ff",
+      "mime_type": "application/json",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/.dockerignore",
+      "size_bytes": 35,
+      "sha256": "63c04a042584ffb92392a0b832664c992d4948d1acb77d6a3160fb939886163e",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/.env.example",
+      "size_bytes": 2506,
+      "sha256": "c2beefe028fcb096be2684463bfdfaf473a6ad18721485cb4801ae704a06f9dd",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/.gitignore",
+      "size_bytes": 462,
+      "sha256": "25b56bca05230fe1d820d5e24f4981837a3d0796796c272fe44dee90607c2a2a",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/.prettierignore",
+      "size_bytes": 310,
+      "sha256": "17f593918ed38aec9deac4301d519a4349172c649d1849ce17190cedbde33228",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/.prettierrc",
+      "size_bytes": 310,
+      "sha256": "087532218269eb851c22dcc3d5234ea46bfa513b494a3d7b167b1c1f48c410c5",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/CLAUDE_CONNECTION_STATUS.md",
+      "size_bytes": 1035,
+      "sha256": "620be0b514040ed2d07ed232bbaca99f9108bb0ac34d2f028e31e1d5951f59ce",
+      "mime_type": "text/markdown",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/INTEGRATION_GUIDE_2026.md",
+      "size_bytes": 6332,
+      "sha256": "e7b24b72d6018c167f272eec6f89d92a55b10bd3bd773208d5ee7ec506ca65fd",
+      "mime_type": "text/markdown",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/README.md",
+      "size_bytes": 2065,
+      "sha256": "46c71c30d3db03886f9e1dd27209bf49861275730ca6d3190719bf6637e7f9f6",
+      "mime_type": "text/markdown",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/SUPABASE_SWARM_CONTROL_MIGRATION.sql",
+      "size_bytes": 6218,
+      "sha256": "6b300d6c375299183df7247884a04ea01968e6b040a26059b0c5d81ef69b507d",
+      "mime_type": "application/sql",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/VERIFICATION_REPORT.md",
+      "size_bytes": 3462,
+      "sha256": "1055cdaf97d11bc5c651b604befac21b82a392db612dde4acf651e315e6da9e9",
+      "mime_type": "text/markdown",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/admin-router.ts",
+      "size_bytes": 3320,
+      "sha256": "7279f7266a8258f1c5d562f76a0e1b73b60138fd131ffbc65281a02c68d2fb00",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/agent-router.ts",
+      "size_bytes": 15677,
+      "sha256": "5a7af02ac0de759283a020c770d502b0c467d331b18da8840994ff6d178ec5ae",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/ai/claude-critic.ts",
+      "size_bytes": 1931,
+      "sha256": "3a5fde912bd9dbabcfe403ad46d298c3b584fcf4eba390edbb574b3ab269017e",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/ai/contracts.ts",
+      "size_bytes": 1225,
+      "sha256": "46f06451c946c90bf013e3fcd2d5e48e836f07a8d3dcfc96e7453b80ac40320c",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/ai/execute-swarm.ts",
+      "size_bytes": 5565,
+      "sha256": "94867c046b92f17947670e8b520cca1aa455e4739ab8d7dc0d40220b272455ec",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/ai/hf-local-router.ts",
+      "size_bytes": 2920,
+      "sha256": "93805392eabecd0ce658200084e7716ee91628048667c486ea7bc77b11db6902",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/ai/openai-swarm.ts",
+      "size_bytes": 6765,
+      "sha256": "5000688f54f27ed838af43dcec4488f4cb13bdc801205da643e161791e12dc56",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/ai/project-context.ts",
+      "size_bytes": 2373,
+      "sha256": "875478ad125832104d9ad7e5b3482746ed96a89274875b756f8c13b994299a94",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/ai/provider-status.ts",
+      "size_bytes": 1202,
+      "sha256": "1e427fef95caae9ee92efdc440a714ada53cf3fb81216efff8ef0346ce3a056a",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/ai/state-machine.test.ts",
+      "size_bytes": 891,
+      "sha256": "57fcb1eb97f0b9fd7b09d37d830f91e96a1dcc8d078fbaf950b055c87327523c",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/ai/state-machine.ts",
+      "size_bytes": 928,
+      "sha256": "f2d69e213744787ba9712523e612800e8084f1c8463921218498d23241cd815e",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/ai/supabase-control.ts",
+      "size_bytes": 3072,
+      "sha256": "66cfc80292ffe2f58ebb29d3ff816293ac26693e8c63141a80615d4161ed4105",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/auth-router.ts",
+      "size_bytes": 725,
+      "sha256": "0741718e5d6c19991060bc246f5db814a0bd958e53d089b85c57c5147cbc4036",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/boot.ts",
+      "size_bytes": 1165,
+      "sha256": "c24f67a29baf4ef6de9ed44c6941fa6a93c1f8bed1229f0afdccc58ecaba41cb",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/context.ts",
+      "size_bytes": 572,
+      "sha256": "b6b8e6e1ab58f0482d48817d297eb5e83356d7f23715c36a917521ca1f99f6d7",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/kimi/auth.ts",
+      "size_bytes": 3937,
+      "sha256": "e739b199ff5679ccd61b65ebf07124c671d06a554fc86de1a128ecb05205d72a",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/kimi/platform.ts",
+      "size_bytes": 712,
+      "sha256": "3d8c5d609a8641877f7e26ce69fa5987ba5ea84425cd27394317dd187b0c094e",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/kimi/session.ts",
+      "size_bytes": 1130,
+      "sha256": "478659cb9189fc814e9f508b41eb9eb0ba4cf0b76c4cf7f52847709a0ce06393",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/kimi/types.ts",
+      "size_bytes": 307,
+      "sha256": "cdb5cec7f668ea83841b2ad0eaeaf5b85965f72c39cf4ba3bf98297ac25cbe22",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/lib/cookies.ts",
+      "size_bytes": 462,
+      "sha256": "f7a010030fad3689ca38277c9d4193400486464cf3fd6e4c88cf5f6904815be4",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/lib/env.ts",
+      "size_bytes": 579,
+      "sha256": "c52fc532bcdd2d3d06b3be81466ce727374a20b061eb58dfdf9da7e081b16908",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/lib/http.ts",
+      "size_bytes": 1996,
+      "sha256": "615041eecd972d7aa371a45c047db67e2ba6fd0bffc6c769f4f0fddb1d9dda92",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/lib/vite.ts",
+      "size_bytes": 742,
+      "sha256": "ba7c9068e75ef736d53024f34d07cb0793786e7d6db5ac0bc5663648a052ce89",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/middleware.ts",
+      "size_bytes": 1083,
+      "sha256": "9e18f8dd53815bc859fd38280d88cb726f73f0c80ea8859d859c23a6086232cb",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/queries/connection.ts",
+      "size_bytes": 447,
+      "sha256": "935d3f79901082b54f4ae4292c4dfb9c8ceb402e9eea3e6f177bb7f401156e97",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/queries/users.ts",
+      "size_bytes": 858,
+      "sha256": "8ce74035f0b155e29a434708d72c9623527606bcd79a6959af00ef17b8b188a7",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/api/router.ts",
+      "size_bytes": 411,
+      "sha256": "b9106e15d176bfab83938eaf2c1afe677ef07f93b11db0b207aa081f2c2bbb8a",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/components.json",
+      "size_bytes": 461,
+      "sha256": "22643b642f17cd817ec94d8439a272dac28119af0aebf8219a96ac1c2f4c61dd",
+      "mime_type": "application/json",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/contracts/constants.ts",
+      "size_bytes": 335,
+      "sha256": "1115a0ea08874a7d0ff3c534107ed247c2312a0cb64848dd1cccf0074ae0892d",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/contracts/errors.ts",
+      "size_bytes": 501,
+      "sha256": "823cdb78cfc45faa3077db9d2f5cd9e1bd8b8f87e5941e38daa6cde0f19d990b",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/contracts/types.ts",
+      "size_bytes": 61,
+      "sha256": "191164b8f041fdf08032103ccceeeba5eea342c9625263ee987e52d65d290d48",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/db/migrations/.gitkeep",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/db/relations.ts",
+      "size_bytes": 27,
+      "sha256": "85acb8ece8fbb5031fc56fa8c70338d9b8b06ef3b032391fff8532c6373c7186",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/db/schema.ts",
+      "size_bytes": 4551,
+      "sha256": "c5fc3d59dbba5e7b0eb2f4991f27e9cb509bf2e8285ae742991dffc530fe174f",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/db/seed.ts",
+      "size_bytes": 5266,
+      "sha256": "96d225203beb798382bbcce6ca0cb9ab3efde85b9c922e4bf5f7090cf6eb9c5c",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/drizzle.config.ts",
+      "size_bytes": 378,
+      "sha256": "554769ef8024b45c332b68850ebe9a34c0b0deab819ca6ef269b164027c2d89a",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/eslint.config.js",
+      "size_bytes": 616,
+      "sha256": "4efe97b16d1200fac0eaf07aa00930a8668b1f96a0be1891ace8c1e712ff0ccb",
+      "mime_type": "text/javascript",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/index.html",
+      "size_bytes": 295,
+      "sha256": "b649685c058225dc8c564ba04c75ff2bc538bd36a5eb3c52d735bb9aacba0a65",
+      "mime_type": "text/html",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/info.md",
+      "size_bytes": 1385,
+      "sha256": "e86b40922c19326c0d3ddf44ac003359f21f105a38324a471e21ddc678b6eafc",
+      "mime_type": "text/markdown",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/package.json",
+      "size_bytes": 4042,
+      "sha256": "1c448990c7e84a53268c4ce97f467b2d890f62e6a744f84ac7beb267c4df74fd",
+      "mime_type": "application/json",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/postcss.config.js",
+      "size_bytes": 80,
+      "sha256": "190c877db466995bf1482f4a16abd06e04a89ede3119341e2a86ff96e1737b27",
+      "mime_type": "text/javascript",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/public/assets/asset-1.jpg",
+      "size_bytes": 116313,
+      "sha256": "14f991fe2d5d6155118b16ce02294112b1916cd4cc16f32cf97a9fedb3621e96",
+      "mime_type": "image/jpeg",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/public/assets/asset-2.jpg",
+      "size_bytes": 73060,
+      "sha256": "57ed3f60b788fb14c0d05dc713134d5a43f0c1935b347600592d0bb9b46ef192",
+      "mime_type": "image/jpeg",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/App.css",
+      "size_bytes": 606,
+      "sha256": "a0715e0a09edbd0fbde65816a75e0fa0fc8b314c5260c0768c19bf3aac22621a",
+      "mime_type": "text/css",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/App.tsx",
+      "size_bytes": 895,
+      "sha256": "b43f36b73039dab0f0f8a6c5bfb24640975bd93d0959a67e2496d770bf72fcb6",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/AuthLayout.tsx",
+      "size_bytes": 9039,
+      "sha256": "751e39d2bdf3c420a80debbb4780637f14e32e09b335e02f1ad3a03f9f3508cb",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/AuthLayoutSkeleton.tsx",
+      "size_bytes": 1618,
+      "sha256": "aa6c35cd632c36c36d2e0830c064703d848f0cd02c0c6ce488a9f3fafe5a19e4",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/IntelligenceOrbit.tsx",
+      "size_bytes": 2280,
+      "sha256": "8976af371ca0d4de3a6b7a75d3497900c5e7a1a81e0eb443968022bb1853b014",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/Layout.tsx",
+      "size_bytes": 6895,
+      "sha256": "61cb21dce12eabb0d46943bbb5b1cac6ed360ab40aacb102fba867bf4fefacfb",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/NexusRibbon.tsx",
+      "size_bytes": 1509,
+      "sha256": "e2dae9e089b442b0d7f8246520a0c39bcee26bfc2e341e2fbef9cbece18da532",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/accordion.tsx",
+      "size_bytes": 2039,
+      "sha256": "1e00288c7eee72380002164ea3ff7589df5d92f2f1b8c7aa5077596ef680acdb",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/alert-dialog.tsx",
+      "size_bytes": 3850,
+      "sha256": "683cf8b6c3b0c29fb0e31f36e8c7794c63ab5b7ab431f7441ea2d478bbf9fe41",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/alert.tsx",
+      "size_bytes": 1614,
+      "sha256": "49d8311589b810b106aada8ef7b13f70b2b1f68cfce4e1458b7f31a191f420e9",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/aspect-ratio.tsx",
+      "size_bytes": 280,
+      "sha256": "6a75117416aa89200cf31e8d61643b428e812f479caea857c80004b26d893e79",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/avatar.tsx",
+      "size_bytes": 1083,
+      "sha256": "e637ab3522c01631eac2e456588ef301314e2bb7940ebf7cd96e698a868d47bc",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/badge.tsx",
+      "size_bytes": 1633,
+      "sha256": "e7455feb113b38c59456ba29a9ec264b5ffa1daae8883866332ad637ffd57c31",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/breadcrumb.tsx",
+      "size_bytes": 2357,
+      "sha256": "22f3f4c13ed1085c4131379bfccc6fb173a474f861636bc2736506820153aa08",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/button-group.tsx",
+      "size_bytes": 2209,
+      "sha256": "ccbf09097f5ebf2eec86f1a96cb92e8dd39d251ebb5867394196c8b4fec68a5c",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/button.tsx",
+      "size_bytes": 2218,
+      "sha256": "5a5c4b8b60a8a80ba7b8b5d0319be2d3c61bfd2ce4fc2a645371dee9f6db0a77",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/calendar.tsx",
+      "size_bytes": 7793,
+      "sha256": "c8e67d15d8622135b72045d974a3234ea99f5ffcc1b981eafea8847a14ae1f12",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/card.tsx",
+      "size_bytes": 1987,
+      "sha256": "2040cdff27cd1ed771e0ebbd15abcd73d31f2f1e4be6664bd6816fffd2a87476",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/carousel.tsx",
+      "size_bytes": 5542,
+      "sha256": "10c5388b66d98f0c555dad2e5b89b9bc846fbc1a3de101ee8b98abc305ec2c51",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/chart.tsx",
+      "size_bytes": 10069,
+      "sha256": "39a2fde544144e0ed0e3e7f76eb3f3988f570f849f30f62208c6f3e2fc4e3e4f",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/checkbox.tsx",
+      "size_bytes": 1219,
+      "sha256": "a8292972a5b81eff164f621ac0bb66f4ed4419d1599e2d4901968e216574677f",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/collapsible.tsx",
+      "size_bytes": 786,
+      "sha256": "661444318605c90d19e47e4d21289a68b4c5f7f01782be70dafa80d3f7a4cd08",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/command.tsx",
+      "size_bytes": 4804,
+      "sha256": "416cdc19eb9e7301b51f9665b4f1a797534769a6bb58a563808979f460b0b8a2",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/context-menu.tsx",
+      "size_bytes": 8274,
+      "sha256": "70e547a9bececcc98adf2fbfb2cae05c99179707ab0edb1ddfb5d2de329dab42",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/dialog.tsx",
+      "size_bytes": 3981,
+      "sha256": "6333f1124e85ff25bce5061ac9ab5981e5346782d5535c9dfeeb51b2d535a7cc",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/drawer.tsx",
+      "size_bytes": 4255,
+      "sha256": "0c9464ed4f95207ff6ec0b8f433f550388ea0fe57fecd36bbe100b084ee46a3e",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/dropdown-menu.tsx",
+      "size_bytes": 8410,
+      "sha256": "ba022169876b487c849d046ac577654ab61a4cfba158305c8790c572b704ed9e",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/empty.tsx",
+      "size_bytes": 2396,
+      "sha256": "584b491f9eb69f8041b3d3732a4d139f5af01de19a00b7a97656c7af7a78716a",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/field.tsx",
+      "size_bytes": 6145,
+      "sha256": "e9dcb51b16e5f235bdf23a0b4a092e55c05b2bad08a83126ac675b72aae5380d",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/form.tsx",
+      "size_bytes": 3764,
+      "sha256": "a12f73507ab613e9d797979b988a15e32d23458fc8dd4ba71b922aeee977a3b6",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/hover-card.tsx",
+      "size_bytes": 1532,
+      "sha256": "031f6a309d87c8e42a2282fccc277dde75e373de8c93dad881582c9dc13e05d0",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/input-group.tsx",
+      "size_bytes": 5065,
+      "sha256": "c0df02569e483db8ee86bd51b3b392a1ba62b276604d8c7ea90a9efc5faa9e25",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/input-otp.tsx",
+      "size_bytes": 2240,
+      "sha256": "7fd7ed5273f849cde558238148ee1bbae729aa1149407c7c732b6c65906933d2",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/input.tsx",
+      "size_bytes": 962,
+      "sha256": "56b7fd30208addbcc2468cfda4f5bc0a55342211deaab61ee35b1c352b1622f1",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/item.tsx",
+      "size_bytes": 4494,
+      "sha256": "6d64b756260749245b3a1f292e2aaf2774d7ec0b8bb99403eb8c1be31bd26900",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/kbd.tsx",
+      "size_bytes": 862,
+      "sha256": "886e04c83aaa016dfce924e461aa38aa68a9f5c83bdaedd6209dc358c32a8f22",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/label.tsx",
+      "size_bytes": 611,
+      "sha256": "9ec42c8a57e82311118b794318409ee02b2cebfa49ba6cce8457cff6448cd471",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/menubar.tsx",
+      "size_bytes": 8380,
+      "sha256": "b4be4da586ce1288e8259b1e760a9e317eb0ee9183548c762d8b2a222bbdb3e5",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/navigation-menu.tsx",
+      "size_bytes": 6664,
+      "sha256": "d71f57fe0f365541fbf5d00196b0b78a461d8c4f38d35293e5754680d93b9245",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/pagination.tsx",
+      "size_bytes": 2717,
+      "sha256": "374ad135c3d4ff3ec080a0009cd9745cdd0e12faa89d2b0e86074f11e5127fd1",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/popover.tsx",
+      "size_bytes": 1635,
+      "sha256": "29a217781737bbf5c430859b3de46097a44ada81c4143c2d05543d2167de0ee1",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/progress.tsx",
+      "size_bytes": 726,
+      "sha256": "9e36ca3f10bc56b69058d8edd342832b72c8c1b2d36cd142a0decb2445c3b724",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/radio-group.tsx",
+      "size_bytes": 1466,
+      "sha256": "b12ca5cef859dd75b274337234bae66e413b0f97845243254a1dedcb2d7a7237",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/resizable.tsx",
+      "size_bytes": 1980,
+      "sha256": "4634b0a700b91e5d422babc1f068b6d145b5f000c8aff62d5cfc9b5711fbff73",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/scroll-area.tsx",
+      "size_bytes": 1645,
+      "sha256": "1c5d0b242d0513848f4bfa9b57ba7f438d9b1120617029941bfaa137196ecead",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/select.tsx",
+      "size_bytes": 6344,
+      "sha256": "68fc754d3042f9fec3406895845e6fcc05d44f93a049478a9d3c706919100ebe",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/separator.tsx",
+      "size_bytes": 699,
+      "sha256": "e9dddbd8dbbc0eccd683306481b0f0bbc8e2b60ea97817416ebb9fe7fbbbdca8",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/sheet.tsx",
+      "size_bytes": 4076,
+      "sha256": "fbe9b257fd95b9865e1aba651489899c959ed5c16cb8493fe8c2733f83b92ee1",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/sidebar.tsx",
+      "size_bytes": 21638,
+      "sha256": "6074d8027b4bc9ea2d5eb1527a8528a7fa69df96f6261b9c6441c3980d41700f",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/skeleton.tsx",
+      "size_bytes": 276,
+      "sha256": "f2aea81d8baf2b621945382aabac150e3db40f20d19ac1abea7aff805f1dc33c",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/slider.tsx",
+      "size_bytes": 1996,
+      "sha256": "640996327017c3977e3c61eee8ec55230fa0bec509d0f4b44bdc9acdd8eca138",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/sonner.tsx",
+      "size_bytes": 1020,
+      "sha256": "a3868f2a8aafd8e2dc96b7ae145009939e9d8723cbb5a4b61d7b7d9bed9df478",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/spinner.tsx",
+      "size_bytes": 331,
+      "sha256": "3e6e6e8d37fb4069f8e43e55318f8db06fbc36e6c8be0096da3c9337c1c798b9",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/switch.tsx",
+      "size_bytes": 1177,
+      "sha256": "17f2390d98e8ce4d9e90155eac1918266914d6a9ada7c276b5d1c917cef0e969",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/table.tsx",
+      "size_bytes": 2434,
+      "sha256": "95e3ef5db88b3bbfb68eed12f341fb942e40ca815f4342e1d5dbc8c8d47c783d",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/tabs.tsx",
+      "size_bytes": 1969,
+      "sha256": "e8469e599381cf021ce751c27cca3d8cb06440a45665ca9c2ef2efb0acef1fd9",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/textarea.tsx",
+      "size_bytes": 759,
+      "sha256": "de4e9fb0fd8e8ed10ea2e475ffe202a922ffe77e3f3edb2c517b0781447ad1b4",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/toggle-group.tsx",
+      "size_bytes": 2300,
+      "sha256": "c63c671fe328f2c1e0d58e3df82a474e73834037c5a39a9ff566a4b3b2cf9010",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/toggle.tsx",
+      "size_bytes": 1556,
+      "sha256": "ab2e52debb86451889ac9519dfe27daf3a86d70aa2833da8ed8f6cf3146197ff",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/components/ui/tooltip.tsx",
+      "size_bytes": 1892,
+      "sha256": "cbc12f4086448f8a307ed5fbb160f79467c84a44c48ca0dbd2c62e39a2db6f5d",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/const.ts",
+      "size_bytes": 36,
+      "sha256": "f46e9241d92cd3a39ae007ebe69160e6949153ccdbea3590b0d14a0b0deb8ec7",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/hooks/use-mobile.ts",
+      "size_bytes": 565,
+      "sha256": "ad0936f84f1df79d3697bfbff9c18f8ad58431c1cbaf2359c6a853b0fcc9f28b",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/hooks/useAuth.ts",
+      "size_bytes": 1538,
+      "sha256": "fd65eed54948873c0e9dc6a6c97979f1a8f035dd501d8b5a5ce01bbf2ad1c273",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/index.css",
+      "size_bytes": 4229,
+      "sha256": "f4a96fccfd5d73e446df811ee4ac0186801791d850fefa00f11ef22dec9c0921",
+      "mime_type": "text/css",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/lib/utils.ts",
+      "size_bytes": 166,
+      "sha256": "7c8c3dfc0cdd370d44932828eb067ef771c8fe7996693221d5d4b90af6d54f2d",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/main.tsx",
+      "size_bytes": 411,
+      "sha256": "5158f50a8d24a8f10519f1cb9757884b890da059235c0dcbfe63acd387f45ab0",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/pages/AdminDashboard.tsx",
+      "size_bytes": 12661,
+      "sha256": "8cb4b85497bf488ba2d4a5d98f1835e3a926e8ec591cade534805aadf37f2187",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/pages/AgentGallery.tsx",
+      "size_bytes": 7781,
+      "sha256": "0a7f5f11dba8c7bfd608164cbccc831b370beb6352623660a15aed4b6e1d13c2",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/pages/History.tsx",
+      "size_bytes": 6520,
+      "sha256": "fef4a4b58ceb716f3ed0421268b8788511b2774c0cbddc2124455ee279033fe8",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/pages/Home.tsx",
+      "size_bytes": 10360,
+      "sha256": "ddbefe3e4f52253efc5ba75c619060b604833bb5f8f7ccbdda010985e1328ec4",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/pages/Login.tsx",
+      "size_bytes": 2982,
+      "sha256": "b09f1e20f438e9d8500ecd849a2db7867448b484693f6c7a8b0dc03555329cdb",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/pages/NotFound.tsx",
+      "size_bytes": 1210,
+      "sha256": "3b193acb178c2c93919ac507b1d86239411cdbcf6ccff5cd27422c45dbe7dba7",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/pages/SwarmWorkspace.tsx",
+      "size_bytes": 15210,
+      "sha256": "2c81de99ff62f1de0aec77dfbb4e1ad564bca09b35953e8890904b75d51433b5",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/src/providers/trpc.tsx",
+      "size_bytes": 954,
+      "sha256": "4b29a7cd0a16720f021b1daf5b9e07f6cd4435b9273d65a5b144cfb12f81bc60",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/tailwind.config.js",
+      "size_bytes": 2777,
+      "sha256": "149b62bbe6c8c83d2f3dfb3196bbdb309156a63a7a289acc12f6c9066c763752",
+      "mime_type": "text/javascript",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/tsconfig.app.json",
+      "size_bytes": 930,
+      "sha256": "4f315c21e5baadb1c1a1453478549f4f53bc04a44fad30bebb7c3e1247d69706",
+      "mime_type": "application/json",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/tsconfig.integration.json",
+      "size_bytes": 600,
+      "sha256": "05aefeb2c50149ed2bf1cad4874344cbdefec64960437956b99e53786291be23",
+      "mime_type": "application/json",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/tsconfig.json",
+      "size_bytes": 401,
+      "sha256": "095df19402d5aa87e29ddf7dd3f7259c6588aac659221f36b94b8a5891adb7f2",
+      "mime_type": "application/json",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/tsconfig.node.json",
+      "size_bytes": 653,
+      "sha256": "c3dd0fb522feba3596713f51b95bd53d781d845d24aedbfa2ac093d8b39c5120",
+      "mime_type": "application/json",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/tsconfig.server.json",
+      "size_bytes": 616,
+      "sha256": "7166d855e0fb97203e1ce5dcbdda8546e5a33da543d9ecab67e95f13bc57ed07",
+      "mime_type": "application/json",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/verification/offline-ai-sdk-shims.d.ts",
+      "size_bytes": 1094,
+      "sha256": "5f81483f0cdbbe9c4cd04bf5052025dc556332b8723ac34904709018585bf40a",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/vite.config.ts",
+      "size_bytes": 810,
+      "sha256": "d9b910dbd12644b976f1965b14f56e1eb36f1e61ac15540bdb854e847e1e78d5",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated/vitest.config.ts",
+      "size_bytes": 489,
+      "sha256": "fb8add3e50ba9d1a82f280430b751dfef08b20c95bd9ef567613836b62d2392c",
+      "mime_type": "text/vnd.trolltech.linguist",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/.github/workflows/ci.yml",
+      "size_bytes": 4164,
+      "sha256": "adc1b9edfd51a0e80dbfa261a90a606e8752192382a4c314571af3bb51b7f35f",
+      "mime_type": "application/yaml",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/.gitignore",
+      "size_bytes": 485,
+      "sha256": "5ecfd774a3f7f0be8ae11ac6912268e4cca1cb03de529649e42a2e11294140da",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/CHECK.bat",
+      "size_bytes": 629,
+      "sha256": "026960a8075c2510db2bfb3743ac14c9e1cfa8c942f01f60bd4b70ad2f90dff1",
+      "mime_type": "application/x-msdos-program",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/CLAUDE_BRIEFING.md",
+      "size_bytes": 62063,
+      "sha256": "6930709bd7d8133e75ec98734bee99fd1406cfd096f69c6f9e315e1224e1c289",
+      "mime_type": "text/markdown",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/GodotProjects/PLACE_PROJECTS_HERE.txt",
+      "size_bytes": 461,
+      "sha256": "60338d7c36474121ed183f3a2468ed4fbf38c9ceae48122efd12d29cee7c1f39",
+      "mime_type": "text/plain",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/INSTALL.bat",
+      "size_bytes": 1975,
+      "sha256": "fa2491c41db88207571aca85fa84687097e4d8c3443c22f51ada160f3a463496",
+      "mime_type": "application/x-msdos-program",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/README.md",
+      "size_bytes": 4089,
+      "sha256": "fc84c3fbbc9df2b8d4c66eb83e6f7e5fbb94e9ee8fb81fe054239f8180eaef6d",
+      "mime_type": "text/markdown",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/RUN_ME.bat",
+      "size_bytes": 1054,
+      "sha256": "75df707416275c7fd4779859d91450c7b58d07ec7d66eb7bfad6cd84efcf21ec",
+      "mime_type": "application/x-msdos-program",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/START.vbs",
+      "size_bytes": 344,
+      "sha256": "59281bafa67a694253e1cde209a8a4b2ce512c732c1c382b650a117be17c0ae2",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/START_HERE.bat",
+      "size_bytes": 1588,
+      "sha256": "5cba9ca3c47c9a8ec7779ac897578608e99837fdc29e387384f779620b9ad9b3",
+      "mime_type": "application/x-msdos-program",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/Setup/00_Backup_Before_Ventoy.bat",
+      "size_bytes": 1697,
+      "sha256": "5b816b2e4ab6d1b889c04537bec8d71df29e3d73b10183173ca389582d679d0b",
+      "mime_type": "application/x-msdos-program",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/Setup/01_Install_Ollama.bat",
+      "size_bytes": 2705,
+      "sha256": "39da152492ae1b6d2c13512f2d6a6b79a1002f8a4ab8de3b86be36722573d38a",
+      "mime_type": "application/x-msdos-program",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/Setup/02_Install_OpenWebUI.bat",
+      "size_bytes": 1665,
+      "sha256": "f97157379e226d58fc0154db2ad69b1005f8e50cb1226db64870f755ed69683e",
+      "mime_type": "application/x-msdos-program",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/Setup/03_Setup_Kiwix.bat",
+      "size_bytes": 5841,
+      "sha256": "3943ba70aad3acade1628ebc36128742825a901e9779c21b098fe86ecbe2b9df",
+      "mime_type": "application/x-msdos-program",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/Setup/04_Setup_Godot.bat",
+      "size_bytes": 8328,
+      "sha256": "a0a7c1d80b17fc4e45b3add4c547cd7ebfc27e0ae42ddbc9a5da7d69b4ba1eb8",
+      "mime_type": "application/x-msdos-program",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/Setup/05_Add_To_Grokipedia.bat",
+      "size_bytes": 2781,
+      "sha256": "25e5a2485fcc603cf925f0221abb40a2abffc84ec43eb8b791895867af9cfd1f",
+      "mime_type": "application/x-msdos-program",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/__pycache__/auto_install.cpython-313.pyc",
+      "size_bytes": 24699,
+      "sha256": "8483a907f880c5dd536918ed5df98ac46ef4ad0dabd2a4927f90fa4687173cae",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/__pycache__/content_seeder.cpython-313.pyc",
+      "size_bytes": 43375,
+      "sha256": "1d5d3e8b68593427f82cdb3abb44bc480c1ca33f87f8db9022e9eb782d235571",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/__pycache__/deploy_check.cpython-313.pyc",
+      "size_bytes": 16369,
+      "sha256": "18a25da6e899c35c32c1b2a0649bc7c9ae4925f7f70e240592d0c25b4138ba42",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/__pycache__/launcher.cpython-313.pyc",
+      "size_bytes": 44308,
+      "sha256": "14f6e5946122b0b8cd2d9337b5623c9232466c01625010d2c9b2aa39748615fb",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/__pycache__/main.cpython-313.pyc",
+      "size_bytes": 8208,
+      "sha256": "482b0bb4b032f9c8704b35054d8fce92cf30ca26d9248064f21b61cb4e75d4bb",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/__pycache__/start_here.cpython-313.pyc",
+      "size_bytes": 28327,
+      "sha256": "7bfcd462809eb9418a22548d7dbf7fd815e272d97c103503761c6bc5c1993397",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/app/__pycache__/main.cpython-313.pyc",
+      "size_bytes": 68118,
+      "sha256": "a4b3ccd6d39e06f75ebb0a2e89dc1eaf27aa183c2d628d41480d968c043cd769",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/app/main.py",
+      "size_bytes": 49765,
+      "sha256": "18c6897e74854fbd998195cd7de7f227165408597c369932683d759f4d4675db",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/app/templates/base.html",
+      "size_bytes": 12031,
+      "sha256": "b4037a962ab799f711dc650f3554ba66d97615fe19b3d4502e22ebbd264d1f42",
+      "mime_type": "text/html",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/app/templates/chat.html",
+      "size_bytes": 5213,
+      "sha256": "5e2d7aeb69f3be15b94e7a1f8f9438fdb2bfff96af5c936b325b15622e19c48c",
+      "mime_type": "text/html",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/app/templates/console.html",
+      "size_bytes": 12348,
+      "sha256": "7df6bd49279bc0ebcae10f2f341174ed6893cdc6bf61f9655de992240a73e688",
+      "mime_type": "text/html",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/app/templates/index.html",
+      "size_bytes": 3746,
+      "sha256": "60597e7a608b7395797b8499b418f906cb5930c87967f40b15661d128363a8e6",
+      "mime_type": "text/html",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/app/templates/kb.html",
+      "size_bytes": 1843,
+      "sha256": "ccd8b34fb609c91192629c8ee4ed85edf9b9c6f5838c985c87e91929743c9655",
+      "mime_type": "text/html",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/app/templates/kb_edit.html",
+      "size_bytes": 1719,
+      "sha256": "b9e4fd5cbac814f8c6ce0b05a5daec6c2f73233efe46f78d6ac855e802ec0c4c",
+      "mime_type": "text/html",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/app/templates/kb_entry.html",
+      "size_bytes": 882,
+      "sha256": "42e344a5be0d944e242c0d2c27c75ae3aa19dde79cfbbc9fc44977e72bf0f3b2",
+      "mime_type": "text/html",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/app/templates/library.html",
+      "size_bytes": 4935,
+      "sha256": "c172d5ad3bed065f99c79ec7067f0c319f3ee10e373f07afb95b165beb2b0d17",
+      "mime_type": "text/html",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/app/templates/nephilim.html",
+      "size_bytes": 28759,
+      "sha256": "fd5660a0c49115d65fb6d9e0d8975e5804b06e66134c5be22c4b989f91d683d9",
+      "mime_type": "text/html",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/app/templates/note_edit.html",
+      "size_bytes": 1784,
+      "sha256": "ee6eda4eeb1dbbea82d658b6bc9726da7557d7b35b62a529451014ad0e1f3646",
+      "mime_type": "text/html",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/app/templates/note_view.html",
+      "size_bytes": 899,
+      "sha256": "02dd5cf700f2f3f01a740d350be747dd46a678148d8ed0ba348b5bb7d060c525",
+      "mime_type": "text/html",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/app/templates/panel.html",
+      "size_bytes": 8528,
+      "sha256": "b5c54bcd92e5c991ce7507943794e02116cf61cc64dc9ad1b4330ecfdf507bb2",
+      "mime_type": "text/html",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/app/templates/recovery.html",
+      "size_bytes": 2248,
+      "sha256": "984e540018c0532ccf0f76d3a199a5bcc4f4d71ad8298ee817d2c396ae22ea88",
+      "mime_type": "text/html",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/app/templates/research.html",
+      "size_bytes": 1099,
+      "sha256": "4b8ce44714e62f56670e692f810c8189046649d4273bb854ecbbd31002243474",
+      "mime_type": "text/html",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/app/templates/strategy.html",
+      "size_bytes": 2248,
+      "sha256": "cf19400a4e011d6c88b7da753e718dd0afb4a3f63e1b86f08579768e3d3efbf3",
+      "mime_type": "text/html",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/auto_install.py",
+      "size_bytes": 16536,
+      "sha256": "b6b88ce61cd59987a8d1cb1acefce2fe0ec34ce31ef3d419e50dfdf811da99ac",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/config/agent_message_schema.xml",
+      "size_bytes": 1951,
+      "sha256": "861ed826d60b50d8a809b37d6372b20c72c35c134d19d66f79aecb6fa6f38f3c",
+      "mime_type": "application/xml",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/config/creative.json",
+      "size_bytes": 1918,
+      "sha256": "9eb8b398cffbb10a37b225e88d27be54f4034aa09ebad304e18b6999f1265c83",
+      "mime_type": "application/json",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/config/gremlin_premium_features.xml",
+      "size_bytes": 1811,
+      "sha256": "4941744b6372b8f70eaa69a9a54a6e835d1aefe331baf20afd1e61af9e14761d",
+      "mime_type": "application/xml",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/config/model_manifest.json",
+      "size_bytes": 2405,
+      "sha256": "bb3246634bbdb0db4af942df831a6bea19e3bed7c4b9b10a8d0232334c9e7185",
+      "mime_type": "application/json",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/config/usb_paths.json",
+      "size_bytes": 1010,
+      "sha256": "6572fe0c7e7927f68d528818cfce178112d541899c2ac1d2ea247f7cf4863bca",
+      "mime_type": "application/json",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/content_seeder.py",
+      "size_bytes": 39946,
+      "sha256": "fac9d65e5b2e9c706e92ba7ac7eef6470d6a62bb47deeb4c40e0e1d73b18938d",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/core/__init__.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/core/__pycache__/__init__.cpython-313.pyc",
+      "size_bytes": 230,
+      "sha256": "72152854fe820faf9265d1b42b5f81b04d641c02593002f18a0b146963fd2a96",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/core/__pycache__/paths.cpython-313.pyc",
+      "size_bytes": 8729,
+      "sha256": "bdc72784318f23a031ee971f4d9c821cfeff395a3ba6b2d9969c83ee457dc96f",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/core/paths.py",
+      "size_bytes": 7415,
+      "sha256": "862f741ec5527b8244c6aeb5093e504a5b637e65d85bca2a2f2aed79878036d1",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/deploy_check.py",
+      "size_bytes": 11580,
+      "sha256": "43668140cc3d564ab92b09e72f94653b5b4b5fdbcad0811cfc37ecd644ead65a",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/docs/HOW_TO_MAKE_THE_EXE.txt",
+      "size_bytes": 2379,
+      "sha256": "736339058a593bd9899a552a163983db24a00bf11d2b03b72a0a8d342a085f66",
+      "mime_type": "text/plain",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/docs/MODEL_GUIDE.txt",
+      "size_bytes": 3909,
+      "sha256": "3b6108f1b4f104ce26b17c0f59f60a591ef90d3d641e8ac9a759e8041cadbead",
+      "mime_type": "text/plain",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/docs/SETUP_GUIDE.txt",
+      "size_bytes": 3473,
+      "sha256": "a8e0eb98fd9845d3d6e83ea3a7c0017c60abf15e1ca73777f82e480e101e1ec4",
+      "mime_type": "text/plain",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/docs/TROUBLESHOOTING.txt",
+      "size_bytes": 5137,
+      "sha256": "71d0e9a2f94c812e9894fe3c7f1f2302aa436c360727eb18e83ed56efa036134",
+      "mime_type": "text/plain",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/docs/USB_STRUCTURE.txt",
+      "size_bytes": 3984,
+      "sha256": "ad535e444f2dcd0e0aba8888353c0099cf3394ee079038bd1c0155a0e0a74ed4",
+      "mime_type": "text/plain",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/docs/VENTOY_LINUX_MINT_SETUP.txt",
+      "size_bytes": 7653,
+      "sha256": "b1e5907d6cadb20c5c936f13c1bfc25b327ff698ae1d4fd866c5b69ebb0f61e3",
+      "mime_type": "text/plain",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/editor/__init__.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/editor/__pycache__/__init__.cpython-313.pyc",
+      "size_bytes": 232,
+      "sha256": "425b97c65558279bb17f604428829ddb8c090c2c0fb492ad38eb5b3a17ae113a",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/editor/__pycache__/self_healer.cpython-313.pyc",
+      "size_bytes": 4588,
+      "sha256": "a7cefc8bb5108aef8268e4e9dd7194cdd2c670be97db2a8fc6c4cfe6e296c1c1",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/editor/self_healer.py",
+      "size_bytes": 3305,
+      "sha256": "8869c3333f48c0a94f66e12c8e0d9d81e3fbd8a6a812e810da5aeca7b7171a19",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/launcher.py",
+      "size_bytes": 34601,
+      "sha256": "c9b83e0096d37a8fff1aba71927d3949830d0a2e22f43a84c00b43dc7ab5db87",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/logs/usb_orchestrator.log",
+      "size_bytes": 7826,
+      "sha256": "40baab816dcd627684bc13168df8f566f6c70996ccdfc3dbe0fb7e4635a0197c",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/main.py",
+      "size_bytes": 6298,
+      "sha256": "288c37388d7cda03b06ed810e3fa95868b036de2d727bed4aac2aa80e639d0b9",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/models/PLACE_GGUF_FILES_HERE.txt",
+      "size_bytes": 950,
+      "sha256": "136289f6a66a4c82c1f20b4646c2bf0eab727d31d7f55c27d1249e9e2d2751a7",
+      "mime_type": "text/plain",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/presets/01_Gold_Standard_Teaching.json",
+      "size_bytes": 1095,
+      "sha256": "8e9c3f0cd0aa0ea75282a70db2a76c750bf91db26c96c53b5b298a795a6daa4c",
+      "mime_type": "application/json",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/presets/02_Dolphin_Uncensored.json",
+      "size_bytes": 1042,
+      "sha256": "0c828ea18400f45b7e115dd6c5b4e2a3f2dd28c13481c094bd21b1c96d0cedb7",
+      "mime_type": "application/json",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/presets/03_Coding_Assistant.json",
+      "size_bytes": 1213,
+      "sha256": "b0fc1eacc6968e23aad862017184ada3cc24c4cf4851d376d4a8e15be5a99d9a",
+      "mime_type": "application/json",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/presets/04_General_Assistant.json",
+      "size_bytes": 1098,
+      "sha256": "38b5eb38121d68a8d51c2321cb9208e7db86bbe65615bdc95f5f3d231868fe7f",
+      "mime_type": "application/json",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/run.bat",
+      "size_bytes": 342,
+      "sha256": "d5ebcfd7ffe642e5f5f0dc9938688ca76c49a585c55170a293450b51799813fb",
+      "mime_type": "application/x-msdos-program",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/scripts/BUILD_INSTALLER.bat",
+      "size_bytes": 2064,
+      "sha256": "15a17775370d800c8d8960de33be3876e47d03414b9b7d72ed3e11a3e9dfb3f7",
+      "mime_type": "application/x-msdos-program",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/scripts/TROUBLESHOOT.bat",
+      "size_bytes": 628,
+      "sha256": "d83d200815f8242886b4713a18c37dfab0e47283b37e91e6477c79d14349bdf8",
+      "mime_type": "application/x-msdos-program",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/scripts/check.sh",
+      "size_bytes": 504,
+      "sha256": "aef7cd1200b061d531810e01b44f7a144d4916d29e55834b441d19d0c9ec3447",
+      "mime_type": "text/x-sh",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/scripts/install.sh",
+      "size_bytes": 785,
+      "sha256": "f3e7df5afb76897748318316c693ad586e461b6dcf40508ae93a268cee286179",
+      "mime_type": "text/x-sh",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/scripts/run_me.sh",
+      "size_bytes": 735,
+      "sha256": "e7702f4d0e33c9a6ac11ee938074da0dea3c6cc43343ca68fe017b8ae0c3fa4b",
+      "mime_type": "text/x-sh",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/scripts/setup_linux.sh",
+      "size_bytes": 3355,
+      "sha256": "7da0bee639deb8fa78f49a3938fbc7484c1a2d12a97db9e1cd1f912982b8b3da",
+      "mime_type": "text/x-sh",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/scripts/start_here.sh",
+      "size_bytes": 531,
+      "sha256": "9d59db003d209f2c1c4466f5fa8379d42d6b9f3bc6a58c37b0b73678a06dcf48",
+      "mime_type": "text/x-sh",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/scripts/troubleshoot.sh",
+      "size_bytes": 409,
+      "sha256": "2f12a2e4cbbf68cd3ea644362b6d8a70723132379ba9a640113240d68a1b1034",
+      "mime_type": "text/x-sh",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/sfx_config.txt",
+      "size_bytes": 223,
+      "sha256": "e0cd0e6e2ed7a18b9db313084a11e29e66317ef05b8a0d340e72394125b1df47",
+      "mime_type": "text/plain",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/HTML_Generator.html",
+      "size_bytes": 8574,
+      "sha256": "6dcc20958d42d1460e8f3f3585f113549d5d880de092fbbb56194eb34e0a5a74",
+      "mime_type": "text/html",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/USB_Launcher.ps1",
+      "size_bytes": 20837,
+      "sha256": "8f0e47749a28c8ab3c02e66f7e266f01d099bfcfc25c9bd95b8785b394993fba",
+      "mime_type": "application/octet-stream",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/__pycache__/content_manager.cpython-313.pyc",
+      "size_bytes": 16933,
+      "sha256": "c5b6db00bd7785910a4557c7ad367cd220994fe7cb9ed709e8cdc72492eea873",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/__pycache__/creative_bridge.cpython-313.pyc",
+      "size_bytes": 9789,
+      "sha256": "30c1b45fbd075bfca58f58c9178498d6a473f9dcb392ced5ff41a9c1cbd6bd0a",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/__pycache__/ether_core.cpython-313.pyc",
+      "size_bytes": 25251,
+      "sha256": "3e2c0096b912a25f136b3a9f5d5399f209818afa1fde4653243c00d333027f32",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/__pycache__/gremlin_coordinator.cpython-313.pyc",
+      "size_bytes": 14697,
+      "sha256": "3d168532b93e6e352a6397c08e71ce3476001ea761c480567b1984bfbd92c6f4",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/__pycache__/hub_client.cpython-313.pyc",
+      "size_bytes": 4815,
+      "sha256": "e8e92c1c1da8b9c40764c98be705348fd76f6f72415890a6a104201d7667db4f",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/__pycache__/market_intel.cpython-313.pyc",
+      "size_bytes": 11715,
+      "sha256": "b72ff662af2b956408c14c2ca01ac3efe01a23b7a961e0689fab3cc0f220ed71",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/__pycache__/openclaw_bridge.cpython-313.pyc",
+      "size_bytes": 12638,
+      "sha256": "7ccfc3ebcad717ac7738e10d87ed48cb5d8da7ea0dd6b5e595441b76c8ac0ffe",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/__pycache__/rag_manager.cpython-313.pyc",
+      "size_bytes": 12120,
+      "sha256": "3a3f8c869663a21c87b1cd215c762251189fd4fec294476df6ce4875a38ccecc",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/__pycache__/self_editor.cpython-313.pyc",
+      "size_bytes": 18651,
+      "sha256": "d9d1cb0e639da93cb5e915ad80f41ffa499c376cba5b72fa9b16c8b11a0d27e2",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/__pycache__/troubleshoot.cpython-313.pyc",
+      "size_bytes": 13991,
+      "sha256": "1f60c71b5f2e02bac4784ed8f70f7cdaea0c78d38ea48390cd89d55a895d93f9",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/__pycache__/usb_orchestrator.cpython-313.pyc",
+      "size_bytes": 18378,
+      "sha256": "256c46c9277bf01e0ed45a6309fa3565e6fcbb267eaec3185384fac9e3f84f63",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/agents/__init__.py",
+      "size_bytes": 826,
+      "sha256": "b86c3221f4c9e01f57abe01d7251344093298490f68c28956895876b2ff82d29",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/agents/__pycache__/__init__.cpython-313.pyc",
+      "size_bytes": 1007,
+      "sha256": "f8b085bce32596cfc22833d0099c2d67700a927f2c3dc0ca051fb848c2e1da63",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/agents/__pycache__/base.cpython-313.pyc",
+      "size_bytes": 6459,
+      "sha256": "5681416c2835ba815aa740db7e98d50450528fee9c8c31315b255800758970c0",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/agents/__pycache__/dashboard.cpython-313.pyc",
+      "size_bytes": 10764,
+      "sha256": "ec21a0a3be13b0010f60e5630b34ed4325b31ecb7d21f3eefd870c178c6698df",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/agents/__pycache__/evolution_architect.cpython-313.pyc",
+      "size_bytes": 4841,
+      "sha256": "2d8b6732911db50901a65df143da358628710d5862452236d5f4ecc2a2f3769d",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/agents/__pycache__/gremlin_agent.cpython-313.pyc",
+      "size_bytes": 10641,
+      "sha256": "3f1782c71afb2d8494e169830242e3621587a54635b2dd23a071f8e328453d51",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/agents/__pycache__/orchestrator.cpython-313.pyc",
+      "size_bytes": 12982,
+      "sha256": "1f64c0122ac1d6c6a3c6347c63003eb4a14284a37a0875ad9b4bb93a69fcc49e",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/agents/__pycache__/specialized.cpython-313.pyc",
+      "size_bytes": 24634,
+      "sha256": "4c134b8da19a25d3e41b8a7b8d9c87ee2b787b41a927b0427842547a81f50fff",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/agents/base.py",
+      "size_bytes": 3360,
+      "sha256": "36e3ac103401d25adbfa522624cb0de5d9bf39e5265435c46a667a61c6628baa",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/agents/dashboard.py",
+      "size_bytes": 6560,
+      "sha256": "f9abc859cb45393a3aa7b671651c415f6702320f295f355bb37ce68d4a88109e",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/agents/evolution_architect.py",
+      "size_bytes": 4336,
+      "sha256": "a27ce1b62c97b31f5fd90d138d8fa253ce27177b506ec7c2760979cc8e8f0e8c",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/agents/gremlin_agent.py",
+      "size_bytes": 7618,
+      "sha256": "76896a55a623985852ec8d4314d158351dc09625ea07191ab98995da62f26c8e",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/agents/orchestrator.py",
+      "size_bytes": 8537,
+      "sha256": "949497b363dba936b8229b5ae509ef0f8f7d5e6525532d5858735c862862e868",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/agents/specialized.py",
+      "size_bytes": 17120,
+      "sha256": "7e1f70e8bdbd52fb5a22a1016cb12b537074ae1f6753bf692cef8179bbecebd7",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/content_manager.py",
+      "size_bytes": 12954,
+      "sha256": "999b1def4ba73b279a76636a510b619963f80d46dd786d5af60e1018ac94cb63",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/creative_bridge.py",
+      "size_bytes": 5867,
+      "sha256": "1f0f7ea683e9f16536bf9534e170c6fe8d0807d5900eedf742db1f4d863ec794",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/deployment/__init__.py",
+      "size_bytes": 711,
+      "sha256": "7166a2120433df61d19c7063266ca5b99fee934e4bda63820976a36ecf8dcf16",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/deployment/__pycache__/__init__.cpython-313.pyc",
+      "size_bytes": 919,
+      "sha256": "2a06025c4ee8432f2ba574a136a72dcc48c6c4c5ccaa10321917623afd2772c3",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/deployment/__pycache__/absorption.cpython-313.pyc",
+      "size_bytes": 15800,
+      "sha256": "e87991b7b21ff6d20ff7304bdc6ec5868a84780db89f3d1faaf4ec39eeb3b18e",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/deployment/__pycache__/errors.cpython-313.pyc",
+      "size_bytes": 2397,
+      "sha256": "af5e7313cecef3f3e038c0f92ff12799fdea5fb90d11241b57a7cf604298ee44",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/deployment/__pycache__/logging_setup.cpython-313.pyc",
+      "size_bytes": 2807,
+      "sha256": "d5fe31683fae35cf99a74666a3b7737ecc23999a4cbae0de311a34a2a9d27b90",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/deployment/__pycache__/repair.cpython-313.pyc",
+      "size_bytes": 6614,
+      "sha256": "95a865135dfff5194b536fe8bbc5e700667bf8169bb3096d677d03cc2aece60d",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/deployment/__pycache__/scaling.cpython-313.pyc",
+      "size_bytes": 6465,
+      "sha256": "0de29660520bec86a802ab00cce73ba56c15bf16bdf30680fa67d5d90f1bf2bb",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/deployment/__pycache__/stages.cpython-313.pyc",
+      "size_bytes": 7727,
+      "sha256": "9e4b1e349fe6bd3eb57c383d8d1a054c2cadf7c311abd50ca71fe9b463300d37",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/deployment/__pycache__/state.cpython-313.pyc",
+      "size_bytes": 5763,
+      "sha256": "1b6abc90c0a66d4d9ce699708f449ed6662fadef108dcf4372529060515bd5fe",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/deployment/absorption.py",
+      "size_bytes": 11219,
+      "sha256": "a3aba592bb0262060ba01c38c34d8c1a659d7eb12102d8392df09fb07b71421d",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/deployment/errors.py",
+      "size_bytes": 1196,
+      "sha256": "84fa03cdd71c4b5fdd0211d1ac31f18b2d5eb63153273be05c54945a9e79b702",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/deployment/logging_setup.py",
+      "size_bytes": 1445,
+      "sha256": "76bf9a254709b6fd1029ad3feade04a92572ff863c27f8a909f9fa9afa947f8d",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/deployment/repair.py",
+      "size_bytes": 4806,
+      "sha256": "fe763fabce2ad95e5fb1fc4b968df1c8ee0438ff1e11e6deedef82739fcaccba",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/deployment/scaling.py",
+      "size_bytes": 4953,
+      "sha256": "e2db16208962c3261af7a8984c16adeefc97e8edb0bb714fc7cf3863b8f616a9",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/deployment/stages.py",
+      "size_bytes": 5237,
+      "sha256": "b91d30627ac7634f6ec0048c72e1386a83733d0c1164bbb459b468b885340227",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/deployment/state.py",
+      "size_bytes": 2765,
+      "sha256": "0672a787d68db960fb668df3c372fdbbbb9e85650a2a02c4db55f9e9b9929db0",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/ether_core.py",
+      "size_bytes": 21922,
+      "sha256": "db888cd1f7fd188d2bc5e5d325e046e504df574da8517bd22cde2e4201623097",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/evolution/__init__.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/evolution/__pycache__/__init__.cpython-313.pyc",
+      "size_bytes": 239,
+      "sha256": "67df195af757acce8e8b0c60e908d44b9ebc0d8c9792101154e13093a3d1c6a0",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/evolution/__pycache__/meta_evolution_engine.cpython-313.pyc",
+      "size_bytes": 16556,
+      "sha256": "557b3ef3da8e7dfdfe396e350ce01a69d0c0edc49a4523bba23d4ed62fab0a89",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/evolution/meta_evolution_engine.py",
+      "size_bytes": 11214,
+      "sha256": "f8f34a387aa7dc6a4894a799eb56755f96827141db4a2e613965f78c7e4e21c1",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/gremlin_coordinator.py",
+      "size_bytes": 10766,
+      "sha256": "82b781117c84e95e297855647b5b0629afd71b407f00fb9a7bfe355c2dfcaf35",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/hub_client.py",
+      "size_bytes": 2486,
+      "sha256": "ac872465c92008aa07c1211b9a5fd516de40432ee0083a3f9b8a9c134a00828a",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/market_intel.py",
+      "size_bytes": 8725,
+      "sha256": "9b8a24addb89135525a2878ad8145788c05e1e2719a9378add58e28716dd8f33",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/openclaw_bridge.py",
+      "size_bytes": 7533,
+      "sha256": "0dcace9040c1942e07a434c22f8e041f0dbc8b8002032b5a9278c7e9b8f8cefb",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/rag_manager.py",
+      "size_bytes": 10481,
+      "sha256": "d5b75baddf05a14b1990552c36c9fe2d6b485ca99c94f26e585bc016549b3ae7",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/reasoning/__init__.py",
+      "size_bytes": 1198,
+      "sha256": "f6135f4556419e4a54b62f7fa60b2b0f11349e93dbf446733f662693539c9c3c",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/reasoning/__pycache__/__init__.cpython-313.pyc",
+      "size_bytes": 1375,
+      "sha256": "a157c7e78a2a11db3ee543766d242d17867955386fff7d3a9d0064a95d6d5f14",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/reasoning/__pycache__/code_reasoner.cpython-313.pyc",
+      "size_bytes": 7190,
+      "sha256": "4538660b4d4c564b9b53a7b66cc8d25cd990f65fadcc34cef8af24dd17382f46",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/reasoning/__pycache__/math_validator.cpython-313.pyc",
+      "size_bytes": 7841,
+      "sha256": "42542dbdc01b97456b7377805a8f9da8341c90c85e5a41bcb3979c5084b8cbbf",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/reasoning/__pycache__/output_quality.cpython-313.pyc",
+      "size_bytes": 8974,
+      "sha256": "cb48d9d7aa5b6dc8b4a2298705d929f281c4c8887dfb27670f4074555bcb22ae",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/reasoning/__pycache__/prometheus_judge.cpython-313.pyc",
+      "size_bytes": 8773,
+      "sha256": "152b5b21b64743f77e1c57ec5c9129a35fcbeec151b8bb1150a6c8f987323eac",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/reasoning/__pycache__/quantum_inspired_optimizer.cpython-313.pyc",
+      "size_bytes": 9891,
+      "sha256": "9e18c60909184c9d7234df359af834db9d90430076ce3f0adbbdd26240c36253",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/reasoning/__pycache__/reasoning_engine.cpython-313.pyc",
+      "size_bytes": 6625,
+      "sha256": "c2bfb54f83885596c2a8acf083e3baff80279a1a17ee9037ba7c6063be9b2a63",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/reasoning/__pycache__/reasoning_guard.cpython-313.pyc",
+      "size_bytes": 3635,
+      "sha256": "ee1ea5fb9cc08f67e247cb4169425f6af26eff314c52be8575f8920b6f301af6",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/reasoning/__pycache__/structured_output.cpython-313.pyc",
+      "size_bytes": 6685,
+      "sha256": "087560d7ab0502239298575b088259d1fb0e73b5482cd96f284f33ef8f3675d5",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/reasoning/__pycache__/uncertainty_quantifier.cpython-313.pyc",
+      "size_bytes": 10647,
+      "sha256": "409c03f8480e12c2d669792f0013eca48f7218675a5a206471ddeab486815dc3",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/reasoning/code_reasoner.py",
+      "size_bytes": 4312,
+      "sha256": "bfef4874f5a11a780eaec7ab8008d574afefcaaff3aada0fbb0646eddfce8877",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/reasoning/math_validator.py",
+      "size_bytes": 5410,
+      "sha256": "84f2874fbd435b30f9248f7cfb9b71a58798ee4c8eff8c39cc5a31c406bde7e3",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/reasoning/output_quality.py",
+      "size_bytes": 6539,
+      "sha256": "9240369ee660191ccd56212669da58df638ef8055115aaad16dd9e1fcc505064",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/reasoning/prometheus_judge.py",
+      "size_bytes": 5830,
+      "sha256": "13bd9c03b8e65e3c444e00c631e476730c38c740cc5a6ba4680745eacefdc352",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/reasoning/quantum_inspired_optimizer.py",
+      "size_bytes": 6850,
+      "sha256": "4a4012ba61cc06b23924ed799483d760552d1bddd2c1773f5b9118eb37d2f9c0",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/reasoning/reasoning_engine.py",
+      "size_bytes": 3913,
+      "sha256": "2558f66970be75c56c2e82d1759e38f6266695dde209f17dbeb789c7d6f105ec",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/reasoning/reasoning_guard.py",
+      "size_bytes": 1994,
+      "sha256": "40b591a1c2f147d439701fb1cf763a8a4fe58e2ab7ee408592cb8387e0b63c8a",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/reasoning/structured_output.py",
+      "size_bytes": 4338,
+      "sha256": "0a450c689e684fbe243fcba7cbc90fe5f6f02c15d720ea5ac402a4568203ab8f",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/reasoning/uncertainty_quantifier.py",
+      "size_bytes": 6863,
+      "sha256": "84d3fba1cc24532fb39a4df232e10b62d1cc24de1cd39d1b19916bbb9d79be15",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/self_editor.py",
+      "size_bytes": 14756,
+      "sha256": "e2c6f27961993390e373f2a029efd188a088e30966510bf15dfe0397890effb8",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/troubleshoot.py",
+      "size_bytes": 10460,
+      "sha256": "0c9c863073ad9fbabf4fef74d642231728b9613731674c4a5c21186752a6ddbe",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/ultra_renderer/RENDERER_README.md",
+      "size_bytes": 13995,
+      "sha256": "aa76b04e8db6f8b1a88564a19435ce0c6b08dd6fda32f126d1fb13b93055bd55",
+      "mime_type": "text/markdown",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/ultra_renderer/__init__.py",
+      "size_bytes": 1934,
+      "sha256": "810da8770788411c6f26a2ea5a947ebdf3e6a0fdc098c0f9eeec52db7f8d7217",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/ultra_renderer/__pycache__/__init__.cpython-313.pyc",
+      "size_bytes": 2277,
+      "sha256": "89d290d9a025b85912357ab9cba4c84b1fb74bdff19ffaa6d0737eb809e2dd43",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/ultra_renderer/__pycache__/shadow_atlas.cpython-313.pyc",
+      "size_bytes": 4835,
+      "sha256": "b0836b4535fcb9bf4f2eb966eb3b5c91a2bb65e2df33820af670412b51a9d774",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/ultra_renderer/__pycache__/ultra_renderer.cpython-313.pyc",
+      "size_bytes": 22972,
+      "sha256": "4163b85ca17c4a270fbb664e7b4ed7bcd5a6cd208ecd3ef70fbd125eb7f19d8b",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/ultra_renderer/__pycache__/ultra_renderer_quality.cpython-313.pyc",
+      "size_bytes": 22376,
+      "sha256": "8efb3d0e6d0e2eed16db91cdd71219a91dbfa53b042fdb00867d7fe57b8e5839",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/ultra_renderer/__pycache__/visibility_rasterizer.cpython-313.pyc",
+      "size_bytes": 16660,
+      "sha256": "fc4bdc7ad29d142121df6db197e1c4671d9b965d49e3af70be24056da4b28280",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/ultra_renderer/__pycache__/vulkan_skeleton.cpython-313.pyc",
+      "size_bytes": 529,
+      "sha256": "adfa77234770f0a8bcdea13ed1857e464e8a75fd36861add723146be6f470cac",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/ultra_renderer/godot_gdextension_skeleton.md",
+      "size_bytes": 2253,
+      "sha256": "227aaff28a19f4e4df2abcf395d12ae8be9df10d42eaf8e1a25bb4de647ddcf5",
+      "mime_type": "text/markdown",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/ultra_renderer/requirements.txt",
+      "size_bytes": 110,
+      "sha256": "9e325dba75d81134319314a5d94471b5dd8e7ac516a036a3db65512119ffb97e",
+      "mime_type": "text/plain",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/ultra_renderer/shadow_atlas.py",
+      "size_bytes": 3598,
+      "sha256": "a455e137797083f19ff431aed682527a75d924b94c546a0a2ae1fed847211119",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/ultra_renderer/ultra_renderer.py",
+      "size_bytes": 18851,
+      "sha256": "5317099d6166d63a1f8071cf8c4659fa9b23da75726d465471c7977767bf553d",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/ultra_renderer/ultra_renderer_quality.py",
+      "size_bytes": 17624,
+      "sha256": "6415efd7a0a77a3a3589fe935e6bfe0f54d694bbe5310930642a54bd28a4410b",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/ultra_renderer/visibility_rasterizer.py",
+      "size_bytes": 12653,
+      "sha256": "576352e56c627496bc9e4ee23d8277fd281a32f0fcab9c4a902eb1d16f67dc8d",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/ultra_renderer/vulkan_skeleton.py",
+      "size_bytes": 5172,
+      "sha256": "7c6623971dcc48a9f6b9dccfa79422c89aa360bc58420ac32443b672448667be",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/src/usb_orchestrator.py",
+      "size_bytes": 16754,
+      "sha256": "083b6b30f5cccbece038f65941f71cc8e7b5c07ccd19b262249265ec05f6305a",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/start_here.py",
+      "size_bytes": 18571,
+      "sha256": "438a21e4bb439d7be649dbba2071653c7eec2ddd2c7c8259f027029eccdd1846",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/storage/game_design/design_patterns_in_games.md",
+      "size_bytes": 5020,
+      "sha256": "5e4ca59d8702ed6cc715c2d1becd1c1363928444b6302c59d9464fa0eb3b4cd4",
+      "mime_type": "text/markdown",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/storage/game_design/game_design_fundamentals.md",
+      "size_bytes": 4572,
+      "sha256": "750297126a3d1f21eb926a1ad22f6e5d778bc621a08219cd9efb70e2d5acdbb3",
+      "mime_type": "text/markdown",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/storage/godot/godot4_architecture.md",
+      "size_bytes": 3503,
+      "sha256": "f968abab7e39ca3b6f78525479aec9bb5f3d61d4006ce4e27e1ce487e9ee0fd0",
+      "mime_type": "text/markdown",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/storage/godot/godot4_optimization.md",
+      "size_bytes": 3470,
+      "sha256": "54719ed6fbefa047dd5970ca9983262fd01649e2640a79f1ef5993c82e41f03c",
+      "mime_type": "text/markdown",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/storage/kb/python_quick_reference.md",
+      "size_bytes": 5847,
+      "sha256": "90f46e2271106cd9aac1fe4b999c52324074a551be2fdedb6ed48af2750526bb",
+      "mime_type": "text/markdown",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/storage/recovery/supplement_protocol.md",
+      "size_bytes": 4541,
+      "sha256": "0a2ff7e900ff58fb46061429f8396d37d36ed8a95ec31c37ebed4b76ac87885a",
+      "mime_type": "text/markdown",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/storage/reference/local_ai_model_guide.md",
+      "size_bytes": 3499,
+      "sha256": "ba881bcbb2d885e8b290fc6f865e002e1fa84d753c51559c385a2f4a378c55c5",
+      "mime_type": "text/markdown",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/storage/research/gdscript_patterns.md",
+      "size_bytes": 6133,
+      "sha256": "93c0fe7789954ea60574ce1e182643c6f167caa7321ebf91bafadb51b64d50e8",
+      "mime_type": "text/markdown",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/storage/research/local_ai_operations.md",
+      "size_bytes": 6238,
+      "sha256": "71b3704d7d0b056a5ccc7137713c0f05ba68336a380eaeb944918df50c1cfb1d",
+      "mime_type": "text/markdown",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/storage/strategy/eu4_castile_guide.md",
+      "size_bytes": 4598,
+      "sha256": "f2577841d31a3648d94eba8770da825ac2b67c9ab1182f5bcbfa0029471c2272",
+      "mime_type": "text/markdown",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/tests/__pycache__/conftest.cpython-313.pyc",
+      "size_bytes": 753,
+      "sha256": "4567edd5617c1f595162bbaf5f10011bbb589fcceb2ba214e18c73702b85b25d",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/tests/__pycache__/run_tests.cpython-313.pyc",
+      "size_bytes": 4219,
+      "sha256": "0da6ec01c40b483d0d7728d065e3a66f8edb63cab4a537b56cd393baf95e8d02",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/tests/__pycache__/test_accessibility.cpython-313.pyc",
+      "size_bytes": 8721,
+      "sha256": "f740fc94944f2f690a9961e929b8a7c128e3360f8082c8b28c99a41d7e60eecb",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/tests/__pycache__/test_deployment_and_agents.cpython-313.pyc",
+      "size_bytes": 8110,
+      "sha256": "77156ef76cd0927147887ea454e698b25b64e3107cc96a6faf3949999b432657",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/tests/__pycache__/test_evolution.cpython-313.pyc",
+      "size_bytes": 4029,
+      "sha256": "cc9599c54b19aeaf91ab7aea68448771c6eac70af929e2356bfec70572345274",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/tests/__pycache__/test_market_and_gremlin.cpython-313.pyc",
+      "size_bytes": 6059,
+      "sha256": "66720572c6031457cffe12be683057e61a9c2647bea376b9ddb81b5ee1419ad5",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/tests/__pycache__/test_meta_evolution.cpython-313.pyc",
+      "size_bytes": 7343,
+      "sha256": "641efe4e009a9cc502e643e455810e6244303d7c44d7d4b054dcb3fff65f8e79",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/tests/__pycache__/test_paths_and_healer.cpython-313.pyc",
+      "size_bytes": 7190,
+      "sha256": "58c6e23277374b3ceb727748808870357fe8025bb70555793d13554812b7e285",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/tests/__pycache__/test_reasoning.cpython-313.pyc",
+      "size_bytes": 8480,
+      "sha256": "bb6a421f11152d8a5d711d2f2a80117287bb9fa404109b2f5b181036a9a149bf",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/tests/__pycache__/test_self_editor.cpython-313.pyc",
+      "size_bytes": 3786,
+      "sha256": "9497d85fa5ceef8be3cb667c9a2aa46e4291216f2724029b3ee37cc4844db39b",
+      "mime_type": "application/x-python-code",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/tests/conftest.py",
+      "size_bytes": 263,
+      "sha256": "12008a244f401b051932f5743a35aa9bee9aa98788944f69c1b7bbd10dc69398",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/tests/run_tests.py",
+      "size_bytes": 2157,
+      "sha256": "4c5f5ecd656f1e8c2d211a9de891a72d271c2eddb7b0810a37b17519b7587aed",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/tests/test_accessibility.py",
+      "size_bytes": 4967,
+      "sha256": "b21729b27b9a738831cca6d70628e89e3659a61214c1ceb1049e93e9214bfa50",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/tests/test_deployment_and_agents.py",
+      "size_bytes": 4381,
+      "sha256": "e6970c26d1a19ed80e2e91b496accf26e564528b8a498ec1a9caf3d81b8d2ea8",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/tests/test_evolution.py",
+      "size_bytes": 2133,
+      "sha256": "546780f66ac665b87715aa09cebecefcd7b2068da78574e82149ce09b5ba2d0b",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/tests/test_market_and_gremlin.py",
+      "size_bytes": 3259,
+      "sha256": "80ed441606800989d947f553bf46d5b466d92e903b721df9754a6ddb5c9e8442",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/tests/test_meta_evolution.py",
+      "size_bytes": 3968,
+      "sha256": "a07b4b13b3035bb65ae48a381603a81229f25bbe1a28c616eef62b377b9b5913",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/tests/test_paths_and_healer.py",
+      "size_bytes": 4684,
+      "sha256": "4e18a86ae04a1de5f89a0df6dbe0f01d2d86480b0f3f8a4074f8d1d4bed6fda6",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/tests/test_reasoning.py",
+      "size_bytes": 5131,
+      "sha256": "c6fbf07ffadbd35d5e3f1a99d820e1496be8234669d1d4652d918913060c5ee1",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib/tests/test_self_editor.py",
+      "size_bytes": 2325,
+      "sha256": "63c3ff61cb6b40d8769b76c35028cc33b5498e84d8a09928e772c53eb2918119",
+      "mime_type": "text/x-python",
+      "section": "10_CANONICAL_WORKING_TREES"
+    },
+    {
+      "path": "20_DOMAIN_SPECIFICATIONS/MASTERZIP_v11_COMBINED_DETAILED.pdf",
+      "size_bytes": 132036,
+      "sha256": "570efb9361366a0c6ef84276d6bedd92ce9cbed51a0252b2e486fc4db7974934",
+      "mime_type": "application/pdf",
+      "section": "20_DOMAIN_SPECIFICATIONS"
+    },
+    {
+      "path": "20_DOMAIN_SPECIFICATIONS/MASTERZIP_v11_EXTRACTED_TEXT.txt",
+      "size_bytes": 142868,
+      "sha256": "537eb30218be807f92508cf31c37fa5028ffa48e9d8897b0575c5d70e5a07aa0",
+      "mime_type": "text/plain",
+      "section": "20_DOMAIN_SPECIFICATIONS"
+    },
+    {
+      "path": "20_DOMAIN_SPECIFICATIONS/MASTERZIP_v11_PDF_INSPECTION.txt",
+      "size_bytes": 1161,
+      "sha256": "da5e84edb0237549628f420ba9b277910ac0ec7eb8f54ac8b0cda17d63669e46",
+      "mime_type": "text/plain",
+      "section": "20_DOMAIN_SPECIFICATIONS"
+    },
+    {
+      "path": "30_RUNTIME_AND_MEMORY_DESIGNS/Consider best setup.txt",
+      "size_bytes": 640,
+      "sha256": "1c414aa8058529851bd56548a206e73d50487a55183860d9eead6a1a502be4b6",
+      "mime_type": "text/plain",
+      "section": "30_RUNTIME_AND_MEMORY_DESIGNS"
+    },
+    {
+      "path": "30_RUNTIME_AND_MEMORY_DESIGNS/EtherAI Absorption System.txt",
+      "size_bytes": 7094,
+      "sha256": "1eab3a14d1beb665e2731abfcba44617ce9f54a6cdea61c1739134bb19925887",
+      "mime_type": "text/plain",
+      "section": "30_RUNTIME_AND_MEMORY_DESIGNS"
+    },
+    {
+      "path": "30_RUNTIME_AND_MEMORY_DESIGNS/WORDLIB semantic core update.txt",
+      "size_bytes": 3967,
+      "sha256": "a119cd5fe9e2ead7524ae58246e40f6004ba007015bea43ec95354fe98817712",
+      "mime_type": "text/plain",
+      "section": "30_RUNTIME_AND_MEMORY_DESIGNS"
+    },
+    {
+      "path": "40_DATABASE_AND_PROVIDER_STATE/CLAUDE_CONNECTION_STATUS.md",
+      "size_bytes": 1035,
+      "sha256": "620be0b514040ed2d07ed232bbaca99f9108bb0ac34d2f028e31e1d5951f59ce",
+      "mime_type": "text/markdown",
+      "section": "40_DATABASE_AND_PROVIDER_STATE"
+    },
+    {
+      "path": "40_DATABASE_AND_PROVIDER_STATE/INTEGRATION_GUIDE_2026.md",
+      "size_bytes": 6332,
+      "sha256": "e7b24b72d6018c167f272eec6f89d92a55b10bd3bd773208d5ee7ec506ca65fd",
+      "mime_type": "text/markdown",
+      "section": "40_DATABASE_AND_PROVIDER_STATE"
+    },
+    {
+      "path": "40_DATABASE_AND_PROVIDER_STATE/OKComputer_Swarm_Integrated_v1.sha256",
+      "size_bytes": 101,
+      "sha256": "9c526ea7ba31516ac4421259e314e7d3c5d3378906320e1f8b9ec35666cde908",
+      "mime_type": "application/octet-stream",
+      "section": "40_DATABASE_AND_PROVIDER_STATE"
+    },
+    {
+      "path": "40_DATABASE_AND_PROVIDER_STATE/SUPABASE_SWARM_CONTROL_MIGRATION.sql",
+      "size_bytes": 6218,
+      "sha256": "6b300d6c375299183df7247884a04ea01968e6b040a26059b0c5d81ef69b507d",
+      "mime_type": "application/sql",
+      "section": "40_DATABASE_AND_PROVIDER_STATE"
+    },
+    {
+      "path": "40_DATABASE_AND_PROVIDER_STATE/VERIFICATION_REPORT.md",
+      "size_bytes": 3462,
+      "sha256": "1055cdaf97d11bc5c651b604befac21b82a392db612dde4acf651e315e6da9e9",
+      "mime_type": "text/markdown",
+      "section": "40_DATABASE_AND_PROVIDER_STATE"
+    },
+    {
+      "path": "90_ORIGINAL_UPLOADS/Consider best setup.txt",
+      "size_bytes": 640,
+      "sha256": "1c414aa8058529851bd56548a206e73d50487a55183860d9eead6a1a502be4b6",
+      "mime_type": "text/plain",
+      "section": "90_ORIGINAL_UPLOADS"
+    },
+    {
+      "path": "90_ORIGINAL_UPLOADS/EtherAI Absorption System.txt",
+      "size_bytes": 7094,
+      "sha256": "1eab3a14d1beb665e2731abfcba44617ce9f54a6cdea61c1739134bb19925887",
+      "mime_type": "text/plain",
+      "section": "90_ORIGINAL_UPLOADS"
+    },
+    {
+      "path": "90_ORIGINAL_UPLOADS/MASTERZIP_v11_COMBINED_DETAILED(2).pdf",
+      "size_bytes": 132036,
+      "sha256": "570efb9361366a0c6ef84276d6bedd92ce9cbed51a0252b2e486fc4db7974934",
+      "mime_type": "application/pdf",
+      "section": "90_ORIGINAL_UPLOADS"
+    },
+    {
+      "path": "90_ORIGINAL_UPLOADS/OKComputer_Advanced_Swarm_AI_Search.zip",
+      "size_bytes": 389852,
+      "sha256": "a41f8fc1aed5dd055c978ff7d3e09c82a453cb4cdbbcc950b90e87a880dc14bd",
+      "mime_type": "application/zip",
+      "section": "90_ORIGINAL_UPLOADS"
+    },
+    {
+      "path": "90_ORIGINAL_UPLOADS/OKComputer_Swarm_Integrated_v1.sha256",
+      "size_bytes": 101,
+      "sha256": "9c526ea7ba31516ac4421259e314e7d3c5d3378906320e1f8b9ec35666cde908",
+      "mime_type": "application/octet-stream",
+      "section": "90_ORIGINAL_UPLOADS"
+    },
+    {
+      "path": "90_ORIGINAL_UPLOADS/OKComputer_Swarm_Integrated_v1.zip",
+      "size_bytes": 335517,
+      "sha256": "20613246df4a37c01c9bdcb106f834156e38dd3ecd9d6df59f574d46593783c1",
+      "mime_type": "application/zip",
+      "section": "90_ORIGINAL_UPLOADS"
+    },
+    {
+      "path": "90_ORIGINAL_UPLOADS/WORDLIB semantic core update.txt",
+      "size_bytes": 3967,
+      "sha256": "a119cd5fe9e2ead7524ae58246e40f6004ba007015bea43ec95354fe98817712",
+      "mime_type": "text/plain",
+      "section": "90_ORIGINAL_UPLOADS"
+    },
+    {
+      "path": "90_ORIGINAL_UPLOADS/wordlib_D_drive_FINAL_v29.zip",
+      "size_bytes": 339209,
+      "sha256": "276781bb7a22a350a008e95e75f5425552403deb0ab59292cea9e9a7e3698b52",
+      "mime_type": "application/zip",
+      "section": "90_ORIGINAL_UPLOADS"
+    },
+    {
+      "path": "99_INTEGRITY/BUILD_VERIFICATION.md",
+      "size_bytes": 1739,
+      "sha256": "03ba3cd675b8bc413adf8a899dbf2ab87d03ecf400553f4c0d1245045324951d",
+      "mime_type": "text/markdown",
+      "section": "99_INTEGRITY"
+    },
+    {
+      "path": "99_INTEGRITY/MASTERZIP_PDFINFO.txt",
+      "size_bytes": 604,
+      "sha256": "72ff4fc13d0da15b59fcaec16971736d42310803959b492d82de52c42f9f222c",
+      "mime_type": "text/plain",
+      "section": "99_INTEGRITY"
+    },
+    {
+      "path": "99_INTEGRITY/NODE_VERSION.txt",
+      "size_bytes": 9,
+      "sha256": "256a8e08ee35cb8ad36ae16385257192c3dbe7d80cfdeff9eaa886531b2f83bc",
+      "mime_type": "text/plain",
+      "section": "99_INTEGRITY"
+    },
+    {
+      "path": "99_INTEGRITY/SECRET_SCAN.json",
+      "size_bytes": 77,
+      "sha256": "970ee4c3d19519c1025a5781b9aa4f49d900d9a1956c9eefd2b15786a9e5dfbb",
+      "mime_type": "application/json",
+      "section": "99_INTEGRITY"
+    },
+    {
+      "path": "99_INTEGRITY/SOURCE_ARCHIVE_TESTS.txt",
+      "size_bytes": 788,
+      "sha256": "83eefc22c1b503a53ff8b5386c2d64abac0b8bd1a4032b7ca69ae907fa9b84e5",
+      "mime_type": "text/plain",
+      "section": "99_INTEGRITY"
+    },
+    {
+      "path": "99_INTEGRITY/SWARM_TSC.exitcode",
+      "size_bytes": 4,
+      "sha256": "743c7850cccfba5e53a9002663ec1ddd1079315a98bdbfdde10e6044f56abefe",
+      "mime_type": "application/octet-stream",
+      "section": "99_INTEGRITY"
+    },
+    {
+      "path": "99_INTEGRITY/SWARM_TSC.log",
+      "size_bytes": 77,
+      "sha256": "baa39f268839202237ea4be94353c7fde01bb7dca9b9a40a7ad0ca301e3e8a50",
+      "mime_type": "application/octet-stream",
+      "section": "99_INTEGRITY"
+    },
+    {
+      "path": "99_INTEGRITY/WORDLIB_COMPILEALL.exitcode",
+      "size_bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "mime_type": "application/octet-stream",
+      "section": "99_INTEGRITY"
+    },
+    {
+      "path": "99_INTEGRITY/WORDLIB_COMPILEALL.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mime_type": "application/octet-stream",
+      "section": "99_INTEGRITY"
+    },
+    {
+      "path": "START_HERE.md",
+      "size_bytes": 175,
+      "sha256": "2305841419d88c13ff78e825f311f7aa84c9e2fae9ee5da9f70be889579c2443",
+      "mime_type": "text/markdown",
+      "section": "START_HERE.md"
+    }
+  ]
+}

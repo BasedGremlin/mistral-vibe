@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gremlin_premium_features version="2.0" status="production-ready">
+  <creative_wildcards>
+    <feature id="elegant_hack_finder"><name>Elegant Hack Finder</name>
+      <description>Surfaces simpler/more elegant alternatives.</description></feature>
+    <feature id="delight_injector"><name>Delight Injector</name>
+      <description>Small high-joy low-maintenance touches.</description></feature>
+    <feature id="assumption_challenger"><name>Assumption Challenger</name>
+      <description>Surfaces top unstated assumptions in a plan.</description></feature>
+  </creative_wildcards>
+  <honesty_robustness>
+    <feature id="phantom_file_detector"><name>Phantom File Detector</name>
+      <description>Detects references to files that do not exist.</description></feature>
+    <feature id="test_gap_finder"><name>Test Gap Finder</name>
+      <description>Finds highest-risk untested paths.</description></feature>
+    <feature id="rollback_guardian"><name>Rollback Guardian</name>
+      <description>Verifies a backup differs from current (rollback is real, not a no-op).</description></feature>
+  </honesty_robustness>
+  <accessibility_delight>
+    <feature id="contrast_and_focus_whisperer"><name>Contrast and Focus Whisperer</name>
+      <description>Micro-improvements to contrast and focus.</description></feature>
+  </accessibility_delight>
+  <self_improvement>
+    <feature id="reflection_amplifier"><name>Reflection Amplifier</name>
+      <description>Upgrades reflections with cross-session patterns.</description></feature>
+  </self_improvement>
+  <ui_supremacy>
+    <feature id="comet_killer_ui_surface"><name>Comet Killer UI Surface</name>
+      <description>Radical transparency UI surface.</description></feature>
+  </ui_supremacy>
+</gremlin_premium_features>

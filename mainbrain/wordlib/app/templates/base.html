@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}WORDLIB -- ETHER AI{% endblock %}</title>
+<style>
+:root {
+  --bg:      #0d0f14;
+  --bg2:     #13161e;
+  --bg3:     #1a1e2a;
+  --bg4:     #22263a;
+  --accent:  #00d4ff;
+  --accent2: #7b5ea7;
+  --green:   #00e676;
+  --yellow:  #ffd740;
+  --red:     #ff5252;
+  --orange:  #ff9800;
+  --text:    #e8eaf0;
+  --muted:   #8892a4;
+  --border:  #252a38;
+  --radius:  8px;
+  --shadow:  0 2px 12px rgba(0,0,0,.4);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; display: flex; }
+
+/* ── SIDEBAR ── */
+.sidebar { width: 230px; min-height: 100vh; background: var(--bg2); border-right: 1px solid var(--border); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; z-index: 100; }
+.sidebar-logo { padding: 18px 16px 10px; border-bottom: 1px solid var(--border); }
+.sidebar-logo .title { font-size: 1.2rem; font-weight: 800; letter-spacing: 3px; color: var(--accent); }
+.sidebar-logo .sub   { font-size: .68rem; color: var(--muted); margin-top: 2px; }
+.ai-badge { display: inline-block; margin-top: 6px; font-size: .65rem; background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 2px 9px; color: var(--muted); }
+.ai-badge.live { border-color: var(--green); color: var(--green); }
+
+nav { flex: 1; padding: 10px 0; overflow-y: auto; }
+.nav-section { padding: 14px 16px 4px; font-size: .65rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); font-weight: 600; }
+nav a { display: flex; align-items: center; gap: 10px; padding: 9px 18px; color: var(--muted); text-decoration: none; font-size: .88rem; transition: all .15s; border-left: 3px solid transparent; }
+nav a:hover { color: var(--text); background: var(--bg3); }
+nav a.active { color: var(--accent); background: var(--bg3); border-left-color: var(--accent); }
+nav a .icon { font-size: 1rem; min-width: 20px; }
+
+.sidebar-footer { padding: 12px 16px; border-top: 1px solid var(--border); font-size: .7rem; color: var(--muted); line-height: 1.6; }
+
+/* ── MAIN ── */
+.main { margin-left: 230px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+.topbar { display: flex; align-items: center; gap: 16px; padding: 14px 24px; background: var(--bg2); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 50; }
+.topbar h2 { font-size: 1.1rem; font-weight: 600; color: var(--text); white-space: nowrap; }
+.search-wrap { flex: 1; max-width: 480px; position: relative; }
+.search-global { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 14px; color: var(--text); font-size: .88rem; outline: none; }
+.search-global:focus { border-color: var(--accent); }
+.search-results { position: absolute; top: 100%; left: 0; right: 0; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); z-index: 200; max-height: 360px; overflow-y: auto; box-shadow: var(--shadow); margin-top: 4px; }
+.search-result-item { padding: 10px 14px; cursor: pointer; border-bottom: 1px solid var(--border); }
+.search-result-item:hover { background: var(--bg3); }
+.search-result-item .type { font-size: .65rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 2px; }
+.search-result-item .title { font-size: .88rem; font-weight: 600; }
+.search-result-item .snippet { font-size: .78rem; color: var(--muted); margin-top: 2px; }
+
+.content { padding: 24px; flex: 1; }
+
+/* ── CARDS ── */
+.card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
+.card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 12px; }
+
+/* ── BUTTONS ── */
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: var(--radius); border: none; cursor: pointer; font-size: .88rem; font-weight: 600; text-decoration: none; transition: all .15s; }
+.btn-primary  { background: var(--accent); color: #000; }
+.btn-primary:hover  { background: #00b8d9; }
+.btn-danger   { background: var(--red); color: #fff; }
+.btn-danger:hover   { background: #e53935; }
+.btn-ghost    { background: var(--bg3); color: var(--text); border: 1px solid var(--border); }
+.btn-ghost:hover    { background: var(--bg4); }
+.btn-sm { padding: 5px 10px; font-size: .8rem; }
+
+/* ── FORMS ── */
+.form-group { margin-bottom: 14px; }
+.form-group label { display: block; font-size: .82rem; color: var(--muted); margin-bottom: 5px; font-weight: 600; }
+input[type=text], input[type=url], textarea, select {
+  width: 100%; background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 9px 12px;
+  color: var(--text); font-size: .88rem; font-family: inherit; outline: none;
+}
+input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+
+/* ── TAGS ── */
+.tag { display: inline-block; background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 2px 10px; font-size: .72rem; color: var(--muted); margin: 2px; }
+
+/* ── TABLE ── */
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 10px 12px; background: var(--bg3); font-size: .8rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+td { padding: 10px 12px; border-top: 1px solid var(--border); font-size: .88rem; }
+tr:hover td { background: var(--bg3); }
+
+/* ── MARKDOWN ── */
+.md-content h1 { font-size: 1.4rem; margin: 16px 0 8px; }
+.md-content h2 { font-size: 1.15rem; margin: 14px 0 6px; color: var(--accent); }
+.md-content h3 { font-size: 1rem; margin: 12px 0 4px; color: var(--yellow); }
+.md-content p  { margin: 8px 0; line-height: 1.7; color: var(--text); }
+.md-content ul, .md-content ol { margin: 8px 0 8px 20px; }
+.md-content li { margin: 4px 0; line-height: 1.6; }
+.md-content code { background: var(--bg3); padding: 1px 6px; border-radius: 4px; font-family: Consolas, monospace; font-size: .85em; color: var(--accent); }
+.md-content pre { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; overflow-x: auto; margin: 10px 0; }
+.md-content pre code { background: none; padding: 0; color: var(--text); }
+.md-content strong { color: var(--text); font-weight: 700; }
+.md-content blockquote { border-left: 3px solid var(--accent); padding-left: 12px; color: var(--muted); margin: 10px 0; }
+
+/* ── TOAST ── */
+#toast { position: fixed; bottom: 24px; right: 24px; padding: 12px 20px; border-radius: var(--radius); font-size: .88rem; font-weight: 600; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 9999; }
+#toast.show-ok  { background: var(--green); color: #000; opacity: 1; }
+#toast.show-err { background: var(--red);   color: #fff; opacity: 1; }
+
+/* ── STATS GRID ── */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; text-align: center; }
+.stat-card .num { font-size: 2rem; font-weight: 800; color: var(--accent); }
+.stat-card .lbl { font-size: .75rem; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: .5px; }
+</style>
+{% block head %}{% endblock %}
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="title">WORDLIB</div>
+    <div class="sub">ETHER AI -- For Johannes</div>
+    <div class="ai-badge" id="aiBadge">Checking AI...</div>
+  </div>
+  <nav>
+    <div class="nav-section">Main</div>
+    <a href="/" class="{% if request.path == '/' %}active{% endif %}">
+      <span class="icon">[D]</span> Dashboard
+    </a>
+    <a href="/chat" class="{% if '/chat' in request.path %}active{% endif %}">
+      <span class="icon">[C]</span> AI Chat
+    </a>
+
+    <div class="nav-section">Library</div>
+    <a href="/library" class="{% if '/library' in request.path %}active{% endif %}">
+      <span class="icon">[L]</span> Notes & URLs
+    </a>
+    <a href="/kb" class="{% if '/kb' in request.path %}active{% endif %}">
+      <span class="icon">[K]</span> Knowledge Base
+    </a>
+    <a href="/research" class="{% if '/research' in request.path %}active{% endif %}">
+      <span class="icon">[R]</span> Research
+    </a>
+
+    <div class="nav-section">Personal</div>
+    <a href="/strategy" class="{% if '/strategy' in request.path %}active{% endif %}">
+      <span class="icon">[S]</span> Strategy Notes
+    </a>
+    <a href="/recovery" class="{% if '/recovery' in request.path %}active{% endif %}">
+      <span class="icon">[H]</span> Recovery Guide
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    USB-portable | Offline-capable<br>
+    D:\wordlib | ETHER AI v1
+  </div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <h2>{% block page_title %}Dashboard{% endblock %}</h2>
+    <div class="search-wrap">
+      <input type="text" class="search-global" id="globalSearch" placeholder="Search everything..." autocomplete="off">
+      <div class="search-results" id="searchResults" style="display:none"></div>
+    </div>
+  </div>
+  <div class="content">
+    {% with msgs = get_flashed_messages(with_categories=true) %}
+      {% for cat, msg in msgs %}
+        <div style="background:var(--bg3);border-left:3px solid var(--{% if cat=='error' %}red{% else %}green{% endif %});padding:10px 14px;border-radius:var(--radius);margin-bottom:12px;font-size:.88rem;">
+          {{ msg }}
+        </div>
+      {% endfor %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ── Global search ─────────────────────────────────────────────────────
+const gs = document.getElementById('globalSearch');
+const sr = document.getElementById('searchResults');
+let st;
+gs.addEventListener('input', () => {
+  clearTimeout(st);
+  if (!gs.value.trim()) { sr.style.display = 'none'; return; }
+  st = setTimeout(async () => {
+    const r = await fetch('/api/search?q=' + encodeURIComponent(gs.value));
+    const d = await r.json();
+    if (!d.length) { sr.style.display = 'none'; return; }
+    sr.innerHTML = d.map(i => `
+      <div class="search-result-item" onclick="location.href='${i.url}'">
+        <div class="type">${i.type}</div>
+        <div class="title">${i.title}</div>
+        <div class="snippet">${i.snippet}</div>
+      </div>`).join('');
+    sr.style.display = 'block';
+  }, 300);
+});
+document.addEventListener('click', e => { if (!gs.contains(e.target)) sr.style.display = 'none'; });
+
+// ── AI + RAG badge ───────────────────────────────────────────────────
+fetch('/status').then(r => r.json()).then(d => {
+  const b = document.getElementById('aiBadge');
+  const aiOk  = d.ai_mode === 'local-llm';
+  const ragOk = d.rag && d.rag.status === 'healthy' && d.rag.total_chunks > 0;
+  const parts = [];
+  parts.push(aiOk ? 'AI: LLM' : 'AI: Template');
+  if (ragOk) parts.push('RAG: ' + d.rag.total_chunks + ' chunks');
+  b.textContent = parts.join('  |  ');
+  if (aiOk || ragOk) b.classList.add('live');
+}).catch(() => {});
+
+// ── Toast ─────────────────────────────────────────────────────────────
+function toast(msg, type = 'ok') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = type === 'error' ? 'show-err' : 'show-ok';
+  setTimeout(() => { t.className = ''; }, 3000);
+}
+</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

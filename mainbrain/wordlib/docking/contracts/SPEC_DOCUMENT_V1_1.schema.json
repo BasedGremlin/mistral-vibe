@@ -1,0 +1,11 @@
+{
+  "contract": "neuroforge.spec_document_schema.v1.1",
+  "root": "SpecDocument",
+  "required_sections": ["meta", "mission", "scope", "target", "relationships", "definition", "impact"],
+  "required_meta_fields": ["spec_id", "version", "date", "author", "status"],
+  "valid_statuses": ["draft", "accepted", "implemented", "verified", "superseded", "rejected"],
+  "required_target_fields": ["modules", "allowed_files", "forbidden_files"],
+  "required_definition_fields": ["contracts", "implementation_requirements", "acceptance_criteria", "rollback_expectations"],
+  "acceptance_criteria_rule": "at least one criterion with id, description, and verification",
+  "verification_rule": "verified status requires 100% acceptance criteria and human approval"
+}
