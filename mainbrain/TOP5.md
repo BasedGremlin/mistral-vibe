@@ -118,9 +118,15 @@ Absorption System.txt` — a complete production design record:
   endpoint was **removed**; only `absorb_text` and `verify_artifact` remain.
 
 **Status:** the v11 starter zip/wheel referenced by the record is **not present
-in any package** (`handoff/00_START_HERE/MISSING_ARTIFACTS.md`). This is the
-Phase-3 target of the merge plan: recover or rebuild, then integrate as the
-worker plane under the swarm planner. Allowlisted task types only.
+in any package** (`handoff/00_START_HERE/MISSING_ARTIFACTS.md`).
+
+**Rebuilt:** `mainbrain/ether-runtime/` now implements the v11 durability model
+from this record — pure stdlib, fully offline: SQLite WAL journal +
+transactional outbox, consumer-group stream with 60s idle reclaim, execution
+leases, the exact 1/2/4/8/16s ±20% deterministic-jitter retry ladder,
+dead-lettering, and only the two validated task types. 24 tests prove the
+outbox atomicity, the at-least-once duplicate window, lease exclusion, and the
+retry math. Redis/HTTP layers remain honest future adapters — see its README.
 
 ---
 

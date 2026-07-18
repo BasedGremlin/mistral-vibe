@@ -21,6 +21,11 @@ mainbrain/
                       tRPC/Drizzle shell: OpenAI Agents SDK planner-worker-validator-
                       synthesizer, Claude as adversarial critic, Hugging Face
                       Transformers.js local embeddings, Supabase control plane.
+  ether-runtime/      Pure-stdlib durable task runtime — offline reconstruction of
+                      the missing EtherAI Absorption v11 artifact (top-5 #4): SQLite
+                      WAL journal + transactional outbox, consumer-group stream with
+                      idle reclaim, deterministic jittered retries, allowlisted task
+                      types, at-least-once with terminal-state dedup. 24 tests.
   handoff/            The conversation-handoff record: start-here docs, the three
                       runtime/memory design conversations, MASTERZIP v11 domain spec,
                       and integrity manifests of the original bundle.
