@@ -1,0 +1,3 @@
+numpy>=1.24
+Pillow>=10.0
+# numba>=0.58   # Optional: uncomment for 10-40x CPU speedup on lighting/CSR kernels

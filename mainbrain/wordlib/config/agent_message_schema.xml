@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  AGENT MESSAGE SCHEMA v1.0
+  Describes the REAL message shapes the swarm already uses (Task in, AgentResult
+  out). This is documentation of what exists, not an aspirational format. Every
+  field here maps to a real attribute in src/agents/base.py.
+-->
+<agent_protocol version="1.0">
+
+  <message type="task" direction="in">
+    <field name="kind" type="string" required="true">
+      The task kind, routed to the agent that handles it
+      (plan|code|test|deploy|guard|research|reason|math|absorb|power|market|gremlin)
+    </field>
+    <field name="payload" type="object" required="false">
+      Kind-specific arguments. Examples:
+      market -> {topic, evidence:[{source,text}], feasibility?}
+      code   -> {changes:{path:content}} or {creative:true, generate, prompt}
+      guard  -> {changes:{path:content}}
+    </field>
+    <field name="id" type="string" required="false">Auto-generated if omitted</field>
+  </message>
+
+  <message type="agent_result" direction="out">
+    <field name="agent" type="string">Name of the agent that handled it</field>
+    <field name="ok" type="boolean">Whether the task succeeded</field>
+    <field name="output" type="object|string">Result data (JSON-serializable)</field>
+    <field name="detail" type="string">Human-readable summary</field>
+    <field name="error" type="string">Error message if ok=false</field>
+    <field name="duration_ms" type="integer">Execution time</field>
+  </message>
+
+  <transparency_contract>
+    <rule>Every agent_result with external claims must carry traceable sources
+      in output (e.g. market results list only supplied evidence).</rule>
+    <rule>An agent that cannot do something returns ok=false with a clear error,
+      never a fabricated success.</rule>
+    <rule>State-changing results (code/deploy) report rolled_back status so the
+      UI can show the safety rail.</rule>
+  </transparency_contract>
+
+</agent_protocol>

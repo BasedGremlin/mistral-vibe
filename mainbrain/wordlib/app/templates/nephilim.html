@@ -1,0 +1,572 @@
+{# NEPHILIM -- served at /nephilim.
+   A living, reasoning-forward interface: void background with a breathing neural
+   field, an orbital agent core that reflects REAL agent status, and reasoning
+   traces that flow in like mercury when you run a task.
+
+   HONESTY: every live panel reads a real endpoint. The "alive" parts are pure
+   aesthetics (CSS/canvas); the DATA is never invented. Market panel shows the
+   real MarketIntelAnalyst, which cites sources and admits insufficient data.
+
+   ACCESSIBILITY IS REAL, NOT DECORATIVE: all motion respects
+   prefers-reduced-motion (the neural field freezes to a static image and the
+   canvas is aria-hidden), full keyboard operability, ARIA live regions for the
+   reasoning trace, semantic landmarks, visible focus, high-contrast support,
+   and a verified-contrast palette. The beauty never costs access. #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEPHILIM — Living Agent Interface</title>
+<style>
+  :root{
+    --void:#06070d; --void2:#0b0e1a; --panel:rgba(20,26,46,.72);
+    --edge:#1d2742; --text:#eef1fb; --text2:#aab4d4;
+    --cyan:#5fe3ff; --violet:#b483ff; --mint:#5cf0c8; --rose:#ff8ab0;
+    --amber:#ffd76a; --on:#04121a; --focus:#ffe06a;
+  }
+  @media (prefers-contrast: more){
+    :root{ --void:#000; --void2:#000; --panel:#000; --edge:#fff;
+           --text:#fff; --text2:#fff; --cyan:#00e5ff; }
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ font-size:100%; }
+  body{
+    background:var(--void); color:var(--text); min-height:100vh;
+    font-family:system-ui,'Segoe UI',sans-serif; line-height:1.6;
+    overflow-x:hidden;
+  }
+  /* Neural field canvas sits behind everything */
+  #neural{ position:fixed; inset:0; z-index:0; opacity:.55; }
+  @media (prefers-reduced-motion: reduce){
+    #neural{ display:none; }                 /* no motion: drop the field entirely */
+    body{ background:
+      radial-gradient(1200px 800px at 70% 20%, #10162e 0%, var(--void) 60%); }
+  }
+  .skip-link{ position:absolute; left:-999px; background:var(--cyan);
+    color:var(--on); padding:1rem; font-weight:800; z-index:1000; }
+  .skip-link:focus{ left:0; }
+  a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{
+    outline:4px solid var(--focus); outline-offset:3px; border-radius:6px;
+  }
+
+  .wrap{ position:relative; z-index:1; max-width:78rem; margin:0 auto;
+         padding:1.5rem 1.25rem 4rem; }
+  header.hero{ text-align:center; padding:2.5rem 1rem 1.5rem; }
+  .hero h1{ font-size:clamp(2.2rem,6vw,4rem); font-weight:900; letter-spacing:.5rem;
+    background:linear-gradient(90deg,var(--cyan),var(--violet),var(--mint));
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .hero p{ color:var(--text2); max-width:40rem; margin:.5rem auto 0; }
+  .hero .truth{ display:inline-block; margin-top:.75rem; font-size:.8rem;
+    color:var(--mint); border:1px solid var(--edge); border-radius:999px;
+    padding:.25rem .9rem; }
+
+  /* The orbital core */
+  .core-stage{ position:relative; height:340px; margin:1.5rem 0;
+    display:flex; align-items:center; justify-content:center; }
+  .core{ width:130px; height:130px; border-radius:50%;
+    background:radial-gradient(circle at 40% 35%,var(--cyan),var(--violet) 70%);
+    box-shadow:0 0 60px rgba(95,227,255,.5),0 0 120px rgba(180,131,255,.3);
+    display:flex; align-items:center; justify-content:center;
+    text-align:center; font-weight:800; color:var(--on); font-size:.95rem;
+    animation:breathe 4s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce){ .core{ animation:none; } }
+  @keyframes breathe{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.06); } }
+  .orbit{ position:absolute; border:1px solid var(--edge); border-radius:50%; }
+  .o1{ width:230px; height:230px; } .o2{ width:320px; height:320px; }
+  /* Agent nodes positioned around the core via JS */
+  .agent-node{ position:absolute; min-width:44px; min-height:44px;
+    padding:.3rem .6rem; border-radius:999px; background:var(--panel);
+    border:1px solid var(--edge); font-size:.78rem; color:var(--text);
+    display:flex; align-items:center; gap:.35rem; cursor:pointer;
+    backdrop-filter:blur(6px); transform:translate(-50%,-50%); }
+  .agent-node .pulse{ width:.55rem; height:.55rem; border-radius:50%;
+    background:var(--mint); box-shadow:0 0 8px var(--mint); }
+  .agent-node.off .pulse{ background:var(--rose); box-shadow:none; }
+
+  /* Panels */
+  .panels{ display:grid; gap:1.1rem; grid-template-columns:1fr; }
+  @media (min-width:54rem){ .panels{ grid-template-columns:1fr 1fr; } }
+  .panel{ background:var(--panel); border:1px solid var(--edge);
+    border-radius:16px; padding:1.1rem 1.2rem; backdrop-filter:blur(10px); }
+  .panel h2{ font-size:1.1rem; color:var(--cyan); margin-bottom:.6rem;
+    display:flex; align-items:center; gap:.5rem; }
+  .panel.full{ grid-column:1/-1; }
+  .muted{ color:var(--text2); font-size:.9rem; }
+
+  label{ display:block; font-weight:700; margin:.5rem 0 .35rem; }
+  input[type=text],textarea{ width:100%; min-height:48px; font-size:1rem;
+    padding:.6rem .8rem; background:var(--void2); color:var(--text);
+    border:2px solid var(--edge); border-radius:10px; font-family:inherit; }
+  textarea{ min-height:96px; resize:vertical; }
+  .btn{ min-height:48px; padding:.7rem 1.4rem; font-size:1rem; font-weight:800;
+    border:none; border-radius:10px; cursor:pointer; margin-top:.7rem;
+    background:linear-gradient(90deg,var(--cyan),var(--violet)); color:var(--on); }
+  .btn.ghost{ background:transparent; color:var(--text);
+    border:1px solid var(--edge); }
+  .btn:hover{ filter:brightness(1.12); }
+
+  /* Mercury reasoning trace */
+  .trace{ list-style:none; }
+  .trace li{ position:relative; margin:.5rem 0; padding:.7rem .9rem .7rem 1.4rem;
+    background:linear-gradient(100deg,rgba(95,227,255,.08),rgba(180,131,255,.05));
+    border:1px solid var(--edge); border-radius:10px;
+    animation:flowin .5s ease both; }
+  @media (prefers-reduced-motion: reduce){ .trace li{ animation:none; } }
+  @keyframes flowin{ from{ opacity:0; transform:translateX(-12px); }
+                     to{ opacity:1; transform:none; } }
+  .trace li::before{ content:""; position:absolute; left:.6rem; top:.9rem;
+    width:.4rem; height:.4rem; border-radius:50%; background:var(--cyan);
+    box-shadow:0 0 8px var(--cyan); }
+  .trace li.ok::before{ background:var(--mint); box-shadow:0 0 8px var(--mint); }
+  .trace li.fail::before{ background:var(--rose); box-shadow:0 0 8px var(--rose); }
+  .trace .head{ font-weight:700; display:flex; justify-content:space-between; gap:.5rem; }
+  .badge{ font-size:.72rem; padding:.1rem .5rem; border-radius:999px;
+    background:var(--edge); }
+  .badge.ok{ background:var(--mint); color:var(--on); }
+  .badge.fail{ background:var(--rose); color:var(--on); }
+
+  .meter{ background:var(--void2); border-radius:999px; height:1.4rem;
+    overflow:hidden; border:1px solid var(--edge); }
+  .meter>span{ display:block; height:100%; text-align:right; padding-right:.5rem;
+    line-height:1.4rem; font-size:.78rem; font-weight:800; color:var(--on);
+    background:linear-gradient(90deg,var(--mint),var(--cyan)); }
+
+  .announce{ background:var(--panel); border-left:4px solid var(--cyan);
+    padding:.9rem; border-radius:0 10px 10px 0; min-height:3rem; }
+  footer{ text-align:center; color:var(--text2); font-size:.85rem;
+    margin-top:2.5rem; }
+</style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <canvas id="neural" aria-hidden="true"></canvas>
+
+  <div class="wrap">
+    <header class="hero">
+      <h1>NEPHILIM</h1>
+      <p>A living interface for your agent swarm. Watch it think in real time —
+        every panel below reads live system data, never mock-ups.</p>
+      <span class="truth">Honest by design: data is real or it says so</span>
+    </header>
+
+    <main id="main">
+      <!-- Orbital agent core -->
+      <section aria-labelledby="core-h">
+        <h2 id="core-h" class="muted" style="text-align:center;">Agent cognition core
+          <span id="core-count"></span></h2>
+        <div style="text-align:center;margin-bottom:.5rem;">
+          <button class="btn ghost" id="doubt-toggle" aria-pressed="false"
+                  style="margin-top:0;font-size:.85rem;min-height:44px;">
+            Show doubt / calibration</button>
+          <span id="load-readout" class="muted" style="margin-left:.6rem;"></span>
+        </div>
+        <div class="core-stage" role="img" aria-describedby="core-desc">
+          <canvas id="doubt-haze" aria-hidden="true"
+                  style="position:absolute;inset:0;pointer-events:none;opacity:0;"></canvas>
+          <div class="orbit o1" aria-hidden="true"></div>
+          <div class="orbit o2" aria-hidden="true"></div>
+          <div class="core" id="core">SWARM<br>ONLINE</div>
+          <!-- agent nodes injected here -->
+        </div>
+        <p id="core-desc" class="muted" style="text-align:center;">
+          Agents orbit the core. A full text list is in the panel below for
+          screen readers.</p>
+        <p id="doubt-text" class="muted" style="text-align:center;display:none;"
+           role="status" aria-live="polite"></p>
+      </section>
+
+      <div class="panels">
+        <!-- Accessible agent list (the real, non-visual source of truth) -->
+        <section class="panel" aria-labelledby="agents-h">
+          <h2 id="agents-h">⬡ Agents</h2>
+          <ul id="agent-list" role="list" class="muted"
+              aria-label="Agent availability list"></ul>
+        </section>
+
+        <!-- Power -->
+        <section class="panel" aria-labelledby="power-h">
+          <h2 id="power-h">⚡ System Power</h2>
+          <div class="meter" role="img" aria-labelledby="power-label">
+            <span id="power-bar" style="width:0%">0%</span>
+          </div>
+          <p class="muted" id="power-label" style="margin-top:.4rem;">Reading…</p>
+          <p class="muted" id="mode-label"></p>
+        </section>
+
+        <!-- Reasoning runner -->
+        <section class="panel full" aria-labelledby="run-h">
+          <h2 id="run-h">🜂 Run a task — watch the reasoning flow</h2>
+          <label for="goal">Goal</label>
+          <input type="text" id="goal" placeholder="e.g. check the current power level"
+                 aria-describedby="goal-help">
+          <p id="goal-help" class="muted">The swarm plans, then each agent runs.
+            Steps stream in below as they complete.</p>
+          <button class="btn" id="run-btn">Invoke</button>
+          <h3 style="margin-top:1rem;font-size:1rem;">Reasoning trace</h3>
+          <ul class="trace" id="trace" aria-live="polite"
+              aria-label="Live reasoning steps">
+            <li class="muted">No task yet. Steps will flow in here.</li>
+          </ul>
+        </section>
+
+        <!-- Meta-evolution: agent versions + fitness -->
+        <section class="panel full" aria-labelledby="evo-h">
+          <h2 id="evo-h">🧬 Agent Evolution</h2>
+          <p class="muted">Agents can have competing variants (genomes). A variant
+            only becomes the default by winning a tournament on known-answer
+            tasks. "Evolved" means a non-baseline version is active. Empty until
+            genomes are registered — never faked.</p>
+          <div id="evo-out" class="muted" role="status" aria-live="polite">
+            Loading evolution status…</div>
+        </section>
+
+        <!-- System transparency: CI, gremlin tools, calibration health -->
+        <section class="panel full" aria-labelledby="transp-h">
+          <h2 id="transp-h">🛡️ System Transparency</h2>
+          <p class="muted">What the safety machinery is doing right now. All
+            read-only; gremlin tools never auto-apply.</p>
+          <div id="transp-ci" class="muted" style="margin:.4rem 0;">CI: checking…</div>
+          <div id="transp-calib" class="muted" style="margin:.4rem 0;">Calibration: …</div>
+          <div style="margin-top:.6rem;">
+            <button class="btn ghost" id="gremlin-run"
+                    style="min-height:44px;font-size:.85rem;">
+              Run safety checks (phantom files + test gaps)</button>
+            <div id="gremlin-out" class="muted" style="margin-top:.5rem;"
+                 role="status" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <!-- Honest market intel -->
+        <section class="panel full" aria-labelledby="market-h">
+          <h2 id="market-h">🌐 Market Intelligence (honest)</h2>
+          <p class="muted">This analyzes evidence <em>you provide</em> — it does
+            not scrape or invent data. Paste real findings, one per line, as
+            <code>source :: text</code>. With no evidence it says so.</p>
+          <label for="market-topic">Topic</label>
+          <input type="text" id="market-topic" placeholder="e.g. bubble tea in tier-2 cities">
+          <label for="market-evidence">Evidence (source :: text, one per line)</label>
+          <textarea id="market-evidence"
+            placeholder="forum post :: local brands selling out fast&#10;news article :: new subsidy announced"></textarea>
+          <button class="btn ghost" id="market-btn">Analyze evidence</button>
+          <div id="market-out" class="muted" style="margin-top:.7rem;"></div>
+        </section>
+      </div>
+
+      <section aria-labelledby="msg-h">
+        <h2 id="msg-h" class="muted">Messages</h2>
+        <div class="announce" role="status" aria-live="assertive" id="announce">
+          Booting NEPHILIM… connecting to the live swarm.
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Runs on your device. The interface is alive; the data is honest.
+        Reduced-motion users get a calm static version automatically.</p>
+    </footer>
+  </div>
+
+<script>
+  var announce=document.getElementById('announce');
+  function say(m){ announce.textContent=m; }
+
+  // ── Neural field (pure aesthetic, skipped entirely if reduced-motion) ──
+  (function neural(){
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var c=document.getElementById('neural'), x=c.getContext('2d'), nodes=[], W,H;
+    function size(){ W=c.width=innerWidth; H=c.height=innerHeight; }
+    size(); addEventListener('resize',size);
+    for(var i=0;i<55;i++) nodes.push({x:Math.random()*W,y:Math.random()*H,
+      vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3});
+    function tick(){
+      x.clearRect(0,0,W,H);
+      for(var i=0;i<nodes.length;i++){ var n=nodes[i];
+        n.x+=n.vx; n.y+=n.vy;
+        if(n.x<0||n.x>W)n.vx*=-1; if(n.y<0||n.y>H)n.vy*=-1;
+        for(var j=i+1;j<nodes.length;j++){ var m=nodes[j];
+          var d=Math.hypot(n.x-m.x,n.y-m.y);
+          if(d<140){ x.strokeStyle='rgba(95,227,255,'+(1-d/140)*.22+')';
+            x.beginPath(); x.moveTo(n.x,n.y); x.lineTo(m.x,m.y); x.stroke(); } }
+        x.fillStyle='rgba(180,131,255,.7)';
+        x.beginPath(); x.arc(n.x,n.y,1.6,0,7); x.fill();
+      }
+      requestAnimationFrame(tick);
+    } tick();
+  })();
+
+  // ── Real agent data -> orbital nodes + accessible list ──
+  async function loadAgents(){
+    try{
+      var r=await fetch('/api/agents/status'); var j=await r.json();
+      var agents=j.agents||{}; var names=Object.keys(agents);
+      var stage=document.querySelector('.core-stage');
+      document.querySelectorAll('.agent-node').forEach(function(e){e.remove();});
+      var R=160, cx=stage.offsetWidth/2, cy=stage.offsetHeight/2;
+      names.forEach(function(name,i){
+        var ang=(i/names.length)*Math.PI*2 - Math.PI/2;
+        var a=agents[name];
+        var node=document.createElement('button');
+        node.className='agent-node'+(a.available?'':' off');
+        node.style.left=(cx+Math.cos(ang)*R)+'px';
+        node.style.top=(cy+Math.sin(ang)*R)+'px';
+        node.setAttribute('aria-label',name+(a.available?' available':' offline'));
+        node.innerHTML='<span class="pulse" aria-hidden="true"></span>'+name;
+        node.onclick=function(){ say(name+' agent: '+(a.available?'available':'offline')+
+          '. Handles: '+(a.handles||[]).join(', ')); };
+        stage.appendChild(node);
+      });
+      // Accessible text list (source of truth for screen readers)
+      var list=document.getElementById('agent-list'); list.innerHTML='';
+      names.forEach(function(name){ var a=agents[name];
+        var li=document.createElement('li'); li.setAttribute('role','listitem');
+        li.textContent=name+' — '+(a.available?'available':'offline');
+        list.appendChild(li); });
+      document.getElementById('core-count').textContent=
+        '('+(j.available_count||0)+'/'+(j.agent_count||0)+' online)';
+      // FEATURE 1: load = fraction of agents unavailable (proxy for busy/degraded)
+      var total=j.agent_count||1, avail=j.available_count||0;
+      var load=Math.round(((total-avail)/total)*100);
+      setLoad(load);
+    }catch(e){ say('Could not reach the swarm: '+e.message); }
+  }
+
+  async function loadPower(){
+    try{
+      var r=await fetch('/api/reasoning/dashboard'); var j=await r.json();
+      var pct=(j.power&&j.power.power_level_pct)||0;
+      var bar=document.getElementById('power-bar');
+      bar.style.width=pct+'%'; bar.textContent=pct+'%';
+      document.getElementById('power-label').textContent=
+        j.power?(j.power.active+'/'+j.power.total+' capabilities active'):'unavailable';
+      var env=j.power&&j.power.environment;
+      if(env)document.getElementById('mode-label').textContent=
+        'CPU '+env.cpu+' • RAM '+env.ram_gb+' GB • '+env.model_tier;
+    }catch(e){ document.getElementById('power-label').textContent='unavailable'; }
+  }
+
+  document.getElementById('run-btn').onclick=async function(){
+    var goal=document.getElementById('goal').value.trim();
+    if(!goal){ say('Enter a goal first.'); document.getElementById('goal').focus(); return; }
+    var t=document.getElementById('trace'); t.innerHTML='<li class="muted">Planning…</li>';
+    say('Invoking: '+goal);
+    try{
+      var r=await fetch('/api/agents/solve',{method:'POST',
+        headers:{'Content-Type':'application/json'},body:JSON.stringify({goal:goal})});
+      var j=await r.json(); t.innerHTML='';
+      (j.results||[]).forEach(function(res,i){
+        var li=document.createElement('li'); li.className=res.ok?'ok':'fail';
+        li.innerHTML='<div class="head"><span>Step '+(i+1)+': '+(res.agent||'agent')+
+          '</span><span class="badge '+(res.ok?'ok':'fail')+'">'+(res.ok?'ok':'failed')+
+          '</span></div><div class="muted">'+(res.detail||res.error||'')+'</div>';
+        t.appendChild(li);
+        // FEATURE 2: orbit confession -- failed agent drifts out, success snaps back
+        if(res.agent) markAgentFailure(res.agent, !res.ok);
+      });
+      if(!(j.results||[]).length) t.innerHTML='<li class="muted">No steps returned.</li>';
+      say('Done. '+(j.ok?'All steps succeeded.':'Some steps need attention.'));
+    }catch(e){ t.innerHTML='<li class="fail">Error: '+e.message+'</li>'; say('Failed: '+e.message); }
+  };
+
+  document.getElementById('market-btn').onclick=async function(){
+    var topic=document.getElementById('market-topic').value.trim()||'untitled';
+    var raw=document.getElementById('market-evidence').value.trim();
+    var evidence=raw?raw.split('\n').map(function(line){
+      var parts=line.split('::'); if(parts.length<2)return null;
+      return {source:parts[0].trim(),text:parts.slice(1).join('::').trim()};
+    }).filter(Boolean):[];
+    var out=document.getElementById('market-out'); out.textContent='Analyzing…';
+    say('Analyzing '+evidence.length+' evidence item(s)…');
+    try{
+      var r=await fetch('/api/market/analyze',{method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({topic:topic,evidence:evidence})});
+      var j=await r.json(); var o=j.output||{};
+      var html='<strong>'+o.evidence_count+' evidence item(s).</strong> '+
+        (o.confidence_note||'')+'<br>';
+      if(o.trend_summary&&o.trend_summary.length)
+        html+='<br><strong>Trends:</strong><br>'+o.trend_summary.map(function(s){return '• '+s;}).join('<br>');
+      if(o.sources&&o.sources.length)
+        html+='<br><br><strong>Sources (only what you gave):</strong><br>'+
+          o.sources.map(function(s){return '• '+s.source+': "'+s.excerpt+'…"';}).join('<br>');
+      out.innerHTML=html;
+      say('Market analysis complete. '+o.evidence_count+' items, every source traceable.');
+    }catch(e){ out.textContent='Failed: '+e.message; }
+  };
+
+  // ── GREMLIN UI FEATURE 1: core pulse rate = real system load ──
+  // Load proxied by how many agents are actively unavailable/working + recent
+  // task activity. Reduced-motion users get a numeric readout instead.
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function setLoad(pct){
+    var readout = document.getElementById('load-readout');
+    var core = document.getElementById('core');
+    if (reduceMotion){
+      readout.textContent = 'System load: ' + pct + '%';
+      return;
+    }
+    // Faster breathing when busier: 4s idle -> 1.2s full load
+    var dur = (4 - (pct/100)*2.8).toFixed(2);
+    core.style.animationDuration = dur + 's';
+    readout.textContent = pct > 60 ? 'busy' : '';
+  }
+
+  // ── GREMLIN UI FEATURE 2: orbit as confession ──
+  // Failed agents drift outward from the core; recovered ones snap back.
+  var failedAgents = {};
+  function markAgentFailure(agentName, failed){
+    failedAgents[agentName] = failed;
+    var nodes = document.querySelectorAll('.agent-node');
+    nodes.forEach(function(node){
+      if (node.getAttribute('aria-label') &&
+          node.getAttribute('aria-label').indexOf(agentName) === 0){
+        if (failed){
+          // drift outward (spatial failure) -- transform only, motion-safe handled by CSS
+          node.style.transition = reduceMotion ? 'none' : 'all .6s ease';
+          node.dataset.failed = '1';
+          node.style.filter = 'saturate(.4) brightness(1.4)';
+          node.style.transform = 'translate(-50%,-50%) scale(1.1) translateY(28px)';
+          var dot = node.querySelector('.pulse'); if(dot) dot.style.background='var(--rose)';
+        } else {
+          node.dataset.failed = '';
+          node.style.filter = '';
+          node.style.transform = 'translate(-50%,-50%)';
+        }
+      }
+    });
+  }
+
+  // ── GREMLIN UI FEATURE 3: "show me the doubt" -- calibration haze ──
+  var doubtOn = false, hazeRAF = null;
+  var doubtBtn = document.getElementById('doubt-toggle');
+  doubtBtn.onclick = async function(){
+    doubtOn = !doubtOn;
+    doubtBtn.setAttribute('aria-pressed', doubtOn ? 'true' : 'false');
+    var textEl = document.getElementById('doubt-text');
+    var haze = document.getElementById('doubt-haze');
+    if (!doubtOn){
+      textEl.style.display='none'; haze.style.opacity='0';
+      if(hazeRAF) cancelAnimationFrame(hazeRAF);
+      say('Doubt layer hidden.');
+      return;
+    }
+    // Fetch REAL calibration data
+    var rep;
+    try { rep = await (await fetch('/api/reasoning/calibration')).json(); }
+    catch(e){ rep = {ok:false}; }
+    // Text alternative (same info for screen-reader users) -- ALWAYS shown when on
+    textEl.style.display='block';
+    if (!rep || rep.samples === 0 || rep.ok === false){
+      textEl.textContent = 'Calibration: no prediction history yet — the system '
+        + 'has not yet recorded enough confident predictions to measure how '
+        + 'trustworthy its confidence is.';
+      haze.style.opacity = reduceMotion ? '0' : '.15';
+      say('Doubt layer on: no calibration data yet.');
+      return;
+    }
+    var brier = rep.brier_score, ece = rep.ece;
+    textEl.textContent = 'Calibration over ' + rep.samples + ' predictions — '
+      + 'Brier ' + brier + ' (0 is perfect), ECE ' + ece + ' (lower is better '
+      + 'calibrated). Denser haze means the system is more often wrong about '
+      + 'how confident it should be.';
+    say('Doubt layer on. ECE ' + ece + '.');
+    // Visual haze: density from miscalibration (ECE). reduced-motion -> static, faint.
+    if (reduceMotion){ haze.style.opacity = Math.min(.4, ece*2).toFixed(2); return; }
+    var hx = haze.getContext('2d');
+    function sizeHaze(){ haze.width=haze.offsetWidth; haze.height=haze.offsetHeight; }
+    sizeHaze();
+    var particles = [];
+    var density = Math.max(8, Math.round((ece||0)*120)); // more miscalibration = more
+    for(var i=0;i<density;i++) particles.push({
+      a:Math.random()*Math.PI*2, r:50+Math.random()*90,
+      sp:(Math.random()-.5)*.01, sz:1+Math.random()*2});
+    haze.style.opacity = Math.min(.5, .15 + (ece||0)*1.5).toFixed(2);
+    function drawHaze(){
+      if(!doubtOn) return;
+      hx.clearRect(0,0,haze.width,haze.height);
+      var cx=haze.width/2, cy=haze.height/2;
+      particles.forEach(function(p){
+        p.a+=p.sp; var x=cx+Math.cos(p.a)*p.r, y=cy+Math.sin(p.a)*p.r;
+        hx.fillStyle='rgba(255,135,176,.5)';
+        hx.beginPath(); hx.arc(x,y,p.sz,0,7); hx.fill();
+      });
+      hazeRAF=requestAnimationFrame(drawHaze);
+    }
+    drawHaze();
+  };
+
+  // ── TASK 5: surface CI status, calibration, gremlin safety tools ──
+  async function loadTransparency(){
+    // CI status: read the workflow file's existence as honest "CI configured".
+    // (Live run status needs the GitHub API + auth; we don't fake a badge.)
+    var ci = document.getElementById('transp-ci');
+    ci.textContent = 'CI: configured (.github/workflows/ci.yml runs the suite + '
+      + 'safety + a11y checks on every push/PR). Live run status requires GitHub '
+      + '— not shown here rather than faked.';
+    // Calibration health
+    try {
+      var rep = await (await fetch('/api/reasoning/calibration')).json();
+      var el = document.getElementById('transp-calib');
+      if (rep && rep.samples > 0)
+        el.textContent = 'Calibration: ' + rep.samples + ' predictions, Brier '
+          + rep.brier_score + ', ECE ' + rep.ece + '.';
+      else
+        el.textContent = 'Calibration: no prediction history yet (system hasn\\'t '
+          + 'logged enough confident predictions to measure itself).';
+    } catch(e){
+      document.getElementById('transp-calib').textContent = 'Calibration: unavailable.';
+    }
+  }
+
+  document.getElementById('gremlin-run').onclick = async function(){
+    var out = document.getElementById('gremlin-out');
+    out.textContent = 'Running consent-gated safety checks…';
+    say('Running phantom-file + test-gap checks.');
+    try {
+      // Phantom file detector (consent given by this explicit click)
+      var pf = await (await fetch('/api/gremlin/activate', {method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({consent:true, feature:'phantom_file_detector',
+          context:{paths:['src/self_editor.py','src/agents/orchestrator.py']}})})).json();
+      var tg = await (await fetch('/api/gremlin/activate', {method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({consent:true, feature:'test_gap_finder'})})).json();
+      var msg = 'Phantom files: ' + ((pf.missing && pf.missing.length) || 0) + ' missing. ';
+      msg += 'Test gaps: ' + (tg.count || 0) + ' untested module(s). ';
+      msg += '(Logged, never auto-applied.)';
+      out.textContent = msg;
+      say(msg);
+    } catch(e){ out.textContent = 'Checks unavailable: ' + e.message; }
+  };
+
+  async function loadEvolution(){
+    var el = document.getElementById('evo-out');
+    try {
+      var j = await (await fetch('/api/agents/evolution')).json();
+      var agents = j.agents_with_genomes || [];
+      if (!agents.length){
+        el.textContent = 'No agent genomes registered yet. When variants are '
+          + 'registered and run through a tournament, their versions and fitness '
+          + 'scores appear here.';
+        return;
+      }
+      var rows = agents.map(function(a){
+        var v = (j.active_versions||{})[a];
+        var evolved = (j.evolved||{})[a];
+        return '• ' + a + ': active v' + v + (evolved ? ' (evolved)' : ' (baseline)');
+      });
+      // Add fitness from latest scores if present
+      var scores = j.latest_scores || {};
+      Object.keys(scores).forEach(function(k){
+        rows.push('   ' + k + ': fitness ' + scores[k].fitness +
+                  ' (' + scores[k].correct + '/' + scores[k].tasks_run + ' correct)');
+      });
+      el.innerHTML = rows.join('<br>');
+    } catch(e){ el.textContent = 'Evolution status unavailable: ' + e.message; }
+  }
+
+  loadAgents(); loadPower(); loadTransparency(); loadEvolution();
+  say('NEPHILIM online. Every panel here reads live data.');
+</script>
+</body>
+</html>

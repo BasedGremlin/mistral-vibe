@@ -1,0 +1,59 @@
+=====================================================
+  WORDLIB -- How to make the one-click installer EXE
+=====================================================
+
+GOAL: turn this folder into a single WORDLIB_Installer.exe that, when
+double-clicked, unpacks everything AND installs automatically. The end
+user then has ZERO tasks except download + double-click.
+
+WHY a build step exists: a self-extracting .exe is a Windows binary. It
+has to be assembled on Windows. You do this ONCE, then share the .exe.
+
+-----------------------------------------------------
+  ONE-TIME BUILD (you, on Windows)
+-----------------------------------------------------
+
+1. Install 7-Zip if you don't have it (free):
+   https://7-zip.org
+
+   Also grab the "Extra" package from:
+   https://7-zip.org/download.html
+   ...and copy 7zSD.sfx into your 7-Zip folder (next to 7z.exe).
+   (Most 7-Zip installs already include it.)
+
+2. Double-click BUILD_INSTALLER.bat (in this folder).
+   It compresses wordlib, wraps it with the SFX stub, and produces:
+
+       WORDLIB_Installer.exe
+
+3. Done. That single .exe is what you share / keep.
+
+-----------------------------------------------------
+  WHAT THE END USER DOES (zero tasks but two clicks)
+-----------------------------------------------------
+
+1. Download WORDLIB_Installer.exe
+2. Double-click it
+   -> it unpacks wordlib AND runs START_HERE.bat automatically
+   -> the polished installer takes over, downloads models, opens ETHER AI
+
+No extracting. No deleting old folders. No mixing versions
+(the installer self-cleans stale files on first run).
+
+-----------------------------------------------------
+  NOTES
+-----------------------------------------------------
+
+- Windows SmartScreen may warn on an unsigned .exe the first time
+  ("Windows protected your PC"). Click "More info" -> "Run anyway".
+  This is normal for any unsigned installer; code-signing removes it
+  but costs money and isn't needed for personal use.
+
+- To install ONTO a USB: when the SFX asks where to extract, point it
+  at your USB root (e.g. D:\). Or just let it extract beside the .exe
+  and copy the wordlib folder to the USB afterward.
+
+- The .exe will be large (~size of the models you've bundled). If you
+  build it BEFORE downloading models, it's tiny (~200 KB) and the models
+  download on first run -- recommended.
+=====================================================

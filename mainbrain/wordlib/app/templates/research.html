@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Research -- WORDLIB{% endblock %}
+{% block page_title %}Research -- {{ data.title }}{% endblock %}
+{% block content %}
+<!-- Topic tabs -->
+<div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+  {% for key, info in all_topics.items() %}
+  <a href="/research?topic={{ key }}" class="btn {% if topic == key %}btn-primary{% else %}btn-ghost{% endif %}">{{ info.icon }}</a>
+  {% endfor %}
+</div>
+<div class="card">
+  <h3 style="margin-bottom:16px">{{ data.title }}</h3>
+  <ul style="list-style:none;padding:0">
+    {% for note in data.notes %}
+    <li style="padding:10px 0;border-bottom:1px solid var(--border);font-size:.9rem;line-height:1.6;display:flex;gap:10px">
+      <span style="color:var(--accent);flex-shrink:0">--</span>
+      <span>{{ note }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+<div style="margin-top:12px">
+  <p style="color:var(--muted);font-size:.82rem">Save additional research URLs to your library using the scraper on the <a href="/library" style="color:var(--accent)">Library</a> page.</p>
+</div>
+{% endblock %}

@@ -1,0 +1,7 @@
+;!@Install@!UTF-8!
+Title="WORDLIB USB AI Master - Installer"
+BeginPrompt="Install WORDLIB to this drive and set up everything automatically?"
+RunProgram="START_HERE.bat"
+GUIMode="1"
+OverwriteMode="2"
+;!@InstallEnd@!

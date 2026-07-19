@@ -1,0 +1,4 @@
+# Counter unanchored patterns from the repo root .gitignore that would
+# swallow real source in the vendored apps (api/lib, src/lib in the swarm).
+!**/lib/
+!**/lib/**

@@ -1,0 +1,103 @@
+=====================================================
+  USB AI MASTER - Model Guide
+  Why Dolphin? What is Q4_K_M? Which model when?
+=====================================================
+
+THE SHORT ANSWER
+----------------
+  Dolphin  : uncensored fine-tune, maximum capability
+  Phi      : heavily filtered, Microsoft-aligned, limited
+  Llama 3  : solid, filtered -- good for classroom use
+  Qwen     : best open-source coding model at 7B
+  Ollama   : NOT a model -- it is a runtime (like LM Studio)
+
+-----------------------------------------------------
+DOLPHIN (recommended PRIMARY)
+-----------------------------------------------------
+  Created by:  Eric Hartford
+  Based on:    Mistral 7B or Llama 3 8B
+  Why use it:  Fine-tuned to follow uncensored system
+               prompts without adding disclaimers.
+               When you give it the Dolphin preset, it
+               actually follows it. Other models ignore
+               uncensored instructions and filter anyway.
+  Best for:    All-purpose use, research, unrestricted
+               Q&A, general assistant, teaching (with
+               the Gold Standard preset)
+  VRAM:        ~5 GB for 7B Q4_K_M
+  LM Studio search: dolphin 2.9 mistral 7b gguf q4
+
+PHI (not recommended)
+  Created by Microsoft. Heavily filtered by RLHF training.
+  Even with an uncensored system prompt, Phi adds
+  disclaimers and refuses things Dolphin handles fine.
+  Good for: safe, filtered corporate use.
+  Bad for:  Johannes's use case.
+
+QWEN 2.5 CODER (coding tasks only)
+  Best open-source coding model at 7B size.
+  Significantly better than Mistral or Llama on code.
+  Use with the Coding Assistant preset.
+  LM Studio search: qwen2.5 coder 7b instruct gguf q4
+
+LLAMA 3 8B INSTRUCT (classroom/teaching)
+  Reliable, filtered, Meta-trained.
+  Use when you need a classroom-safe model for students.
+  Use with the Gold Standard - Teaching preset.
+  LM Studio search: llama 3 8b instruct gguf q4
+
+OLLAMA (not a model -- do not download as a model)
+  Ollama is a runtime engine, like LM Studio but
+  command-line based. It runs GGUF models just like
+  LM Studio does. The models themselves are the same
+  .gguf files. You do not need both Ollama and LM Studio
+  unless you specifically need Ollama's API for an app.
+  LM Studio is better for Johannes: it has a GUI.
+
+-----------------------------------------------------
+WHAT Q4_K_M MEANS
+-----------------------------------------------------
+
+Q4_K_M = 4-bit quantized, K-type, Medium
+
+  4-bit : compressed from 16-bit to 4-bit per weight
+          Uses ~4x less memory with ~5% quality loss
+  K     : smarter compression method than basic Q4
+  M     : medium variant -- best size vs quality balance
+
+For a 7B model:
+  Full 16-bit   : ~14 GB VRAM (too big for most GPUs)
+  Q4_K_M        : ~4.5 GB VRAM (fits almost any GPU)
+  Q3_K_M        : ~3.3 GB VRAM (smaller, slightly worse)
+  Q5_K_M        : ~5.3 GB VRAM (larger, slightly better)
+  Q8_0          : ~7.7 GB VRAM (near-full quality, big)
+
+For most use cases, Q4_K_M is the right choice.
+
+-----------------------------------------------------
+FULL MODEL STACK (all 4 recommended, ~18-20 GB total)
+-----------------------------------------------------
+
+Priority 1 - DAILY DRIVER (uncensored, all-purpose)
+  dolphin-2.9-mistral-7b-v0.1.Q4_K_M.gguf
+  4.4 GB | 5 GB VRAM
+  Search: dolphin 2.9 mistral 7b gguf q4
+
+Priority 2 - BACKUP (more capable, slightly slower)
+  dolphin-2.8-llama3-8b.Q4_K_M.gguf
+  4.9 GB | 6 GB VRAM
+  Search: dolphin llama 3 8b gguf q4
+
+Priority 3 - CODING (best open model at 7B for code)
+  qwen2.5-coder-7b-instruct-q4_k_m.gguf
+  4.4 GB | 5 GB VRAM
+  Search: qwen2.5 coder 7b instruct gguf q4
+
+Priority 4 - CLASSROOM SAFE (teaching, filtered)
+  Meta-Llama-3-8B-Instruct.Q4_K_M.gguf
+  4.9 GB | 6 GB VRAM
+  Search: llama 3 8b instruct gguf q4
+
+Remaining USB space (30 GB total): ~10-12 GB
+
+=====================================================

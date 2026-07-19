@@ -1,0 +1,163 @@
+Completed the scaffold audit and produced **EtherAI Absorption Gun Complete Production Starter v11**, version **2.1.0**.
+
+[Download the complete v11 starter pack](sandbox:/mnt/data/etherai_absorption_gun_complete_starter_v11.zip)
+
+[Download the installable v2.1.0 wheel](sandbox:/mnt/data/etherai_absorption_gun_complete_starter_v11/dist/etherai_absorption_gun-2.1.0-py3-none-any.whl)
+
+[Read the distributed-runtime assessment](sandbox:/mnt/data/etherai_absorption_gun_complete_starter_v11/docs/DISTRIBUTED_RUNTIME_ASSESSMENT_v11.md)
+
+[Read the complete verification record](sandbox:/mnt/data/etherai_absorption_gun_complete_starter_v11/VERIFICATION_v11.txt)
+
+## What was absorbed
+
+The best parts of your scaffold are now real production components:
+
+- Redis Streams consumer-group dispatch
+- `XREADGROUP` processing and acknowledgment
+- `XAUTOCLAIM` recovery of work abandoned by crashed consumers
+- SQLite WAL-backed task journaling
+- Compose health-gated startup
+- Separate gateway and worker processes
+- SHA-256 artifact manifest verification
+- Durable result and dead-letter records
+- Worker heartbeat healthchecks
+- Optional Chroma deployment profile
+
+Redis documents that consumer-group work should be acknowledged after processing and that pending messages otherwise remain available for recovery. `XAUTOCLAIM` transfers ownership of entries idle beyond a configured threshold, which is now implemented in the worker. ([redis.io](https://redis.io/docs/latest/commands/xautoclaim/))
+
+Docker Compose’s `service_healthy` condition waits for the dependency’s healthcheck before starting the dependent service, which now governs Redis → worker → gateway startup. ([docs.docker.com](https://docs.docker.com/compose/how-tos/startup-order/))
+
+## Important corrections
+
+The proposed `/execute_verified` endpoint was not safe. It accepted arbitrary shell commands without authentication, sandboxing, authorization, or an allowlist. It has been removed.
+
+The gateway now accepts only two validated Pydantic task types:
+
+```text id="2ruywh"
+absorb_text
+verify_artifact
+```
+
+The service was also renamed from **MCP Gateway** to **Task Gateway** because the submitted FastAPI code did not implement the Model Context Protocol. The package does not falsely label a REST API as MCP.
+
+Fixed container names and static IPv4 assignments were removed. Compose service DNS is used instead, allowing worker replicas and avoiding subnet conflicts.
+
+Chroma is no longer started in the critical path. It is available only through an optional profile and requires an explicitly pinned image before activation.
+
+## New durability model
+
+v11 introduces a proper transactional task outbox:
+
+```text id="k089r2"
+API request
+  → SQLite task + outbox row in one transaction
+  → publisher claims outbox row
+  → Redis XADD
+  → consumer-group worker
+  → SQLite execution lease
+  → task execution
+  → completed / retry_wait / dead_lettered
+```
+
+Outbox claim leases prevent the gateway and worker from publishing the same row concurrently.
+
+A crash after Redis publication but before the SQLite publication marker can still produce a duplicate message. That unavoidable at-least-once window is controlled by:
+
+- stable `task_id`;
+- SQLite task uniqueness;
+- worker execution leases;
+- terminal-state duplicate detection;
+- idempotent acknowledgment handling.
+
+The system correctly claims **at-least-once delivery**, not exactly-once execution.
+
+## Wolfram-verified retry policy
+
+Wolfram was used to verify the default retry and reclaim relationship:
+
+```text id="mbwfci"
+Maximum task timeout:       30 seconds
+Nominal retry delays:       1, 2, 4, 8, 16 seconds
+Deterministic jitter:       ±20%
+Total nominal retry delay:  31 seconds
+Redis reclaim threshold:    60 seconds
+Constraint check:           passed
+```
+
+The implementation derives jitter deterministically from:
+
+```text id="rrswhv"
+SHA-256(task_id + attempt)
+```
+
+This spreads retries across tasks while remaining reproducible and auditable.
+
+[Read the Wolfram retry analysis](sandbox:/mnt/data/etherai_absorption_gun_complete_starter_v11/docs/WOLFRAM_RETRY_ANALYSIS_v11.md)
+
+## Gateway and deployment
+
+The FastAPI gateway now uses the recommended lifespan context for shared startup and shutdown resources instead of legacy startup hooks. ([fastapi.tiangolo.com](https://fastapi.tiangolo.com/advanced/events/))
+
+Routes:
+
+```text id="p46a19"
+GET  /healthz
+GET  /readyz
+POST /v1/tasks/absorb
+POST /v1/tasks/verify-artifact
+GET  /v1/tasks/{task_id}
+```
+
+The gateway:
+
+- binds to `127.0.0.1` by default;
+- runs as a non-root user;
+- uses a read-only root filesystem;
+- checks both Redis readiness and SQLite writability;
+- contains no arbitrary execution endpoint.
+
+SQLite WAL allows reads and writes to proceed concurrently in most normal cases, although applications must still handle occasional `SQLITE_BUSY` outcomes. ([sqlite.org](https://sqlite.org/wal.html))
+
+## Hugging Face integration
+
+The root remains a lightweight private-ready Gradio Space.
+
+The Redis worker and Compose stack remain a separate self-hosted deployment because a standard Space restart does not automatically guarantee persistent local database storage. Hugging Face supports custom Docker Spaces, one externally exposed application port, runtime environment variables, and optional attached storage or external persistence. ([huggingface.co](https://huggingface.co/docs/hub/spaces-sdks-docker))
+
+[Read the Hugging Face deployment guide](sandbox:/mnt/data/etherai_absorption_gun_complete_starter_v11/docs/HUGGING_FACE_DEPLOYMENT.md)
+
+I did not publish the project to the Hub because no final repository name or privacy setting was specified in this turn, and the local `hf` CLI runtime was not authenticated.
+
+## Verification
+
+```text id="14a4gq"
+Tests:                       56 passed
+Python compilation:          passed
+Compose YAML parsing:        passed
+Wheel build:                 passed
+Fresh wheel installation:    passed
+Installed CLI doctor:        healthy
+pip dependency check:        passed
+ZIP integrity:               passed
+Files in package:            119
+```
+
+ZIP SHA-256:
+
+```text id="pd2qsc"
+9a82c2719d0b6c35f5da4c16fcd2d9c0a7d2ee0665b0ef1006c129eb2856afde
+```
+
+Wheel SHA-256:
+
+```text id="dur9iu"
+6e8f4ada95dbc9a7ff3802a6ffad63666d5beb8f634a1bbf1cdf924d83583a00
+```
+
+## Honest remaining weaknesses
+
+A live Docker/Redis deployment could not be booted in this execution environment because neither Docker nor Redis Server was available. The distributed layer was verified with unit tests, fake-queue integration tests, API lifecycle tests, static Compose validation, and an installed-wheel test.
+
+SQLite is still single-node coordination, not distributed consensus. Redis and SQLite cannot participate in one atomic cross-system transaction. Result-stream publication is therefore auxiliary; SQLite terminal status remains authoritative.
+
+Remote gateway exposure still requires authentication, rate limiting, TLS, and Redis ACL configuration. Chroma remains intentionally disconnected until a real vector-memory adapter and migration policy exist.

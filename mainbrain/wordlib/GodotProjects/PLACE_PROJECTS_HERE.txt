@@ -1,0 +1,12 @@
+Your Godot projects live here.
+
+The Template/ folder is created by Setup/04_Setup_Godot.bat with
+Dialogic + Phantom Camera already installed and enabled.
+
+OpenClaw operates in this folder by default (config/creative.json -> work_dir).
+So when you run the OpenClaw coding agent, it reads and writes files here.
+
+To start a new game:
+  1. Open Godot (menu option 4)
+  2. Import the Template project, OR
+  3. Create a new project inside this GodotProjects/ folder

@@ -1,0 +1,21 @@
+Place your .gguf model files in this folder (D:\wordlib\models\).
+
+LM Studio launcher will copy them to any host PC automatically.
+ETHER AI web library chat also reads models from this folder.
+
+Recommended files:
+  dolphin-2.9-mistral-7b-v0.1.Q4_K_M.gguf   -> LM Studio search: dolphin 2.9 mistral 7b gguf q4
+  dolphin-2.8-llama3-8b.Q4_K_M.gguf          -> LM Studio search: dolphin llama 3 8b gguf q4
+  qwen2.5-coder-7b-instruct-q4_k_m.gguf       -> LM Studio search: qwen2.5 coder 7b instruct gguf q4
+  Meta-Llama-3-8B-Instruct.Q4_K_M.gguf        -> LM Studio search: llama 3 8b instruct gguf q4
+
+How to get models:
+  1. Open LM Studio on any PC
+  2. Click Search tab (magnifying glass)
+  3. Search for the model name above
+  4. Download the Q4_K_M version
+  5. Find the .gguf file at: %USERPROFILE%\.cache\lm-studio\models
+  6. Copy it to THIS folder
+
+Total size for all 4: ~18-20 GB
+USB has 30 GB total -- ~10-12 GB remaining for your documents.

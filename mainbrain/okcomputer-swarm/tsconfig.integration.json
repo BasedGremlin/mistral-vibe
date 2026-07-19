@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "types": ["node"],
+    "baseUrl": "."
+  },
+  "include": [
+    "api/ai/contracts.ts",
+    "api/ai/state-machine.ts",
+    "api/ai/project-context.ts",
+    "api/ai/provider-status.ts",
+    "api/ai/hf-local-router.ts",
+    "api/ai/claude-critic.ts",
+    "api/ai/supabase-control.ts",
+    "api/ai/openai-swarm.ts",
+    "api/ai/execute-swarm.ts",
+    "verification/offline-ai-sdk-shims.d.ts"
+  ]
+}

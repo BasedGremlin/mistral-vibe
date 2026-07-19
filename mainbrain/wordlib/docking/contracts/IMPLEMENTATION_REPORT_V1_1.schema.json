@@ -1,0 +1,10 @@
+{
+  "contract": "neuroforge.implementation_report_schema.v1.1",
+  "root": "ImplementationReport",
+  "valid_statuses": ["success", "partial", "blocked", "conflict"],
+  "human_approval_required": true,
+  "change_trace_required_for_every_file": true,
+  "required_change_trace_fields": ["file_path", "spec_id", "action", "reason", "timestamp", "previous_hash"],
+  "valid_change_actions": ["created", "modified", "deleted"],
+  "conflict_rule": "status=conflict requires at least one issue conflict"
+}

@@ -1,0 +1,103 @@
+name: WORDLIB CI
+
+# Runs on every push / PR to the main branches. If anything here fails, the
+# PR is blocked. This is what keeps the honesty invariants from rotting:
+# the rollback safety rail, the reasoning math, and the no-fabrication UI
+# rules are all checked automatically instead of by hand.
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+
+jobs:
+  test:
+    name: Test suite + safety regressions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install minimal deps for tests
+        run: |
+          python -m pip install --upgrade pip
+          # The suite is written to run with stdlib + sympy/pydantic where present.
+          # Install the lightweight ones so the reasoning tests exercise real paths.
+          pip install sympy pydantic || true
+
+      - name: Run full test suite (pytest-free runner)
+        run: python tests/run_tests.py
+
+      - name: Critical safety imports
+        # If these can't import, the safety rails are broken -- fail hard.
+        run: |
+          cd src
+          python -c "from self_editor import get_editor, _validate_python; print('self_editor OK')"
+          python -c "from reasoning import ReasoningGuard, UncertaintyQuantifier; print('reasoning guard OK')"
+          python -c "from ether_core import get_core; print('evolution OK')"
+
+      - name: NEPHILIM honesty + accessibility regression
+        # Re-assert the two non-negotiables: real endpoints only, reduced-motion safe.
+        run: |
+          python -c "
+          import re, pathlib
+          for name in ('nephilim.html','console.html'):
+              h = pathlib.Path('app/templates')/name
+              t = h.read_text()
+              eps = re.findall(r\"fetch\('(/api/[^']+)'\", t)
+              real = ('/api/agents','/api/reasoning','/api/market','/api/system','/api/gremlin','/api/core')
+              for e in eps:
+                  assert any(e.startswith(p) for p in real), f'{name}: phantom endpoint {e}'
+          neph = pathlib.Path('app/templates/nephilim.html').read_text()
+          assert 'prefers-reduced-motion' in neph, 'NEPHILIM lost reduced-motion support'
+          assert 'agent-list' in neph, 'NEPHILIM lost accessible agent list'
+          print('NEPHILIM honesty + a11y invariants intact')
+          "
+
+  lint:
+    name: Lint + secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install ruff
+        run: pip install ruff
+
+      - name: Ruff (non-blocking style, blocking on syntax errors)
+        run: |
+          # Hard-fail only on real errors (E9/F63/F7/F82 = syntax, undefined names).
+          ruff check . --select E9,F63,F7,F82 --output-format concise
+          # Style issues reported but don't block.
+          ruff check . --exit-zero --statistics || true
+
+      - name: Basic secret scan
+        run: |
+          # Block obvious committed secrets. Lightweight, dependency-free.
+          python -c "
+          import re, pathlib, sys
+          patterns = {
+              'AWS key': r'AKIA[0-9A-Z]{16}',
+              'private key header': r'-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----',
+              'generic api key assign': r'(?i)(api[_-]?key|secret|token)\s*=\s*[\"\x27][A-Za-z0-9]{24,}[\"\x27]',
+          }
+          hits = []
+          for p in pathlib.Path('.').rglob('*'):
+              if p.is_file() and p.suffix in ('.py','.yml','.yaml','.json','.env','.txt','.md','.bat','.sh'):
+                  if '.git/' in str(p): continue
+                  try: text = p.read_text(errors='ignore')
+                  except Exception: continue
+                  for name, pat in patterns.items():
+                      if re.search(pat, text):
+                          hits.append(f'{p}: possible {name}')
+          if hits:
+              print('SECRET SCAN FAILED:'); [print(' ',h) for h in hits]; sys.exit(1)
+          print('Secret scan clean')
+          "

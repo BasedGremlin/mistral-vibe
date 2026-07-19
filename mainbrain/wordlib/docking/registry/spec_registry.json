@@ -1,0 +1,8 @@
+{
+  "contract": "neuroforge.spec_registry.v1.1",
+  "project": "NEUROFORGE",
+  "protocol_version": "neuroforge.spec_protocol.v1.1",
+  "generated_at": "2026-06-27T00:00:00+00:00",
+  "policy": "contract-first implementation; no verified status without human approval and 100% acceptance criteria",
+  "specs": []
+}

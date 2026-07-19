@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wordlib_mainbrain_handoff version="1.0" generated="2026-07-17">
+  <owner preferred_name="Joe" full_project_identity="Johannes / Joe"/>
+  <purpose>Preserve current conversation state and strongest physically available artifacts before conversation merge.</purpose>
+
+  <canonical_assets>
+    <asset id="SWARM-INTEGRATED-V1" tier="A" status="ACTIVE_CANDIDATE" path="10_CANONICAL_WORKING_TREES/OKComputer_Swarm_Integrated_v1/OKComputer_Swarm_Integrated">
+      <role>Authenticated UI and evidence-driven multi-agent orchestration shell.</role>
+      <supersedes>OKComputer_Advanced_Swarm_AI_Search.zip for active development only.</supersedes>
+    </asset>
+    <asset id="WORDLIB-V29" tier="B" status="BASELINE" path="10_CANONICAL_WORKING_TREES/WORDLIB_v29_BASELINE/wordlib">
+      <role>Offline knowledge, reasoning, agent, deployment, RAG, and self-editing foundation.</role>
+    </asset>
+    <asset id="MASTERZIP-V11" tier="C" status="VAL-0" path="20_DOMAIN_SPECIFICATIONS/MASTERZIP_v11_COMBINED_DETAILED.pdf">
+      <role>Engineering knowledge and validation specification.</role>
+      <blocked_by>NEXT-001 geometry and hardware evidence before VAL-1.</blocked_by>
+    </asset>
+  </canonical_assets>
+
+  <runtime_architecture>
+    <primary_orchestrator provider="OpenAI" sdk="Agents SDK" credential_state="NOT_BUNDLED"/>
+    <critic provider="Claude" mode="OPTIONAL" credential_state="UNAVAILABLE"/>
+    <semantic_router provider="Hugging Face" runtime="Transformers.js" remote_models="DISABLED_BY_DEFAULT" model_files="ABSENT"/>
+    <control_plane provider="Supabase" project_ref="dxyghtyjndylvfugutsr" migration_state="APPLIED_AND_SMOKE_TESTED"/>
+    <documentation_surface provider="Canva" state="FOUR_CANDIDATES_NO_CANONICAL_SELECTION"/>
+  </runtime_architecture>
+
+  <state_machine>
+    <state>INTAKE</state>
+    <state>PLAN</state>
+    <state>ROUTE</state>
+    <state>EXECUTE</state>
+    <state>CRITIQUE</state>
+    <state>VALIDATE</state>
+    <state>PERSIST</state>
+    <state>COMPLETE</state>
+    <failure_state>FAILED</failure_state>
+  </state_machine>
+
+  <wordlib_safety_order>
+    <step order="1">SPEC-CRYPTOGRAPHIC_BINDING</step>
+    <step order="2">SPEC-DEPLOY_PROOF_GATE</step>
+    <step order="3">SPEC-TESTED_PATCH_EXECUTION_SANDBOX</step>
+    <step order="4">Human-approved self-edit integration</step>
+    <missing_base_archive>blumentritt_SPEC_CRYPTOGRAPHIC_BINDING_implemented_v1.zip</missing_base_archive>
+  </wordlib_safety_order>
+
+  <missing_artifacts>
+    <artifact>etherai_absorption_gun_complete_starter_v11.zip</artifact>
+    <artifact>EtherAI wheel and detailed verification documents</artifact>
+    <artifact>Cryptographic-binding implementation archive</artifact>
+    <artifact>Hugging Face local model binaries</artifact>
+    <artifact>Provider API keys</artifact>
+  </missing_artifacts>
+
+  <next_action priority="1">
+    Verify the integrated OKComputer build on a connected machine, then audit MASTERZIP v11 into real, simplified, placeholder, narrative-only, unsupported, and evidence-blocked capabilities.
+  </next_action>
+</wordlib_mainbrain_handoff>

@@ -1,0 +1,47 @@
+{
+  "_note": "Configuration for the WORDLIB creative layer (Godot + OpenClaw). All paths are relative to USB root and resolved at runtime. Edit model tags only if you have pulled different ones in Ollama.",
+
+  "godot": {
+    "enabled": true,
+    "exe_windows": "Godot/Godot_v4.7-stable_win64.exe",
+    "exe_linux":   "Godot/Godot_v4.7-stable_linux.x86_64",
+    "self_contained_marker": "Godot/_sc_",
+    "template_project": "GodotProjects/Template",
+    "addons_expected": ["dialogic", "phantom_camera"],
+    "ai_assist_model": "qwen2.5-coder:7b-instruct-q4_K_M",
+    "_comment": "Godot AI plugins (e.g. AI Assistant Hub) connect to Ollama at 127.0.0.1:11434 and should be set to use the ai_assist_model tag above."
+  },
+
+  "openclaw": {
+    "enabled": true,
+    "default_model": "qwen2.5-coder:7b-instruct-q4_K_M",
+    "fallback_model": "dolphin3:8b-llama3.1-q4_K_M",
+    "ollama_url": "http://127.0.0.1:11434",
+    "profiles": {
+      "code": {
+        "model": "qwen2.5-coder:7b-instruct-q4_K_M",
+        "temperature": 0.3,
+        "_comment": "Default. Deterministic, clean code output. Best for GDScript and general coding."
+      },
+      "heavy_code": {
+        "model": "qwen2.5-coder:7b-instruct-q4_K_M",
+        "temperature": 0.2,
+        "_comment": "Very deterministic. For long refactors and multi-file changes."
+      },
+      "creative": {
+        "model": "dolphin3:8b-llama3.1-q4_K_M",
+        "temperature": 0.8,
+        "_comment": "Uncensored, more personality. For brainstorming and writing."
+      }
+    },
+    "work_dir": "GodotProjects",
+    "_comment": "OpenClaw is the Ollama agent profile. work_dir is where it reads/writes files by default."
+  },
+
+  "models_to_pull": {
+    "_note": "Pulled by Setup scripts. Reference list of exact Ollama tags.",
+    "coding":   "qwen2.5-coder:7b-instruct-q4_K_M",
+    "general":  "dolphin3:8b-llama3.1-q4_K_M",
+    "embed":    "nomic-embed-text"
+  }
+}

@@ -1,0 +1,155 @@
+<SpecDocument>
+    <meta>
+        <spec_id>SPEC-0001_DOCKING_PROTOCOL_CONTRACTS</spec_id>
+        <protocol_version>1.2</protocol_version>
+        <version>1.2.0</version>
+        <date>2026-06-27</date>
+        <author>Claude</author>
+        <status>accepted</status>
+    </meta>
+
+    <mission>
+        Establish the Docking Protocol as the non-negotiable Central Nervous System (CNS) for all future Claude ↔ implementation-engine communication.
+        This foundation must be production-grade, strictly validated, fully auditable, and must include a persistent Failure Memory system so the CNS can learn from every blocked or failed specification.
+        The goal is to create an infrastructure that prevents repeated mistakes and becomes measurably stronger over time under Path A (surgical evolution).
+    </mission>
+
+    <scope>
+        Create the complete docking/ directory structure including memory/.
+        Implement strict Pydantic-based contracts (SpecDocument, ChangeTrace, FailureRecord).
+        Implement a non-bypassable pre_implementation_validation() gate with structured audit logging.
+        Implement a persistent Failure Memory system that records every validation failure and makes it queryable.
+        Create a read-only status + audit + memory surface.
+        Integrate docking health + recent failures into main.py boot sequence.
+    </scope>
+
+    <non_goals>
+        Do not implement full lifecycle state machine, dependency graph, or ImplementationReport writer yet.
+        Do not perform large-scale restructuring or renaming of the existing project.
+        Do not implement any cognitive, action, or evolution modules.
+    </non_goals>
+
+    <target>
+        <modules>
+            <module>docking</module>
+            <module>core/contracts</module>
+        </modules>
+        <allowed_files>
+            docking/**
+            core/contracts/docking/**
+            core/contracts/spec_protocol.py
+            tests/test_docking_protocol.py
+            main.py
+            core/paths.py
+        </allowed_files>
+        <forbidden_files>
+            src/self_editor.py
+            data/**
+            models/**
+            Setup/**
+        </forbidden_files>
+    </target>
+
+    <relationships>
+        <dependencies></dependencies>
+        <supersedes></supersedes>
+    </relationships>
+
+    <definition>
+        <contracts>
+            <contract ref="core/contracts/spec_protocol.py" />
+            <contract ref="core/contracts/docking/SpecDocument.py" />
+            <contract ref="core/contracts/docking/ChangeTrace.py" />
+            <contract ref="core/contracts/docking/FailureRecord.py" />
+        </contracts>
+
+        <implementation_requirements>
+            Create docking/ with specs/, reports/, contracts/, registry/, protocol/, audit/, and memory/ subdirectories.
+            
+            Implement SpecDocument, ChangeTrace, and FailureRecord as strict Pydantic v2 BaseModel classes with full field validation and no extra fields allowed.
+            
+            Implement validate_spec_before_implementation() as the single non-bypassable gate. Every call must:
+              - Perform mechanical validation of the spec
+              - Query recent failures from docking/memory/failure_log.jsonl
+              - Include relevant_past_failures in the validation result
+              - Append a structured JSONL entry to docking/audit/validation_audit.jsonl
+            
+            Implement Failure Memory system in docking/memory/failure_memory.py with at minimum:
+              - log_spec_failure(spec_id, failure_category, reason, issues, timestamp)
+              - get_recent_failures(limit=20)
+              - get_failures_by_category(category)
+              - FailureRecord Pydantic model (spec_id, failure_category, reason, issues, timestamp, validator_version)
+            
+            Create docking/specification_protocol.py exposing:
+              - docking_protocol_status()
+              - get_recent_validation_audit(limit=10)
+              - get_recent_failures(limit=10)
+            
+            Update main.py boot_checks() to call docking_protocol_status() and include both docking health and number of recent failures in the boot report.
+            
+            All code must use type hints, comprehensive docstrings, proper exception handling (no bare excepts), and deterministic behavior.
+        </implementation_requirements>
+
+        <acceptance_criteria>
+            <criterion id="AC-01" type="folder_structure" target="docking/">
+                <description>
+                    docking/specs/, docking/reports/, docking/contracts/, docking/registry/, docking/protocol/, docking/audit/, and docking/memory/ directories exist with correct internal structure.
+                </description>
+                <verification>
+                    Use pathlib to assert all seven directories exist under docking/. Confirm docking/memory/ contains failure_log.jsonl placeholder or is ready for JSONL appends.
+                </verification>
+            </criterion>
+
+            <criterion id="AC-02" type="contract_validation" target="core/contracts/docking/">
+                <description>
+                    SpecDocument.py, ChangeTrace.py, and FailureRecord.py exist, are importable, and define strict Pydantic v2 models. Instantiation with invalid data must raise ValidationError.
+                </description>
+                <verification>
+                    Run python import test + try/except ValidationError test on all three models. All must pass strict validation.
+                </verification>
+            </criterion>
+
+            <criterion id="AC-03" type="test" target="docking/protocol/validator.py">
+                <description>
+                    pre_implementation_validation() exists, correctly accepts valid specs and rejects malformed ones, always writes to audit log, and includes relevant_past_failures in its result when past failures exist for similar issues.
+                </description>
+                <verification>
+                    Call validator with valid SPEC-0001 → status="passed" + audit entry written.
+                    Call validator with malformed spec → status="blocked" + FailureRecord written to failure_log.jsonl + relevant_past_failures shown in result.
+                    Inspect last lines of both audit and failure_log to confirm required fields.
+                </verification>
+            </criterion>
+
+            <criterion id="AC-04" type="memory" target="docking/memory/">
+                <description>
+                    Failure Memory system is functional. log_spec_failure() and get_recent_failures() work correctly. Failures are persisted as structured JSONL.
+                </description>
+                <verification>
+                    Manually log two different failure categories. Call get_recent_failures(5) and get_failures_by_category("bad_acceptance_criteria"). Both must return the correct records with all fields populated.
+                </verification>
+            </criterion>
+
+            <criterion id="AC-05" type="integration" target="main.py">
+                <description>
+                    main.py boot_checks() successfully calls docking protocol status functions and reports both docking health and recent failure count without exceptions.
+                </description>
+                <verification>
+                    Execute boot sequence. Confirm output contains docking health status and something like "Recent Failures: X" or equivalent. No ImportError or AttributeError related to docking or memory.
+                </verification>
+            </criterion>
+        </acceptance_criteria>
+
+        <rollback_expectations>
+            If this spec is rejected or superseded, the entire docking/ folder (including memory/ and all audit + failure logs) must remain intact. No automatic deletion of CNS infrastructure is permitted.
+        </rollback_expectations>
+    </definition>
+
+    <impact>
+        <deploy>
+            Adds mandatory docking CNS health + recent failure count to every boot. Future deploy_check.py runs must validate that the docking layer is present, passes validation, has audit logging active, and has a working failure memory system.
+        </deploy>
+        <risks>
+            Medium if future specs ignore the docking gate or fail to query past failures. Mitigation: Missing audit entries or failure to reference relevant past failures will now be detectable in ImplementationReports and boot checks.
+        </risks>
+    </impact>
+</SpecDocument>

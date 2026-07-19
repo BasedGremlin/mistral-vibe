@@ -1,4 +1,7 @@
 ---
+# mainbrain/ is a vendored tree (WORDLIB + OKComputer swarm) with its own
+# tooling and test suite; host lint/format/type hooks must not touch it.
+exclude: ^mainbrain/
 repos:
   - repo: https://github.com/mpalmer/action-validator
     rev: 7fa61514fb806fc9afd664b909e83584aca84f78 # v0.7.0

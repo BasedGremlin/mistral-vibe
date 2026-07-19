@@ -1,0 +1,28 @@
+PDF: /mnt/data/MASTERZIP_v11_COMBINED_DETAILED(2).pdf
+Pages: 68
+Encrypted: False
+Page sizes (pt, rounded):
+  - 595 x 842 (68 page(s))
+Metadata:
+  /Author: (anonymous)
+  /CreationDate: D:20260715092347+08'00'
+  /Creator: (unspecified)
+  /Keywords: 
+  /ModDate: D:20260715092347+08'00'
+  /Producer: ReportLab PDF Library - www.reportlab.com
+  /Subject: (unspecified)
+  /Title: (anonymous)
+  /Trapped: /False
+Outline items: 0
+Form fields: 0
+Attachments: 0
+Annotations: 0
+
+Fonts (pdffonts, first 25 lines):
+name                                 type              encoding         emb sub uni object ID
+------------------------------------ ----------------- ---------------- --- --- --- ---------
+Helvetica                            Type 1            WinAnsi          no  no  no       2  0
+Helvetica-Bold                       Type 1            WinAnsi          no  no  no       3  0
+ZapfDingbats                         Type 1            ZapfDingbats     no  no  no       4  0
+Courier                              Type 1            WinAnsi          no  no  no       6  0
+Symbol                               Type 1            Symbol           no  no  no       9  0

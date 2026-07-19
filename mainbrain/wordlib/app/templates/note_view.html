@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ note.title }} -- WORDLIB{% endblock %}
+{% block page_title %}{{ note.title }}{% endblock %}
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+{% endblock %}
+{% block content %}
+<div style="display:flex;gap:8px;margin-bottom:14px">
+  <a href="/library/note/{{ note.id }}/edit" class="btn btn-ghost">Edit</a>
+  <a href="/library" class="btn btn-ghost">Back to Library</a>
+  <span class="tag" style="margin-top:6px">{{ note.category }}</span>
+  {% for t in note.tags.split(',') if t.strip() %}<span class="tag" style="margin-top:6px">{{ t.strip() }}</span>{% endfor %}
+</div>
+<div class="card">
+  <div class="md-content" id="noteContent"></div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+document.getElementById('noteContent').innerHTML = marked.parse({{ note.content | tojson }});
+</script>
+{% endblock %}

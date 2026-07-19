@@ -1,0 +1,108 @@
+=====================================================
+  USB AI MASTER - Troubleshooting Guide
+=====================================================
+
+PROBLEM: "UnexpectedToken" error in PowerShell (dark window)
+-------------------------------------------------------------
+CAUSE:   The PS1 script contains invisible Unicode characters.
+         This happens when the script was pasted through a
+         chat or text editor that introduced encoding issues.
+FIX:     Open HTML_Generator.html in your browser.
+         Click "Download RUN_ME.bat" to get a clean copy.
+         Replace the broken file on the USB root.
+WHY:     Always regenerate scripts via HTML_Generator.html --
+         never paste PS1 content from chat directly.
+
+PROBLEM: SmartScreen blocks RUN_ME.bat (blue warning)
+-------------------------------------------------------------
+FIX:     Click "More info" then "Run anyway"
+WHY:     Windows flags unsigned .bat files from external drives.
+         This is normal for files you created yourself.
+
+PROBLEM: "Access denied" or permissions error
+-------------------------------------------------------------
+FIX:     Right-click RUN_ME.bat, select "Run as administrator"
+WHY:     Writing to LM Studio's preset folder requires admin
+         rights on some locked-down or school/work PCs.
+
+PROBLEM: LM Studio not found (status card shows NOT FOUND)
+-------------------------------------------------------------
+FIX 1:   Install LM Studio from lmstudio.ai, then re-run.
+FIX 2:   If installed in a non-standard path, the launcher
+         checks these locations:
+           %LOCALAPPDATA%\Programs\LM-Studio\
+           %ProgramFiles%\LM Studio\
+           %LOCALAPPDATA%\LM-Studio\
+         If installed elsewhere, open LM Studio from Start
+         menu manually after the setup script finishes.
+
+PROBLEM: Models not appearing in LM Studio after copy
+-------------------------------------------------------------
+FIX:     LM Studio may need to rescan.
+         Inside LM Studio: Settings > Models > Rescan
+         Or simply restart LM Studio after copying.
+
+PROBLEM: Presets don't appear in LM Studio
+-------------------------------------------------------------
+FIX 1:   Restart LM Studio.
+FIX 2:   In File Explorer, navigate to:
+           %APPDATA%\LM Studio\presets\
+         Check if the .json files are there.
+FIX 3:   If files are there but not showing:
+           In LM Studio look for "Import Preset" and
+           select the JSON file manually.
+
+PROBLEM: Model copy takes very long or seems stuck
+-------------------------------------------------------------
+NOTE:    4-5 GB files take time. Typical wait:
+           USB 2.0 (slow):  15-30 minutes per model
+           USB 3.0 (fast):   3-8 minutes per model
+         The log window shows progress. Do not close it.
+         If it seems truly stuck (no log update for 15+ min),
+         close and re-run. Partial copies are skipped
+         if the file already exists at the destination.
+
+PROBLEM: Web library does not open / Python error
+-------------------------------------------------------------
+FIX 1:   Check that Python is installed.
+         Open a Command Prompt (Win+R, type cmd, Enter).
+         Type: python --version
+         If it shows "Python 3.x.x" then Python is installed.
+         If not: install from python.org, check "Add to PATH".
+FIX 2:   First run needs internet to install packages.
+         Connect to internet and re-run RUN_ME.bat.
+FIX 3:   Check data\launcher.log for the specific error.
+
+PROBLEM: Web library opens but AI chat does not work
+-------------------------------------------------------------
+CAUSE:   Either llama-cpp-python failed to install, or
+         no model file is in the /models folder.
+FIX 1:   Check /models folder for a .gguf file.
+         If empty: copy a .gguf file there (see MODEL_GUIDE.txt).
+FIX 2:   Check data\launcher.log for llama install errors.
+         Connect to internet and re-run to retry the install.
+NOTE:    The document library (save URLs, notes, search)
+         works without AI. Only the chat tab needs a model.
+
+PROBLEM: Responses are filtered / model refuses tasks
+-------------------------------------------------------------
+CAUSE:   Wrong model for the preset.
+         The Dolphin Uncensored preset only works with
+         Dolphin fine-tuned models. Using it with base
+         Llama or Phi results in filtered responses
+         regardless of the system prompt.
+FIX:     In LM Studio, load dolphin-2.9-mistral-7b model.
+         Then switch to Dolphin - Uncensored preset.
+
+PROBLEM: Not enough VRAM / model is very slow
+-------------------------------------------------------------
+FIX 1:   In LM Studio, load the model with "GPU Layers" = 0
+         to run entirely on CPU (slower but works without GPU).
+FIX 2:   Use a Q3_K_M version of the same model (smaller).
+FIX 3:   Switch to a 7B model instead of 8B if VRAM is tight.
+
+=====================================================
+  Log file: Desktop\USB_AI_Master_Log.txt
+  Open in Notepad for detailed error messages.
+  Web library log: data\launcher.log on the USB.
+=====================================================

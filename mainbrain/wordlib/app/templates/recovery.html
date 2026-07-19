@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Recovery Guide -- WORDLIB{% endblock %}
+{% block page_title %}Recovery & Supplement Guide{% endblock %}
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+.editor-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; height: calc(100vh - 130px); }
+.editor-pane, .preview-pane { display: flex; flex-direction: column; }
+.editor-pane textarea { flex: 1; font-family: Consolas, monospace; font-size: .85rem; resize: none; background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; color: var(--text); outline: none; }
+.editor-pane textarea:focus { border-color: var(--accent); }
+.preview-pane .scroll { flex: 1; overflow-y: auto; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
+.pane-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.pane-header h4 { font-size: .88rem; color: var(--muted); font-weight: 600; }
+</style>
+{% endblock %}
+{% block content %}
+<div class="editor-wrap">
+  <div class="editor-pane">
+    <div class="pane-header">
+      <h4>Editor (Markdown)</h4>
+      <button class="btn btn-primary btn-sm" onclick="saveRecovery()">Save</button>
+    </div>
+    <textarea id="editor" oninput="renderPreview()">{{ note.content }}</textarea>
+  </div>
+  <div class="preview-pane">
+    <div class="pane-header"><h4>Preview</h4></div>
+    <div class="scroll"><div class="md-content" id="preview"></div></div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+function renderPreview() {
+  document.getElementById('preview').innerHTML = marked.parse(document.getElementById('editor').value);
+}
+renderPreview();
+async function saveRecovery() {
+  const r = await fetch('/recovery/save', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({content: document.getElementById('editor').value})
+  });
+  const d = await r.json();
+  d.ok ? toast('Recovery guide saved') : toast('Save failed', 'error');
+}
+document.addEventListener('keydown', e => { if (e.ctrlKey && e.key === 's') { e.preventDefault(); saveRecovery(); } });
+</script>
+{% endblock %}
