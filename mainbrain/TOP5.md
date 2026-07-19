@@ -128,6 +128,12 @@ dead-lettering, and only the two validated task types. 24 tests prove the
 outbox atomicity, the at-least-once duplicate window, lease exclusion, and the
 retry math. Redis/HTTP layers remain honest future adapters — see its README.
 
+**Integrated:** wordlib's swarm now reaches this runtime through
+`DispatchAgent` (agent #13, `wordlib/src/agents/dispatch_agent.py`) — the
+merge plan's Phase-3 "swarm planner → bounded task envelope → durable outbox →
+worker lease → result record" loop, adapter-first: wordlib degrades honestly
+when the runtime package is absent.
+
 ---
 
 ## 5. MASTERZIP v11 / ALUM-BOO — the engineering domain spec (VAL-0)

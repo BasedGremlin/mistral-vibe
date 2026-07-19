@@ -22,6 +22,7 @@ from .specialized import (ArchitectAgent, CodeAgent, TestAgent, DeployAgent,
                           MathAgent, AbsorptionAgent, MarketAgent)
 from .gremlin_agent import GremlinAgent
 from .evolution_architect import EvolutionArchitect
+from .dispatch_agent import DispatchAgent
 
 
 class ClawOrchestrator:
@@ -93,7 +94,8 @@ class ClawOrchestrator:
     def _register_agents(self) -> None:
         for cls in (ArchitectAgent, CodeAgent, TestAgent, DeployAgent,
                     GuardianAgent, ResearcherAgent, ReasoningAgent,
-                    MathAgent, AbsorptionAgent, MarketAgent, GremlinAgent, EvolutionArchitect):
+                    MathAgent, AbsorptionAgent, MarketAgent, GremlinAgent,
+                    EvolutionArchitect, DispatchAgent):
             agent = cls(self.ctx)
             # Disable agents whose core dependency is missing
             if cls is CodeAgent and not self.ctx.services.get("core"):

@@ -1228,3 +1228,32 @@ sandbox is just missing dep (Flask not installed here) -- code parses fine.
 
 STILL pending (honest): 22 non-entry files do independent discovery
 (orchestrator.py, rag_manager.py, the test files, etc.) -- cosmetic, next runs.
+
+===========================================================
+## v30-MAINBRAIN -- DISPATCH AGENT (durable worker plane, Phase 3)
+===========================================================
+
+Built inside the MAINBRAIN unified tree (this wordlib now lives at
+mainbrain/wordlib next to mainbrain/ether-runtime, the offline rebuild of the
+EtherAI Absorption v11 durable task runtime).
+
+src/agents/dispatch_agent.py -- DispatchAgent, agent #13:
+  - dispatch:        journal a bounded task envelope into ether-runtime's
+                     SQLite WAL journal + transactional outbox. ONLY the
+                     runtime's allowlisted kinds pass (absorb_text,
+                     verify_artifact); unknown/malformed envelopes rejected
+                     at submit ("execute_shell" proven rejected in tests).
+  - dispatch_drain:  run worker passes (leases, retries, dead-letter) until
+                     the queue drains.
+  - dispatch_status: one task's journal state, or counts + retry policy.
+
+ADAPTER-FIRST (merge plan doctrine): wordlib stays fully standalone. The
+agent imports ether_runtime from the deployment-relative sibling directory;
+if absent, it reports unavailable (honest degradation, proven by test) --
+no vendored copy, no duplicate tree. Journal db lives in data/ (gitignored
+runtime state); verify_artifact hashes files under this root, read-only.
+
+TESTS: tests/test_dispatch_agent.py (7) -- end-to-end absorb + verify,
+idempotent dispatch, unknown-kind rejection, malformed envelope, degradation
+without the package, orchestrator registration (13 agents).
+Suite: 261/261 green (68+61+38+94). ether-runtime suite separately 24/24.
