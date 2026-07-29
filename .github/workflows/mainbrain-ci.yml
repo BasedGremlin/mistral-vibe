@@ -100,16 +100,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     # The shell was never broken -- it had simply never been measured:
-    # `tsc --noEmit` exits 0 with zero errors. It is therefore a real blocking
-    # gate for type regressions.
+    # `tsc --noEmit` exits 0 with zero errors. A real blocking gate for type
+    # regressions.
     #
-    # `npm install`, not `npm ci`, and no committed lockfile: the dependency
-    # graph carries a transitive ajv-formats conflict (lock resolves 3.0.1
-    # while a dependent requires 2.1.1) that `npm ci` rejects even from a
-    # freshly generated lockfile. Tracked as weakness W-11. Committing a
-    # lockfile `npm ci` refuses would advertise reproducibility this tree
-    # cannot currently deliver, so the honest trade is a floating install
-    # until the conflict is pinned via an overrides block.
+    # W-11 RESOLVED: the transitive ajv-formats conflict (lock resolved 3.0.1
+    # while a dependent required 2.1.1) is pinned via an `overrides` block in
+    # package.json. `npm ci` now succeeds deterministically from the committed
+    # lockfile, so CI builds the exact locked tree instead of re-resolving.
     steps:
       - uses: actions/checkout@v4
 
@@ -119,7 +116,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: mainbrain/okcomputer-swarm
-        run: npm install --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
 
       - name: TypeScript typecheck
         working-directory: mainbrain/okcomputer-swarm

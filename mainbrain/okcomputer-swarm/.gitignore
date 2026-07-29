@@ -39,8 +39,3 @@ build/
 # Test coverage
 coverage/
 .nyc_output/
-
-# Lockfile intentionally not committed: the dependency graph has a
-# transitive ajv-formats conflict that `npm ci` rejects (see W-11).
-# Re-add once `npm ci` succeeds from a freshly generated lockfile.
-package-lock.json
