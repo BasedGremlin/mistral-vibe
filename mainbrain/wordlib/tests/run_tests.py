@@ -39,6 +39,7 @@ GROUPS = [
     ],
     [
         "tests/test_patch_payload.py",
+        "tests/test_patch_sandbox.py",
         "tests/test_paths_and_healer.py",
         "tests/test_reasoning.py",
         "tests/test_self_editor.py",

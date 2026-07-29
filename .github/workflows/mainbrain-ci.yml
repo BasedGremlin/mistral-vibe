@@ -1,0 +1,119 @@
+---
+# MAINBRAIN CI -- gates the vendored mainbrain/ tree.
+#
+# Scoped by `paths:` so it never runs for host-repo (vibe) changes, and the
+# host's own ci.yml never runs for mainbrain changes. The vendored trees carry
+# their own pytest.ini; the root pyproject restricts collection to vibe's
+# tests/ and pre-commit excludes ^mainbrain/, so the two worlds do not fight.
+name: mainbrain-ci
+
+on:
+  push:
+    branches: [main]
+    paths: ['mainbrain/**', '.github/workflows/mainbrain-ci.yml']
+  pull_request:
+    paths: ['mainbrain/**', '.github/workflows/mainbrain-ci.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mainbrain-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  wordlib:
+    name: wordlib suite + proof gates
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pydantic sympy flask numpy pillow psutil
+
+      - name: Run wordlib suite
+        working-directory: mainbrain/wordlib
+        env:
+          PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
+        run: python tests/run_tests.py
+
+      - name: Deploy proof gates
+        working-directory: mainbrain/wordlib
+        # deploy_check exits non-zero if any CNS proof gate fails.
+        run: python deploy_check.py --json
+
+      - name: Assert tests did not mutate source
+        # The real invariant: a test run must never rewrite source. The
+        # append-only docking ledgers ARE appended to by the suite (known
+        # behaviour -- they are committed runtime state, tracked as a weakness),
+        # so they are reported and restored rather than failing the build.
+        run: |
+          if ! git diff --quiet -- 'mainbrain/wordlib/docking/**/*.jsonl'; then
+            echo "::notice::docking ledgers were appended to by the test run (known behaviour)"
+            git checkout -- 'mainbrain/wordlib/docking/'
+          fi
+          # Any other working-tree change is a real violation and fails here.
+          git diff --exit-code
+
+  ether-runtime:
+    name: ether-runtime suite
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install pytest
+        run: python -m pip install --upgrade pip pytest
+
+      - name: Run ether-runtime suite
+        working-directory: mainbrain/ether-runtime
+        run: python -m pytest -q
+
+      - name: CLI smoke test
+        working-directory: mainbrain/ether-runtime
+        # Proves the durable runtime works end-to-end from a cold start:
+        # journal a task, drain it, confirm the journal reports it completed.
+        run: |
+          python -m ether_runtime --db "$RUNNER_TEMP/ci.db" \
+            submit-absorb --source ci --text "mainbrain ci smoke"
+          python -m ether_runtime --db "$RUNNER_TEMP/ci.db" work
+          python -m ether_runtime --db "$RUNNER_TEMP/ci.db" status \
+            | python -c "import json,sys; d=json.load(sys.stdin); \
+                assert d['tasks_by_status'] == {'completed': 1}, d; \
+                assert d['policy']['constraint_check'] == 'passed', d; \
+                print('ether-runtime CLI smoke OK')"
+
+  swarm:
+    name: okcomputer-swarm typecheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # Verified locally before this gate was made blocking: npm ci installs
+    # cleanly and `tsc --noEmit` exits 0 with zero errors against the committed
+    # lockfile. The shell was never broken -- it had simply never been measured.
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        working-directory: mainbrain/okcomputer-swarm
+        # `npm ci` (not install) so CI builds the exact locked dependency tree.
+        run: npm ci --no-audit --no-fund
+
+      - name: TypeScript typecheck
+        working-directory: mainbrain/okcomputer-swarm
+        run: npx tsc --noEmit -p tsconfig.json
