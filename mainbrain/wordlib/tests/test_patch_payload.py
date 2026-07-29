@@ -72,8 +72,14 @@ def _write_passed_improvement_record(
     human_required: bool = False,
     state: str = "applied",
     tested_patch_digest: Optional[str] = None,
+    sandbox_verified: bool = True,
 ) -> None:
-    """Create a persisted tester-passed ImprovementRecord proof for patch tests."""
+    """Create a persisted tester-passed ImprovementRecord proof for patch tests.
+
+    ``sandbox_verified`` defaults to True so these fixtures reach the gates
+    they are actually testing (hash precondition, whitelist, human approval),
+    which sit behind Gate 7.5. Pass False to exercise the sandbox gate itself.
+    """
     proposal = ImprovementProposal(
         proposal_id=proposal_id,
         severity=0.9 if human_required else 0.2,
@@ -115,6 +121,7 @@ def _write_passed_improvement_record(
         human_approval_required=human_required,
         self_editor_gate={"eligible": True, "reason": "test proof fixture"},
         tested_patch_digest=tested_patch_digest,  # SPEC-CRYPTOGRAPHIC_BINDING
+        sandbox_verified=sandbox_verified,  # SPEC-TESTED_PATCH_EXECUTION_SANDBOX
     )
     path = Path("docking/improvement/improvement_records.jsonl")
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -440,3 +447,95 @@ def test_protocol_surfaces_submit_apply_query_and_status() -> None:
                           proposal_id="IR_PROTOCOL_DELETE")
     _write_record_for_payload(cleanup_p2)
     apply_patch_payload(cleanup_p2)
+
+
+# ── SPEC-TESTED_PATCH_EXECUTION_SANDBOX: Gate 7.5 ──────────────────────────
+
+def test_unsandboxed_digest_cannot_reach_selfeditor() -> None:
+    """A perfectly valid digest is NOT enough — it must be sandbox-proven.
+
+    This is the wound the sandbox spec closes: a digest proves the content
+    applied is the content tested, but says nothing about WHERE it was tested.
+    """
+    target = Path("docs/spec_sandbox_gate.md")
+    if target.exists():
+        target.unlink()
+    proposal_id = "IR_SANDBOX_GATE_UNPROVEN"
+    p = _payload(str(target), proposal_id=proposal_id)
+    _write_passed_improvement_record(
+        proposal_id,
+        tested_patch_digest=p["patch_payload_hash"],
+        sandbox_verified=False,          # tested, but not in isolation
+    )
+    result = apply_patch_payload(p)
+    assert result["status"] == "sandbox_proof_required"
+    assert result["result"]["self_editor_called"] is False
+    assert not target.exists(), "no file may be created when the gate blocks"
+
+
+def test_missing_sandbox_flag_is_not_treated_as_proven() -> None:
+    """Absent provenance means unproven — never 'assume fine'."""
+    target = Path("docs/spec_sandbox_gate_absent.md")
+    if target.exists():
+        target.unlink()
+    proposal_id = "IR_SANDBOX_GATE_ABSENT"
+    p = _payload(str(target), proposal_id=proposal_id)
+    _write_passed_improvement_record(
+        proposal_id,
+        tested_patch_digest=p["patch_payload_hash"],
+        sandbox_verified=None,           # field simply absent
+    )
+    result = apply_patch_payload(p)
+    assert result["status"] == "sandbox_proof_required"
+    assert result["result"]["self_editor_called"] is False
+
+
+def test_sandbox_gate_precedes_hash_whitelist_and_human_gates() -> None:
+    """Ordering: a good hash / whitelist / signature cannot substitute for it.
+
+    The payload below ALSO has a wrong expected_hash_before. If the sandbox
+    gate ran after the hash gate we would see 'hash_mismatch'; seeing
+    'sandbox_proof_required' proves the sandbox gate runs first.
+    """
+    target = Path("docs/spec_sandbox_order.md")
+    if target.exists():
+        target.unlink()
+    proposal_id = "IR_SANDBOX_ORDER"
+    p = _payload(str(target), hash_marker="sha256:" + "b" * 64, proposal_id=proposal_id)
+    _write_passed_improvement_record(
+        proposal_id,
+        tested_patch_digest=p["patch_payload_hash"],
+        sandbox_verified=False,
+    )
+    result = apply_patch_payload(p)
+    assert result["status"] == "sandbox_proof_required", (
+        "sandbox proof must be demanded before the hash precondition"
+    )
+
+
+def test_sandbox_result_provenance_is_earned_not_asserted() -> None:
+    """SandboxResult.record_provenance() reflects measurement, not a default."""
+    import tempfile
+    from docking.improvement.sandbox import TestedPatchSandbox
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp) / "live"
+        (root / "src").mkdir(parents=True)
+        (root / "tests").mkdir()
+        (root / "src" / "m.py").write_text("def f():\n    return 1\n")
+        (root / "tests" / "test_m.py").write_text(
+            "import sys\nfrom pathlib import Path\n"
+            "sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))\n"
+            "from m import f\n\ndef test_f():\n    assert f() == 1\n"
+        )
+        sandbox = TestedPatchSandbox(root, workspace_root=Path(tmp) / "ws")
+
+        good = sandbox.execute({"src/m.py": "def f():\n    return 1\n"}, ["tests/test_m.py"])
+        prov = good.record_provenance()
+        assert prov["sandbox_verified"] is True
+        assert prov["live_fingerprint_before"] == prov["live_fingerprint_after"]
+
+        bad = sandbox.execute({"src/m.py": "def f():\n    return 999\n"}, ["tests/test_m.py"])
+        assert bad.record_provenance()["sandbox_verified"] is False, (
+            "a failed sandbox must never stamp a verified record"
+        )

@@ -1,12 +1,17 @@
 """Guarded PatchPayload apply gate for NEUROFORGE SelfEditor mutation.
 
 The only improvement-system path that may call SelfEditor write methods is
-``apply_patch_payload()``. Gate order (SPEC-CRYPTOGRAPHIC_BINDING):
+``apply_patch_payload()``. Gate order (SPEC-CRYPTOGRAPHIC_BINDING, then
+SPEC-TESTED_PATCH_EXECUTION_SANDBOX):
   1. Validate PatchPayload contract.
   2. Load linked ImprovementRecord.
   3. Verify test_result.passed is True.
   4-7. Verify digest chain: tested_patch_digest == patch_payload_hash
        (and proposal_content_hash == tested_patch_digest where present).
+  7.5. Verify sandbox_verified is True -- the digest must have come from an
+       isolated candidate workspace, not from testing against the live tree.
+       Sits before gates 8-10 so a correct hash, a whitelisted path, or a
+       human signature cannot substitute for isolation proof.
   8. Verify expected_hash_before against current file.
   9. Verify SelfEditor whitelist.
   10. Verify human approval gate.

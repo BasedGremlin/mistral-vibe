@@ -103,6 +103,14 @@ class ImprovementRecord(BaseModel):
     # this equals patch_payload_hash before SelfEditor is reachable.
     # Format: sha256:<64 lowercase hex chars>
     tested_patch_digest: Optional[str] = None
+
+    # SPEC-TESTED_PATCH_EXECUTION_SANDBOX: provenance of the digest above.
+    # True only when the digest came from an isolated candidate-workspace run
+    # whose live-tree fingerprint was verified unchanged. apply_patch_payload()
+    # refuses to reach SelfEditor unless this is exactly True (Gate 7.5), so a
+    # digest tested against the live tree cannot mutate files.
+    # None/False mean "not sandbox-proven", never "assumed fine".
+    sandbox_verified: Optional[bool] = None
     contract: str = IMPROVEMENT_RECORD_CONTRACT
 
     @field_validator("state")
