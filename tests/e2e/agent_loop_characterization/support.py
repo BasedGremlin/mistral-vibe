@@ -11,7 +11,7 @@ from typing import Any
 import pexpect
 import tomli_w
 
-from tests.e2e.common import strip_ansi, wait_for_rendered_text
+from tests.e2e.common import scaled, strip_ansi, wait_for_rendered_text
 from tests.e2e.mock_server import ChatCompletionsRequestPayload, StreamingMockServer
 
 APPROVAL_INPUT_GRACE_PERIOD_S = 0.65
@@ -144,17 +144,33 @@ def wait_for_request_count_while_draining_child_output(
     expected_count: int,
     timeout: float,
 ) -> None:
+    budget = scaled(timeout)
     start = time.monotonic()
-    while time.monotonic() - start < timeout:
+    child_exited = False
+    while time.monotonic() - start < budget:
         if request_count_getter() >= expected_count:
             return
         try:
             child.expect(r"\S", timeout=0.05)
         except pexpect.TIMEOUT:
             pass
+        except pexpect.EOF:
+            # The child is gone, so no further request will ever arrive. Spinning
+            # out the remaining budget would only turn a clear "it died" into a
+            # vague "it was slow", so stop and say which one happened.
+            child_exited = True
+            break
+    if request_count_getter() >= expected_count:
+        return
     rendered_tail = strip_ansi(captured.getvalue())[-1200:]
+    cause = (
+        "the child exited before sending them"
+        if child_exited
+        else f"waited {time.monotonic() - start:.1f}s of {budget:.1f}s"
+    )
     raise AssertionError(
-        f"Timed out waiting for {expected_count} backend request(s).\n\n"
+        f"Timed out waiting for {expected_count} backend request(s); "
+        f"saw {request_count_getter()} -- {cause}.\n\n"
         f"Rendered tail:\n{rendered_tail}"
     )
 
