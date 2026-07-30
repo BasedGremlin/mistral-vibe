@@ -1,0 +1,11 @@
+{
+  "syntax_broken": 0,
+  "syntax_checked": 35,
+  "parse_errors": 0,
+  "capabilities_available": 8,
+  "modules": 97,
+  "path_centralization_pending": 52,
+  "context_quality_score": 0.799,
+  "reflection_relevance_score": 0.948,
+  "docking_healthy": 1
+}

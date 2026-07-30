@@ -32,6 +32,7 @@ GROUPS = [
     ],
     [
         "tests/test_market_and_gremlin.py",
+        "tests/test_math_validator_sandbox.py",
         "tests/test_memory_semantic_hook.py",
         "tests/test_meta_evolution.py",
         "tests/test_nexus_reflection.py",
@@ -42,6 +43,7 @@ GROUPS = [
         "tests/test_patch_sandbox.py",
         "tests/test_paths_and_healer.py",
         "tests/test_reasoning.py",
+        "tests/test_reasoning_guard_and_judge.py",
         "tests/test_self_editor.py",
         "tests/test_semantic_adapter.py",
         "tests/test_semantic_core.py",
