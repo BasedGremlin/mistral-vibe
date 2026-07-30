@@ -3,8 +3,24 @@ name: CI
 on:
   push:
     branches: [main]
+    # The vendored mainbrain/ trees carry their own gate (mainbrain-ci.yml):
+    # their own suites, their own proof gates, their own typecheck. Nothing
+    # under vibe/ imports them, so running vibe's 5000-test suite and the full
+    # platform build matrix against a mainbrain-only change validated nothing
+    # and cost ~6 minutes of the merge path every time.
+    #
+    # paths-ignore skips only when EVERY changed file matches, so a PR that
+    # touches both trees still gets the full run -- the case where vibe code
+    # actually could break is unaffected.
+    #
+    # main is unprotected (no required status checks), so a skipped workflow
+    # cannot leave a PR waiting forever on a check that never reports. If
+    # branch protection is ever enabled, revisit this: the correct pattern
+    # then is a fast always-reporting job, not a skipped workflow.
+    paths-ignore: ['mainbrain/**', '.github/workflows/mainbrain-ci.yml']
   pull_request:
     branches: [main]
+    paths-ignore: ['mainbrain/**', '.github/workflows/mainbrain-ci.yml']
 
 env:
   PYTHON_VERSION: "3.12"

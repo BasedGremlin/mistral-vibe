@@ -1,3 +1,10 @@
 {
-  "recommendations": ["ms-python.python", "charliermarsh.ruff"]
+  "recommendations": [
+    "ms-python.python",
+    "charliermarsh.ruff",
+    // Claude Code runs against this repo (see .claude/); recommending the
+    // extension means a fresh clone is prompted to install it rather than
+    // having to discover the setup already exists.
+    "anthropic.claude-code"
+  ]
 }

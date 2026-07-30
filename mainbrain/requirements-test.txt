@@ -1,0 +1,27 @@
+# Test-only dependencies for the vendored mainbrain/ trees.
+#
+# These are NOT runtime dependencies. wordlib runs offline against its own
+# .venv built by the installer, and ether-runtime's default SQLite path is
+# pure stdlib -- nothing here is imported on a normal offline run.
+#
+# Pinned deliberately. Previously CI installed these unpinned, which meant
+# every run silently re-resolved to whatever was newest on PyPI that day: a
+# major release of any one of them could turn the suite red with no change
+# to our code, and the failure would look like our regression rather than
+# somebody else's release. Pinning also gives the pip cache a stable key,
+# so CI stops re-downloading numpy and pillow wheels on every single run.
+#
+# To upgrade: bump a pin here in its own commit, so a break from the bump is
+# attributable to the bump instead of being tangled in a feature diff.
+
+pytest==9.1.1
+pydantic==2.13.4
+sympy==1.14.0
+flask==3.1.3
+numpy==2.4.6
+pillow==12.3.0
+psutil==7.2.2
+
+# ether-runtime's live Redis parity tests only. Absent this, those tests skip
+# rather than fail, and the SQLite default path never imports it.
+redis==8.0.1

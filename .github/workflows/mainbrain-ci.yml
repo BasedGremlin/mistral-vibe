@@ -33,11 +33,17 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: mainbrain/requirements-test.txt
 
       - name: Install test dependencies
+        # Pinned in mainbrain/requirements-test.txt rather than listed inline:
+        # unpinned installs silently re-resolved on every run, so someone
+        # else's major release could turn this suite red with no change to our
+        # code. A stable file also gives the pip cache a key to hit.
         run: |
           python -m pip install --upgrade pip
-          pip install pytest pydantic sympy flask numpy pillow psutil
+          pip install -r mainbrain/requirements-test.txt
 
       - name: Run wordlib suite
         working-directory: mainbrain/wordlib
@@ -90,11 +96,17 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: mainbrain/requirements-test.txt
 
       - name: Install pytest
         # redis-py is a test-only dependency here: it drives the live parity
-        # parameter. Without it the live tests skip rather than fail.
-        run: python -m pip install --upgrade pip pytest redis
+        # parameter. Without it the live tests skip rather than fail. Pinned
+        # alongside the rest in requirements-test.txt so both jobs resolve to
+        # the same versions and share one cache key.
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r mainbrain/requirements-test.txt
 
       - name: Run ether-runtime suite
         working-directory: mainbrain/ether-runtime

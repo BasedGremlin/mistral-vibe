@@ -5,6 +5,17 @@ on:
     types: [published]
   pull_request:
     branches: [main]
+    # These jobs compile and smoke-test the vibe binary across five platforms;
+    # the darwin builds alone are ~5 minutes and sit on the critical path to a
+    # green PR. Nothing under vibe/ imports the vendored mainbrain/ trees, so a
+    # mainbrain-only change cannot affect any of these artifacts.
+    #
+    # Release and workflow_dispatch are deliberately NOT filtered: a release
+    # must always build every platform regardless of what changed.
+    #
+    # paths-ignore skips only when EVERY changed file matches, so any PR that
+    # also touches vibe/ still builds the full matrix.
+    paths-ignore: ['mainbrain/**', '.github/workflows/mainbrain-ci.yml']
   workflow_dispatch:
 
 jobs:
