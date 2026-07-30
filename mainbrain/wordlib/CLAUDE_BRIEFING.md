@@ -1257,3 +1257,23 @@ TESTS: tests/test_dispatch_agent.py (7) -- end-to-end absorb + verify,
 idempotent dispatch, unknown-kind rejection, malformed envelope, degradation
 without the package, orchestrator registration (13 agents).
 Suite: 261/261 green (68+61+38+94). ether-runtime suite separately 24/24.
+
+===========================================================
+## v30-MAINBRAIN -- DESKTOP SHORTCUT WITH ICON (Setup step 6)
+===========================================================
+
+Added the missing "make it easy to find" step: Setup/06_Create_Desktop_Shortcut
+(.bat thin door + .ps1 logic, CRLF, no admin rights, no drive-letter hardcoding
+-- same pattern as Setup/00-05). Creates a Desktop .lnk to RUN_ME.bat carrying
+a generated icon at config/mainbrain_icon.ico (a grinning brain, matches the
+MAINBRAIN strategy-board palette: deep-slate ground, signal-teal accent).
+
+Standalone, not wired into launcher.py's menu -- Setup/00-05 follow the same
+pattern (run directly, once), so 06 matches rather than reworking the menu.
+
+HONEST LIMIT: this only runs on the user's real Windows machine. No cloud
+sandbox has a Desktop folder or a Shell.Application COM object to create a
+.lnk with, so this could not be executed or screenshotted from this session
+-- only authored, and verified by static review (PowerShell syntax, the
+%~dp0-digit-collision bug caught and fixed in the .bat wrapper, CRLF line
+endings matching the v9.1 fix).
