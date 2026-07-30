@@ -12,12 +12,18 @@ pull relevant context from your knowledge base.
 import json
 import logging
 import platform
+import re
 import shutil
 import subprocess
 import sys
 import urllib.request
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+# An Ollama model reference: optional registry/namespace path, name, optional
+# :tag and optional @digest. Deliberately excludes shell metacharacters, quotes
+# and whitespace -- see the guard in launch() for why that matters.
+_VALID_MODEL_TAG = re.compile(r"[A-Za-z0-9][A-Za-z0-9._\-/]*(:[A-Za-z0-9._\-]+)?(@sha256:[a-f0-9]+)?")
 
 logger = logging.getLogger("openclaw_bridge")
 
@@ -139,6 +145,20 @@ class OpenClawBridge:
         ollama_bin = self._find_ollama_binary()
         if not ollama_bin:
             logger.error("ollama binary not found. Run the Ollama setup step first.")
+            return False
+
+        # `model` is interpolated into a shell=True command line below, so it is
+        # an injection point. It comes from the profiles config rather than from
+        # the network, which lowers the severity -- but the self-editing system
+        # can write config, so "the config is trusted" is an assumption this
+        # module should not have to make. A real Ollama tag is name[:tag] with
+        # optional registry path, so anything outside that charset is not a
+        # usable model name in the first place and refusing it costs nothing.
+        if not _VALID_MODEL_TAG.fullmatch(model):
+            logger.error(
+                "Refusing to launch: model tag %r contains characters that are "
+                "not valid in an Ollama tag and would be interpolated into a "
+                "shell command.", model)
             return False
 
         logger.info(f"Launching OpenClaw -- profile={profile}, model={model}")
