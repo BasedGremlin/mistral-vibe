@@ -5,13 +5,27 @@ fixture. That is the point: the adapter's contract is "indistinguishable from
 TaskStore", so asserting the same thing twice is the proof. A Redis-only test
 would only show the code runs, not that it agrees with the reference.
 
-The Redis parameter uses an in-memory double (``fake_redis.FakeRedis``), so the
-logic is provable offline. Honest limit stated plainly: passing here proves the
-adapter's state machine, NOT that it works against a live Redis server -- that
-needs an integration run against a real instance.
+The ``redis`` parameter uses an in-memory double (``fake_redis.FakeRedis``), so
+the logic is provable offline with no server and no network. That double proves
+the adapter's *state machine*, but on its own it cannot prove the adapter agrees
+with a real server -- a double only ever confirms it agrees with itself.
+
+The ``redis_live`` parameter closes that gap: point ``ETHER_TEST_REDIS_URL`` at
+a real instance and the identical assertions run against it. It skips (rather
+than fails) when the variable is unset, so the offline default stays green with
+no infrastructure, while a live run is one env var away:
+
+    redis-server --port 6399 --daemonize yes --save '' --appendonly no
+    ETHER_TEST_REDIS_URL=redis://localhost:6399/0 python3 -m pytest -q
+
+Each live test gets a unique key namespace and deletes its own keys afterward,
+so runs cannot collide with each other or with anything else on that server --
+which is why this never issues FLUSHDB against a database it does not own.
 """
 
+import os
 import sys
+import uuid
 from pathlib import Path
 
 import pytest
@@ -26,18 +40,36 @@ from fake_redis import FakeRedis
 
 T0 = 1_000_000.0
 
+LIVE_URL_ENV = "ETHER_TEST_REDIS_URL"
 
-@pytest.fixture(params=["sqlite", "redis"])
+
+@pytest.fixture(params=["sqlite", "redis", "redis_live"])
 def store(request, tmp_path):
     """The same suite, once per backend."""
     if request.param == "sqlite":
         s = TaskStore(tmp_path / "parity.db")
         yield s
         s.close()
-    else:
+    elif request.param == "redis":
         s = RedisStoreAdapter(client=FakeRedis())
         yield s
         s.close()
+    else:
+        url = os.environ.get(LIVE_URL_ENV)
+        if not url:
+            pytest.skip(f"set {LIVE_URL_ENV} to run against a live Redis server")
+        try:
+            s = RedisStoreAdapter(url, namespace=f"ethertest:{uuid.uuid4().hex}")
+        except RedisUnavailable as exc:
+            pytest.skip(f"live Redis unreachable: {exc}")
+        try:
+            yield s
+        finally:
+            # Namespaced cleanup only -- never FLUSHDB a server we don't own.
+            keys = list(s._r.scan_iter(match=f"{s.namespace}:*", count=500))
+            if keys:
+                s._r.delete(*keys)
+            s.close()
 
 
 def _payload(n: int = 0) -> dict:

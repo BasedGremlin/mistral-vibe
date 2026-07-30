@@ -68,6 +68,22 @@ jobs:
     name: ether-runtime suite
     runs-on: ubuntu-latest
     timeout-minutes: 10
+
+    # A real Redis, so the RedisStoreAdapter's parity tests run against an
+    # actual server and not only against the in-memory double. The double can
+    # only ever prove the adapter agrees with itself; this proves it agrees with
+    # Redis. SQLite remains the offline default -- nothing here makes Redis a
+    # runtime dependency of the package.
+    services:
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+
     steps:
       - uses: actions/checkout@v4
 
@@ -76,11 +92,31 @@ jobs:
           python-version: '3.11'
 
       - name: Install pytest
-        run: python -m pip install --upgrade pip pytest
+        # redis-py is a test-only dependency here: it drives the live parity
+        # parameter. Without it the live tests skip rather than fail.
+        run: python -m pip install --upgrade pip pytest redis
 
       - name: Run ether-runtime suite
         working-directory: mainbrain/ether-runtime
+        env:
+          ETHER_TEST_REDIS_URL: redis://localhost:6379/0
         run: python -m pytest -q
+
+      - name: Assert the live Redis parity tests actually ran
+        working-directory: mainbrain/ether-runtime
+        # Guards against the silent-skip failure mode: if the service or the
+        # env var ever goes missing, the suite would still pass green while
+        # proving nothing about Redis. This fails instead.
+        env:
+          ETHER_TEST_REDIS_URL: redis://localhost:6379/0
+        run: |
+          python -m pytest tests/test_redis_store.py -q -k redis_live \
+            --no-header -rN | tee /tmp/live.txt
+          grep -qE '[0-9]+ passed' /tmp/live.txt
+          if grep -qE '[0-9]+ skipped' /tmp/live.txt; then
+            echo "::error::live Redis parity tests skipped -- server or env var missing"
+            exit 1
+          fi
 
       - name: CLI smoke test
         working-directory: mainbrain/ether-runtime
