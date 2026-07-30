@@ -56,6 +56,17 @@ jobs:
         # deploy_check exits non-zero if any CNS proof gate fails.
         run: python deploy_check.py --json
 
+      - name: Quality drift vs committed baseline
+        working-directory: mainbrain/wordlib
+        # The proof gates above answer "is it broken now?". They cannot answer
+        # "is it getting worse?" -- and that is the failure mode this tree
+        # actually has: path-centralization debt moved 48 -> 51 in a single day
+        # with every gate green at every step. Non-blocking on purpose: drift is
+        # a signal to acknowledge or fix, not a reason to block an unrelated PR.
+        # Promote to blocking once the baseline stops moving.
+        continue-on-error: true
+        run: python quality_watch.py
+
       - name: Assert tests did not mutate source
         # The real invariant: a test run must never rewrite source. The
         # append-only docking ledgers ARE appended to by the suite (known
