@@ -35,6 +35,23 @@ runtime built from scratch) wired in as a bounded worker plane via
 - **A "Gemini handover" package** (`CLAUDE_HANDOVER_FINAL_PACKAGE.zip`, 2026-07-30): every code module was a non-functional stub (`assert True` as its only "test"). Two claims were actively false: it claimed live Ollama `llama3.2` inference (no Ollama binary exists in this deploy — confirmed twice) and claimed OKComputer is unbuildable (CI shows that job green). Discarded in full.
 - **Drive already has other MAINBRAIN-adjacent docs in this same ungrounded style** — a "MASTERZIP v12" bible, "Kekos Main Brain," several connector stubs with confident narrative and no runnable substance behind them. Treat anything found there the same way: verify before trusting, per the skill above.
 
+## Flagged weaknesses (re-derived 2026-07-30, each one evidenced)
+
+Ranked by blast radius. Anything I could not evidence from the tree is marked
+as such rather than stated as fact.
+
+| # | Weakness | Evidence | Status |
+|---|---|---|---|
+| A | `tests/run_tests.py` shelled out to a bare `pytest` off `PATH` instead of the interpreter running it, so a "green" result could come from a different environment than the one under test | reproduced: a venv with pydantic installed still failed collection with `ModuleNotFoundError: pydantic` | **FIXED** this session — now `sys.executable -m pytest`, verified green in both the venv that previously failed and the original path |
+| B | Test-coverage gap in the reasoning-safety layer: ~20 of 45 files in `wordlib/src` have no matching test file, including `reasoning_guard.py`, `reasoning_engine.py`, `uncertainty_quantifier.py`, `math_validator.py` | grep of test files for each src module name | **OPEN** — highest-value remaining test work; these are exactly the modules whose whole job is enforcing honesty invariants |
+| C | W-08 path-centralization debt is **49** items, not the 48 recorded in `HANDOVER_GPT.md` | `deploy_check.py` output: `"49 path centralization item(s) still pending"` | **OPEN**, count corrected here. Worst offenders: `src/self_editor.py`, `src/openclaw_bridge.py`, `src/agents/orchestrator.py` |
+| D | `mainbrain/wordlib/.github/workflows/ci.yml` is a **dead vendored workflow** — GitHub only executes workflows at the repo root, so this file never runs despite reading like a gate (it also installs no pytest, so it could not pass if it did run) | `find` shows it nested under `mainbrain/wordlib/`; the real gate is the root `.github/workflows/mainbrain-ci.yml` | **OPEN** — harmless but actively misleading to a future reader |
+| E | `src/ultra_renderer/vulkan_skeleton.py` is prose, not code (146 of 148 lines are string literals, 0 functions/classes) | AST scan | **OPEN**, low priority — the filename is honest and nothing imports it |
+
+Checked and found **clean**: zero bare stubs, zero `pass`-only bodies, zero
+parse errors across `wordlib/src` and `ether-runtime`; zero TODO/FIXME markers;
+swarm `tsc --noEmit` exits 0.
+
 ## Known gaps (real, not hidden)
 
 - Layer 2 (real Windows/USB hardware install) is unproven — only the cloud container chain is proven end-to-end.

@@ -57,14 +57,28 @@ def main() -> int:
     print("=" * 60, flush=True)
     print("  WORDLIB / NEUROFORGE Test Suite", flush=True)
     print("=" * 60, flush=True)
+    print(f"  Interpreter: {sys.executable}", flush=True)
     failed = []
     for index, group in enumerate(GROUPS, start=1):
         print(f"\n  Group {index}: pytest -q {' '.join(group)}", flush=True)
-        command = "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 pytest -q " + " ".join(group)
+        # `sys.executable -m pytest`, not a bare `pytest` off PATH.
+        #
+        # This runner used to shell out to whatever `pytest` PATH resolved to,
+        # independent of the interpreter running this file. That makes a green
+        # result meaningless: run it from a venv whose deps you meant to test
+        # and it would silently exercise some *other* environment instead --
+        # observed for real as a `ModuleNotFoundError: pydantic` collection
+        # error from an interpreter that had pydantic installed. Binding to
+        # sys.executable makes the suite test the environment you actually
+        # invoked it with, which is the only thing that makes "280 green"
+        # a fact rather than a coincidence of PATH ordering.
+        #
+        # Passing env= instead of an inline `VAR=... ` prefix also means no
+        # shell is involved, so test paths cannot be re-split or glob-expanded.
         completed = subprocess.run(
-            command,
+            [sys.executable, "-m", "pytest", "-q", *group],
             cwd=str(ROOT),
-            shell=True,
+            env=env,
             timeout=180,
         )
         if completed.returncode != 0:
