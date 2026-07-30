@@ -1228,3 +1228,99 @@ sandbox is just missing dep (Flask not installed here) -- code parses fine.
 
 STILL pending (honest): 22 non-entry files do independent discovery
 (orchestrator.py, rag_manager.py, the test files, etc.) -- cosmetic, next runs.
+
+===========================================================
+## v30-MAINBRAIN -- DISPATCH AGENT (durable worker plane, Phase 3)
+===========================================================
+
+Built inside the MAINBRAIN unified tree (this wordlib now lives at
+mainbrain/wordlib next to mainbrain/ether-runtime, the offline rebuild of the
+EtherAI Absorption v11 durable task runtime).
+
+src/agents/dispatch_agent.py -- DispatchAgent, agent #13:
+  - dispatch:        journal a bounded task envelope into ether-runtime's
+                     SQLite WAL journal + transactional outbox. ONLY the
+                     runtime's allowlisted kinds pass (absorb_text,
+                     verify_artifact); unknown/malformed envelopes rejected
+                     at submit ("execute_shell" proven rejected in tests).
+  - dispatch_drain:  run worker passes (leases, retries, dead-letter) until
+                     the queue drains.
+  - dispatch_status: one task's journal state, or counts + retry policy.
+
+ADAPTER-FIRST (merge plan doctrine): wordlib stays fully standalone. The
+agent imports ether_runtime from the deployment-relative sibling directory;
+if absent, it reports unavailable (honest degradation, proven by test) --
+no vendored copy, no duplicate tree. Journal db lives in data/ (gitignored
+runtime state); verify_artifact hashes files under this root, read-only.
+
+TESTS: tests/test_dispatch_agent.py (7) -- end-to-end absorb + verify,
+idempotent dispatch, unknown-kind rejection, malformed envelope, degradation
+without the package, orchestrator registration (13 agents).
+Suite: 261/261 green (68+61+38+94). ether-runtime suite separately 24/24.
+
+===========================================================
+## v30-MAINBRAIN -- DESKTOP SHORTCUT WITH ICON (Setup step 6)
+===========================================================
+
+Added the missing "make it easy to find" step: Setup/06_Create_Desktop_Shortcut
+(.bat thin door + .ps1 logic, CRLF, no admin rights, no drive-letter hardcoding
+-- same pattern as Setup/00-05). Creates a Desktop .lnk to RUN_ME.bat carrying
+a generated icon at config/mainbrain_icon.ico (a grinning brain, matches the
+MAINBRAIN strategy-board palette: deep-slate ground, signal-teal accent).
+
+Standalone, not wired into launcher.py's menu -- Setup/00-05 follow the same
+pattern (run directly, once), so 06 matches rather than reworking the menu.
+
+HONEST LIMIT: this only runs on the user's real Windows machine. No cloud
+sandbox has a Desktop folder or a Shell.Application COM object to create a
+.lnk with, so this could not be executed or screenshotted from this session
+-- only authored, and verified by static review (PowerShell syntax, the
+%~dp0-digit-collision bug caught and fixed in the .bat wrapper, CRLF line
+endings matching the v9.1 fix).
+
+===========================================================
+## v31-MAINBRAIN -- REDIS ADAPTER PROVEN AGAINST A LIVE SERVER
+===========================================================
+
+Closed the honest limit the RedisStoreAdapter's own test docstring named:
+"passing here proves the adapter's state machine, NOT that it works against
+a live Redis server -- that needs an integration run against a real instance."
+
+The parity suite ran only against an in-memory double (fake_redis.FakeRedis).
+A double can prove the adapter agrees with itself; it cannot prove the adapter
+agrees with Redis. Those are different claims, and only the weaker one was
+ever measured.
+
+WHAT CHANGED: the `store` fixture gained a third parameter, `redis_live`. The
+identical assertions now run against a real server when ETHER_TEST_REDIS_URL
+is set, and SKIP (not fail) when it is not -- so the offline default stays
+green with zero infrastructure, and SQLite remains the offline default store.
+Redis did not become a runtime dependency; redis-py is test-only.
+
+Each live test gets a unique namespace (ethertest:<uuid4>) and deletes only
+its own keys on teardown. Deliberately no FLUSHDB: the suite must never wipe
+a database it does not own, and unique namespaces make concurrent runs safe.
+
+MEASURED (not asserted), redis-server 8.0.1 on port 6399:
+  - live parity suite:      47 passed (test_redis_store.py, all 3 backends)
+  - full suite, live:       71 passed, 0 skipped
+  - full suite, offline:    56 passed, 15 skipped  <- identical to the prior
+                            baseline of 56, so no regression to the offline path
+  - every behaviour matched the SQLite reference: idempotent submit, outbox
+    claim exclusivity, int entry ids from INCR, read_group/autoclaim recovery,
+    exclusive execution leases, attempt counting, content-dedup absorb, and
+    the documented six-key counts() shape.
+
+CI: the ether-runtime job now runs a redis:7-alpine service container with a
+health check, so the live path is proven on every run rather than once on one
+machine. It also carries an anti-silent-skip guard -- if the service or the
+env var ever disappears, the suite would still go green while proving nothing
+about Redis, so a dedicated step fails the build when the live tests skip.
+Both directions of that guard were verified locally (passes with the server,
+correctly detects the skip without it) rather than assumed.
+
+REMAINING HONEST LIMIT: this proves single-node correctness against a real
+server. It does NOT prove multi-machine contention -- several workers on
+separate hosts racing one queue. The adapter's docstring is already explicit
+that multi-key updates are pipelined, not transactional, and that safety rests
+on lease discipline with at-least-once delivery, exactly as SQLite documents.

@@ -134,7 +134,17 @@ def have_internet():
         socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(("8.8.8.8", 53))
         return True
     except OSError:
-        return False
+        pass
+    # Proxied networks (school/corporate/cloud) block raw sockets but allow
+    # HTTPS through a configured proxy -- urllib honors *_proxy env vars, so
+    # a reachable package index means pip installs will work too.
+    if os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy"):
+        try:
+            urllib.request.urlopen("https://pypi.org/simple/", timeout=6)
+            return True
+        except OSError:
+            return False
+    return False
 
 
 CORE_PKGS = ["flask>=2.0", "flask-sqlalchemy>=3.0", "requests>=2.20",

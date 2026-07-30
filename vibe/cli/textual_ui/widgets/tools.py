@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import asyncio
+
 from textual import events
 from textual.app import ComposeResult
 from textual.containers import Horizontal, Vertical
 from textual.content import Content
+from textual.widget import Widget
 from textual.widgets import Static
 
 from vibe.cli.textual_ui.widgets.collapsible import (
@@ -25,6 +28,29 @@ from vibe.cli.textual_ui.widgets.tool_widgets import (
 )
 from vibe.core.tools.ui import ToolCallDisplay, ToolUIDataAdapter
 from vibe.core.types import ToolCallEvent, ToolResultEvent
+
+# Bound on how many event-loop ticks to yield while waiting for a
+# compose()-yielded descendant to attach. This is not a wall-clock timeout: a
+# widget that never attaches is a different, real bug, and the loop deliberately
+# gives up and lets the subsequent mount() raise its own MountError rather than
+# hang -- these ticks are for winning a scheduling race, not for waiting out a
+# slow operation.
+_MAX_ATTACH_WAIT_TICKS = 50
+
+
+async def _wait_until_attached(widget: Widget) -> None:
+    """Yield control until ``widget.is_attached``, or give up after a bound.
+
+    Textual mounts compose()-yielded descendants on their own message-pump
+    schedule, independent of when the enclosing widget's on_mount() fires,
+    so on_mount() cannot assume its own compose() output is already live.
+    Each ``asyncio.sleep(0)`` hands control back to the event loop for one
+    tick, which is exactly what the pending attachment needs to complete.
+    """
+    for _ in range(_MAX_ATTACH_WAIT_TICKS):
+        if widget.is_attached:
+            return
+        await asyncio.sleep(0)
 
 
 class ToolCallMessage(StatusMessage):
@@ -230,6 +256,16 @@ class ToolResultMessage(ClickWithoutDragMixin, Static):
     async def _render_result(self) -> None:
         if self._content_container is None:
             return
+
+        # `_content_container` is a Vertical yielded from inside a
+        # `with Horizontal(): ...` block in compose(), so Textual attaches it
+        # asynchronously relative to *this* widget's own on_mount() firing --
+        # on a contended event loop, on_mount() can run before that attachment
+        # finishes, and mounting into an unattached node raises MountError
+        # (observed under CPU load in CI, not just in theory). Waiting here is
+        # a few no-op checks in the common case and only actually yields when
+        # the race is live.
+        await _wait_until_attached(self._content_container)
 
         await self._content_container.remove_children()
 

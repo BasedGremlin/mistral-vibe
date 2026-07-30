@@ -1,12 +1,17 @@
 """Guarded PatchPayload apply gate for NEUROFORGE SelfEditor mutation.
 
 The only improvement-system path that may call SelfEditor write methods is
-``apply_patch_payload()``. Gate order (SPEC-CRYPTOGRAPHIC_BINDING):
+``apply_patch_payload()``. Gate order (SPEC-CRYPTOGRAPHIC_BINDING, then
+SPEC-TESTED_PATCH_EXECUTION_SANDBOX):
   1. Validate PatchPayload contract.
   2. Load linked ImprovementRecord.
   3. Verify test_result.passed is True.
   4-7. Verify digest chain: tested_patch_digest == patch_payload_hash
        (and proposal_content_hash == tested_patch_digest where present).
+  7.5. Verify sandbox_verified is True -- the digest must have come from an
+       isolated candidate workspace, not from testing against the live tree.
+       Sits before gates 8-10 so a correct hash, a whitelisted path, or a
+       human signature cannot substitute for isolation proof.
   8. Verify expected_hash_before against current file.
   9. Verify SelfEditor whitelist.
   10. Verify human approval gate.
@@ -567,6 +572,28 @@ def apply_patch_payload(payload: Union[PatchPayload, Dict[str, Any]], *, project
             f"the proposal was modified after submission "
             f"(proposal: {proposal_hash[:16]}..., tested: {tested_digest[:16]}...)",
             "proposal_content_hash",
+        )
+
+    # ── Gate 7.5: Sandbox proof required ──────────────────────────────────────
+    # SPEC-TESTED_PATCH_EXECUTION_SANDBOX. A digest proves the content applied
+    # is the content tested; it says nothing about WHERE it was tested. Without
+    # this gate a digest produced by testing against the live tree would still
+    # satisfy Gates 4-7, which is exactly the wound the sandbox spec exists to
+    # close. Only records stamped by an isolated candidate-workspace run may
+    # reach SelfEditor.
+    #
+    # Placed deliberately BEFORE the hash, whitelist, and human-approval gates:
+    # a correct file hash, a whitelisted path, or a human signature must not be
+    # able to substitute for proof that the patch was actually tested in
+    # isolation.
+    if ir.get("sandbox_verified") is not True:
+        return fail(
+            "sandbox_proof_required",
+            "linked ImprovementRecord is not sandbox-proven "
+            "(sandbox_verified is not True) — only digests derived from "
+            "isolated candidate-workspace execution may reach SelfEditor; "
+            "a digest tested against the live tree cannot mutate files",
+            "sandbox_verified",
         )
 
     # ── Gate 8: Hash precondition ─────────────────────────────────────────────

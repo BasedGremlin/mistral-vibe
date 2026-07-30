@@ -7,11 +7,13 @@ from .specialized import (ArchitectAgent, CodeAgent, TestAgent, DeployAgent,
                           MathAgent, AbsorptionAgent, MarketAgent)
 from .gremlin_agent import GremlinAgent
 from .evolution_architect import EvolutionArchitect
+from .dispatch_agent import DispatchAgent
 
 __all__ = [
     "Agent", "AgentContext", "AgentResult", "Task",
     "ClawOrchestrator", "get_orchestrator",
     "ArchitectAgent", "CodeAgent", "TestAgent", "DeployAgent",
     "GuardianAgent", "ResearcherAgent", "ReasoningAgent",
-    "MathAgent", "AbsorptionAgent", "MarketAgent", "GremlinAgent", "EvolutionArchitect",
+    "MathAgent", "AbsorptionAgent", "MarketAgent", "GremlinAgent",
+    "EvolutionArchitect", "DispatchAgent",
 ]

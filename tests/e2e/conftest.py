@@ -11,8 +11,44 @@ import pexpect
 import pytest
 
 from tests import TESTS_ROOT
-from tests.e2e.common import write_e2e_config
+from tests.e2e.common import timeout_scale, write_e2e_config
 from tests.e2e.mock_server import ChunkFactory, StreamingMockServer
+
+
+def pytest_collection_modifyitems(items: list[pytest.Item]) -> None:
+    """Scale every ``@pytest.mark.timeout(N)`` in tests/e2e by the same factor
+    as the in-test waits (see ``timeout_scale()`` in ``common.py``).
+
+    These marks exist as a backstop against a genuinely hung process, not as
+    the primary assertion mechanism -- ``wait_for_rendered_text`` and friends
+    already fail with a diagnosis well before the outer mark would fire. But an
+    un-scaled mark is a trap: on a loaded machine it can (and did) expire
+    *before* an inner wait's own scaled deadline, which turns a clear
+    "waited Ns for text that never rendered" into a bare pytest-timeout
+    kill with none of that diagnosis attached. Scaling it here keeps the
+    backstop a backstop instead of the thing that fires first.
+
+    Scoped to tests/e2e (via each item's own file path, not a directory
+    argument) so it can never reach into vibe's other suites, which do not
+    drive a pty and do not have this failure mode.
+    """
+    scale = timeout_scale()
+    if scale == 1.0:
+        return
+    e2e_dir = str(Path(__file__).resolve().parent)
+    for item in items:
+        if not str(item.fspath).startswith(e2e_dir):
+            continue
+        marker = item.get_closest_marker("timeout")
+        if marker is None or not marker.args:
+            continue
+        scaled_value = marker.args[0] * scale
+        item.own_markers = [
+            pytest.Mark("timeout", (scaled_value,), m.kwargs, _ispytest=True)
+            if m.name == "timeout"
+            else m
+            for m in item.own_markers
+        ]
 
 
 @pytest.fixture

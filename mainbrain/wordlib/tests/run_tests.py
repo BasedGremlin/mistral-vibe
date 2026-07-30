@@ -24,6 +24,7 @@ GROUPS = [
     ],
     [
         "tests/test_deployment_and_agents.py",
+        "tests/test_dispatch_agent.py",
         "tests/test_docking_protocol.py",
         "tests/test_evolution.py",
         "tests/test_intelligent_context.py",
@@ -38,6 +39,7 @@ GROUPS = [
     ],
     [
         "tests/test_patch_payload.py",
+        "tests/test_patch_sandbox.py",
         "tests/test_paths_and_healer.py",
         "tests/test_reasoning.py",
         "tests/test_self_editor.py",
