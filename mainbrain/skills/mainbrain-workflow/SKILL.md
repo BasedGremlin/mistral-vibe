@@ -15,7 +15,10 @@ certification; a proposal is not an applied patch.
 1. **Propose, never auto-apply.** GremlinAgent / self-edit stays propose-only
    (Theater Mode). A human approves every applied patch and every merge to main.
 2. **Rollback-safe.** Deploy to a NEW directory; never overwrite the only copy.
-   Restore `docking/*.jsonl` ledgers to pristine after any test run before commit.
+   Restore the ledgers after any test run before commit, using the .jsonl glob
+   ONLY: `git checkout -- 'mainbrain/wordlib/docking/**/*.jsonl'`. Never
+   `git checkout -- docking/` — source (`patch_applier.py`, `sandbox.py`) lives
+   in that tree and a directory-wide checkout silently reverts your own work.
 3. **Keep provider keys server-side.** Never in browser, logs, prompts, or repo.
 4. **MASTERZIP stays VAL-0.** No physical or commercial claim without logged evidence.
 5. **Numbers are re-derived, never asserted.** Regenerate metrics from source.

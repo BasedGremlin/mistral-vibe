@@ -103,6 +103,22 @@ class SandboxResult:
             and self.live_tree_untouched
         )
 
+    def record_provenance(self) -> Dict[str, Any]:
+        """Fields to stamp onto an ImprovementRecord for Gate 7.5.
+
+        ``sandbox_verified`` is True only when this run was promotable, which
+        requires green tests AND a live-tree fingerprint proven unchanged. That
+        is the whole point: the flag is *earned by measurement* here, never
+        assigned by construction, so the gate downstream is trusting evidence
+        rather than an assertion.
+        """
+        return {
+            "sandbox_verified": self.promotable,
+            "sandbox_id": self.sandbox_id,
+            "live_fingerprint_before": self.live_fingerprint_before,
+            "live_fingerprint_after": self.live_fingerprint_after,
+        }
+
     def as_dict(self) -> Dict[str, Any]:
         return {
             "sandbox_id": self.sandbox_id,

@@ -26,7 +26,9 @@ cd mainbrain/wordlib && python3 deploy_check.py --json
 
 # 5. ledger drift (expected: the suite appends; restore, don't panic)
 git status --porcelain -- 'mainbrain/wordlib/docking/**/*.jsonl'
-git checkout -- 'mainbrain/wordlib/docking/'   # restore to pristine
+# Restore ONLY the ledgers. Never `checkout -- docking/` -- source files
+# (patch_applier.py, sandbox.py) live in that tree and would be reverted.
+git checkout -- 'mainbrain/wordlib/docking/**/*.jsonl'
 
 # 6. real violation check: nothing else may have changed
 git diff --exit-code

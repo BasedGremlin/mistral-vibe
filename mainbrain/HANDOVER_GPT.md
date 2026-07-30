@@ -128,7 +128,8 @@ red:
 git fetch origin main
 git checkout -B <your-branch> origin/main      # if the prior PR merged, restart from main
 # ... work ...
-cd mainbrain/wordlib && git checkout -- docking/   # ALWAYS: restore ledgers after tests
+# ALWAYS restore ledgers after tests -- the .jsonl GLOB ONLY, never `docking/`
+git checkout -- 'mainbrain/wordlib/docking/**/*.jsonl'
 git add mainbrain/ && git commit && git push -u origin <your-branch>
 ```
 
@@ -267,7 +268,9 @@ Treat every inherited number this way.
 
 1. **Tests append to committed ledgers.** `docking/**/*.jsonl` are append-only
    audit logs; the suite writes to them. Always
-   `git checkout -- mainbrain/wordlib/docking/` before committing. CI reports
+   `git checkout -- 'mainbrain/wordlib/docking/**/*.jsonl'` before committing
+   — **only the .jsonl glob**, never the whole `docking/` directory, which
+   also holds source (`patch_applier.py`, `sandbox.py`). CI reports
    this drift and restores it, but hard-fails on *any other* source change.
 2. **`npm ci` needs the `overrides` block.** `package.json` pins
    `ajv-formats: 2.1.1`; without it `npm ci` dies with EUSAGE on a transitive
@@ -295,7 +298,7 @@ cd ../ether-runtime && python3 -m pytest -q
 cd ../wordlib && python3 deploy_check.py --json
 
 # 3. Restore ledgers
-cd /home/user/mistral-vibe && git checkout -- mainbrain/wordlib/docking/
+cd /home/user/mistral-vibe && git checkout -- 'mainbrain/wordlib/docking/**/*.jsonl'
 
 # 4. Re-derive the weakness map yourself
 cd mainbrain/wordlib && python3 -c "from core.paths import migration_report; print(migration_report())"

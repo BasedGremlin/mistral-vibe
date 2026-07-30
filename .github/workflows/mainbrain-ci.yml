@@ -58,7 +58,8 @@ jobs:
         run: |
           if ! git diff --quiet -- 'mainbrain/wordlib/docking/**/*.jsonl'; then
             echo "::notice::docking ledgers were appended to by the test run (known behaviour)"
-            git checkout -- 'mainbrain/wordlib/docking/'
+            # ONLY the .jsonl ledgers -- source lives in this tree too
+            git checkout -- 'mainbrain/wordlib/docking/**/*.jsonl'
           fi
           # Any other working-tree change is a real violation and fails here.
           git diff --exit-code

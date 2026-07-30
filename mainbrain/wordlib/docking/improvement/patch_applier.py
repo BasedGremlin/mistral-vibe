@@ -574,6 +574,28 @@ def apply_patch_payload(payload: Union[PatchPayload, Dict[str, Any]], *, project
             "proposal_content_hash",
         )
 
+    # ── Gate 7.5: Sandbox proof required ──────────────────────────────────────
+    # SPEC-TESTED_PATCH_EXECUTION_SANDBOX. A digest proves the content applied
+    # is the content tested; it says nothing about WHERE it was tested. Without
+    # this gate a digest produced by testing against the live tree would still
+    # satisfy Gates 4-7, which is exactly the wound the sandbox spec exists to
+    # close. Only records stamped by an isolated candidate-workspace run may
+    # reach SelfEditor.
+    #
+    # Placed deliberately BEFORE the hash, whitelist, and human-approval gates:
+    # a correct file hash, a whitelisted path, or a human signature must not be
+    # able to substitute for proof that the patch was actually tested in
+    # isolation.
+    if ir.get("sandbox_verified") is not True:
+        return fail(
+            "sandbox_proof_required",
+            "linked ImprovementRecord is not sandbox-proven "
+            "(sandbox_verified is not True) — only digests derived from "
+            "isolated candidate-workspace execution may reach SelfEditor; "
+            "a digest tested against the live tree cannot mutate files",
+            "sandbox_verified",
+        )
+
     # ── Gate 8: Hash precondition ─────────────────────────────────────────────
     if current_hash != patch.expected_hash_before:
         return fail("hash_mismatch", "expected_hash_before does not match current file hash", "expected_hash_before")
