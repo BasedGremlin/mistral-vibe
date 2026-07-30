@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import io
 import time
+from typing import cast
 
 import pexpect
 import pytest
@@ -182,6 +183,11 @@ def test_poll_until_checks_once_more_after_the_deadline() -> None:
 class _NeverCalledSpawn:
     """A pexpect.spawn stand-in whose .expect() must never be invoked --
     used to prove the fast path returns without touching the child at all.
+
+    Only implements .expect(), the one method wait_for_rendered_text actually
+    calls -- cast to pexpect.spawn below for the type checker, since a
+    structural stand-in like this can never satisfy that concrete class
+    nominally, only duck-type it at the one call site that matters.
     """
 
     def expect(self, *_args: object, **_kwargs: object) -> None:
@@ -194,7 +200,10 @@ def test_wait_for_rendered_text_returns_immediately_when_already_present() -> No
     captured = io.StringIO()
     captured.write("Approved file was written.")
     wait_for_rendered_text(
-        _NeverCalledSpawn(), captured, needle="Approved file was written.", timeout=5
+        cast("pexpect.spawn[str]", _NeverCalledSpawn()),
+        captured,
+        needle="Approved file was written.",
+        timeout=5,
     )
 
 
@@ -208,7 +217,7 @@ def test_wait_for_rendered_text_reports_a_diagnosis_on_real_timeout() -> None:
     captured.write("unrelated screen contents")
     with pytest.raises(AssertionError) as excinfo:
         wait_for_rendered_text(
-            _AlwaysTimesOutSpawn(),
+            cast("pexpect.spawn[str]", _AlwaysTimesOutSpawn()),
             captured,
             needle="Approved file was written.",
             timeout=0.1,
