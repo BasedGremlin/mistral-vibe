@@ -38,6 +38,23 @@ runtime built from scratch) wired in as a bounded worker plane via
 - **A "Gemini handover" package** (`CLAUDE_HANDOVER_FINAL_PACKAGE.zip`, 2026-07-30): every code module was a non-functional stub (`assert True` as its only "test"). Two claims were actively false: it claimed live Ollama `llama3.2` inference (no Ollama binary exists in this deploy — confirmed twice) and claimed OKComputer is unbuildable (CI shows that job green). Discarded in full.
 - **Drive already has other MAINBRAIN-adjacent docs in this same ungrounded style** — a "MASTERZIP v12" bible, "Kekos Main Brain," several connector stubs with confident narrative and no runnable substance behind them. Treat anything found there the same way: verify before trusting, per the skill above.
 
+## POLICYGATE/WORDLIB is a different project — decided, not merged
+
+A third Claude Code thread, working `BasedGremlin/POLICYGATE` (a separate repo,
+separate account tier from this one — confirmed by a hard `add_repo` lockout,
+not assumption), answered a sync-request template meant for two other named
+threads. Its self-report (233/233 tests, a RAG failure-diagnosis layer, a real
+CI coverage gap closed, a corrupted onboarding script recovered) is **not
+independently verified by this thread** — this session cannot reach that repo
+without starting fresh scoped to it, the exact mirror of why that thread
+couldn't verify this one's claims either.
+
+Both "MAINBRAIN" projects trace back to a common `MAINBRAIN_HANDOVER_v1.zip`
+and have since diverged. **Owner decision, 2026-07-30: keep them separate.**
+Not one lineage that drifted apart by accident — two intentionally distinct
+projects sharing a name. No cross-repo merging. Full record:
+[Notion — Master Documentation Hub, "Legacy-thread sync"](https://app.notion.com/p/3ac55018fa378145a442e6ec5c76c028).
+
 ## Flagged weaknesses (re-derived 2026-07-30, each one evidenced)
 
 Ranked by blast radius. Anything I could not evidence from the tree is marked
